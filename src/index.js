@@ -10,13 +10,14 @@ This function called by project code to create and return a ToDo
 ********************************************************************* 
 */
 
-import todoItem from "./todoItem";
+import todoProto from "./todoProto";
 import todoList from "./todoList";
+import project from "./project";
 
 const myTodoList = todoList();
 
 for (let i = 0; i < 10; i++) {
-  myTodoList.addItem(todoItem(`todo ${i + 1}`, `this is todo number ${i + 1}`));
+  myTodoList.addItem();
 }
 
 console.log(myTodoList);
@@ -27,3 +28,11 @@ console.table(myTodoList.todoArray);
 myTodoList.todoArray = myTodoList.deleteItem("todo 4");
 
 console.table(myTodoList.todoArray);
+
+const item = myTodoList.todoArray[3];
+
+item.info = "This is an item of the to do list";
+
+// const newProject = project();
+
+console.log(project());
