@@ -13,12 +13,17 @@ This function called by project code to create and return a ToDo
 import todoItem from "./todoItem";
 import todoList from "./todoList";
 
-const myTodo = todoItem();
 const myTodoList = todoList();
 
-myTodoList.addItem(myTodo);
+for (let i = 0; i < 10; i++) {
+  myTodoList.addItem(todoItem(`todo ${i + 1}`, `this is todo number ${i + 1}`));
+}
 
-console.log(myTodo);
 console.log(myTodoList);
 
-console.log(myTodoList.todoArray[0]);
+console.log(myTodoList.todoArray[1]);
+console.table(myTodoList.todoArray);
+
+myTodoList.todoArray = myTodoList.deleteItem("todo 4");
+
+console.table(myTodoList.todoArray);

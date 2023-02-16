@@ -16,6 +16,11 @@ const adder = (state) => ({
   addItem: (item) => state.todoArray.push(item),
 });
 
+const remover = (state) => ({
+  deleteItem: (name) =>
+    state.todoArray.filter((element) => element.name !== name),
+});
+
 const todoList = (name = "Todo List", info = "") => {
   const todoArray = [];
   const state = {
@@ -26,6 +31,7 @@ const todoList = (name = "Todo List", info = "") => {
   return {
     ...state,
     ...adder(state),
+    ...remover(state),
   };
 };
 
