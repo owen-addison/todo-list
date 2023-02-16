@@ -10,17 +10,17 @@ This function called by project or todoList code to create and return a todoItem
 ********************************************************************* 
 */
 
+import todoProto from "./todoProto";
+
 const todoItem = (
-  name = "Todo Item",
-  info = "",
+  name,
   dueDate = null,
   priority = "none",
   checklist = [],
   status = "pending"
 ) => {
   const state = {
-    name,
-    info,
+    ...todoProto(name),
     creationDate: new Date(),
     dueDate,
     priority,
