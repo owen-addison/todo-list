@@ -12,8 +12,15 @@ functions for adding and removing todoItems from array.
 ********************************************************************* 
 */
 
+import todoProto from "./todoProto";
+import todoItem from "./todoItem";
+
+// const defaultName = `To do #${state.todoArray.length + 1}`;
+const getName = (arrayLength) => `todo ${arrayLength + 1}`;
+
 const adder = (state) => ({
-  addItem: (item) => state.todoArray.push(item),
+  addItem: (itemName = getName(state.todoArray.length)) =>
+    state.todoArray.push(todoItem(itemName)),
 });
 
 const remover = (state) => ({
@@ -21,11 +28,10 @@ const remover = (state) => ({
     state.todoArray.filter((element) => element.name !== name),
 });
 
-const todoList = (name = "Todo List", info = "") => {
+const todoList = (name = "Todo List") => {
   const todoArray = [];
   const state = {
-    name,
-    info,
+    ...todoProto(name),
     todoArray,
   };
   return {
