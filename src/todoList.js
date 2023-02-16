@@ -12,8 +12,8 @@ functions for adding and removing todoItems from array.
 ********************************************************************* 
 */
 
-const adder = (state, item) => ({
-  addItem: () => state.todoArray.push(item),
+const adder = (state) => ({
+  addItem: (item) => state.todoArray.push(item),
 });
 
 const todoList = (name = "Todo List", info = "") => {
@@ -24,6 +24,7 @@ const todoList = (name = "Todo List", info = "") => {
     todoArray,
   };
   return {
+    ...state,
     ...adder(state),
   };
 };

@@ -28,7 +28,7 @@ const todoItem = (
     status,
   };
   return {
-    state,
+    ...state,
   };
 };
 

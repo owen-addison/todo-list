@@ -16,4 +16,9 @@ import todoList from "./todoList";
 const myTodo = todoItem();
 const myTodoList = todoList();
 
-console.table(myTodoList);
+myTodoList.addItem(myTodo);
+
+console.log(myTodo);
+console.log(myTodoList);
+
+console.log(myTodoList.todoArray[0]);
