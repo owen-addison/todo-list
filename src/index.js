@@ -10,29 +10,29 @@ This function called by project code to create and return a ToDo
 ********************************************************************* 
 */
 
-import todoProto from "./todoProto";
 import todoList from "./todoList";
 import project from "./project";
 
 const myTodoList = todoList();
 
 for (let i = 0; i < 10; i++) {
-  myTodoList.addItem();
+  myTodoList.create();
 }
 
-console.log(myTodoList);
+console.table(myTodoList.todoArray);
+console.log(myTodoList.todoArray[3].id);
 
-console.log(myTodoList.todoArray[1]);
+// const myProject = project("myProject");
+
+myTodoList.todoArray = myTodoList.deleteItem(myTodoList.todoArray[3].id);
 console.table(myTodoList.todoArray);
 
-myTodoList.todoArray = myTodoList.deleteItem("todo 4");
+// const elName = myTodoList.todoArray[3].name;
 
-console.table(myTodoList.todoArray);
+// myTodoList.todoArray = myTodoList.todoArray.filter(
+//   (element) => element.name !== elName
+// );
 
-const item = myTodoList.todoArray[3];
+// myProject.addList(myTodoList);
 
-item.info = "This is an item of the to do list";
-
-// const newProject = project();
-
-console.log(project());
+// console.log(myProject);

@@ -10,16 +10,31 @@ This function called by index.js to create and return a todoList
 ********************************************************************* 
 */
 
+import { remover } from "./todoProto";
 import todoList from "./todoList";
 
-const project = (name = "Project") => {
-  const { todoArray: listArray, ...rest } = todoList(name);
+const returnError = () => alert("No list specified");
+
+const adder = (state) => ({
+  addList: (list) => {
+    if (list !== undefined) {
+      state.listArray.push(list);
+    } else {
+      returnError();
+    }
+  },
+});
+
+const project = (name = "Project", arrayName = "listArray") => {
+  const { todoArray: listArray, addItem, ...rest } = todoList(name, arrayName);
   const state = {
     ...rest,
     listArray,
   };
   return {
     ...state,
+    ...adder(state),
+    ...remover(state),
   };
 };
 
