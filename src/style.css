@@ -1,0 +1,36 @@
+:root {
+  --bg-color: rgb(174, 192, 198);
+}
+
+body {
+  margin: 0;
+}
+
+/* div {
+  border: 1px solid red;
+} */
+
+.content {
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bg-color);
+
+}
+
+.content-container {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.25fr) 1fr;
+  height: 100%;
+}
+
+.sidebar {
+  background: #000;
+  border-right: 2px solid white;
+}
+
+.project-view {
+  border: 2px solid white;
+  border-bottom: none;
+  margin: 10px 10px 0 10px;
+}
+
