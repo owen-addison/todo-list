@@ -15,20 +15,12 @@ functions for adding and removing todoItems from array.
 import { todoProto, creator, remover } from "./todoProto";
 import todoItem from "./todoItem";
 
-const getDefaultName = (arrayLength) => `todo ${arrayLength + 1}`;
-
-const objectToAdd = todoItem;
-
-const adder = (state, array) => ({
-  addItem: (itemName = getDefaultName(state[`${array}`].length)) =>
-    state[`${array}`].push(objectToAdd(itemName)),
-});
-
 // const nameUpdater = (state) => ({
 //   updateNames: () => {
 //     const { todoArray } = state;
-//     todoArray.forEach((element) => {
-//       element.name = "new name";
+
+//     todoArray.map((obj) => {
+//       obj.id = 6;
 //     });
 //   },
 // });
