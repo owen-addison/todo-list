@@ -12,32 +12,43 @@ functions for adding and removing todoItems from array.
 ********************************************************************* 
 */
 
-import todoProto from "./todoProto";
+import { todoProto, creator, remover } from "./todoProto";
 import todoItem from "./todoItem";
 
-// const defaultName = `To do #${state.todoArray.length + 1}`;
-const getName = (arrayLength) => `todo ${arrayLength + 1}`;
+const getDefaultName = (arrayLength) => `todo ${arrayLength + 1}`;
 
-const adder = (state) => ({
-  addItem: (itemName = getName(state.todoArray.length)) =>
-    state.todoArray.push(todoItem(itemName)),
+const objectToAdd = todoItem;
+
+const adder = (state, array) => ({
+  addItem: (itemName = getDefaultName(state[`${array}`].length)) =>
+    state[`${array}`].push(objectToAdd(itemName)),
 });
 
-const remover = (state) => ({
-  deleteItem: (name) =>
-    state.todoArray.filter((element) => element.name !== name),
-});
+// const nameUpdater = (state) => ({
+//   updateNames: () => {
+//     const { todoArray } = state;
+//     todoArray.forEach((element) => {
+//       element.name = "new name";
+//     });
+//   },
+// });
 
-const todoList = (name = "Todo List") => {
+const todoList = (
+  type,
+  id,
+  name = "Todo List",
+  arrayName = "todoArray",
+  obj = todoItem
+) => {
   const todoArray = [];
   const state = {
-    ...todoProto(name),
+    ...todoProto(type, id, name),
     todoArray,
   };
   return {
     ...state,
-    ...adder(state),
-    ...remover(state),
+    ...creator(state, arrayName, obj),
+    ...remover(state, arrayName),
   };
 };
 
