@@ -26,15 +26,16 @@ import todoItem from "./todoItem";
 // });
 
 const todoList = (
-  type,
+  name,
   id,
-  name = "Todo List",
+  info,
+  type = "list",
   arrayName = "todoArray",
   obj = todoItem
 ) => {
   const todoArray = [];
   const state = {
-    ...todoProto(type, id, name),
+    ...todoProto(name, id, info, type),
     todoArray,
   };
   return {
