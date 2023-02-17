@@ -2,6 +2,14 @@ import "./style.css";
 import todoList from "./todoList";
 import project from "./project";
 
+const listTitleElement = "h3";
+const todoNameElement = "h5";
+
+/*
+-------------------------
+  HTML setup
+-------------------------
+*/
 // Get content div element
 const content = document.querySelector(".content");
 
@@ -22,14 +30,66 @@ contentContainer.appendChild(sidebar);
 contentContainer.appendChild(projectView);
 content.appendChild(contentContainer);
 
-const myTodoList = todoList();
+/*
+-------------------------
+  List create/display
+-------------------------
+*/
+// Function to create new todo list
+const createNewList = (name = "New List", id = undefined, info = undefined) => {
+  const newList = todoList(name, id, info);
+
+  return newList;
+};
+
+// Function to display todo list
+const displayNewList = (list) => {
+  // Create new element
+  const listContainer = document.createElement("div");
+  // Assign class and id name
+  listContainer.classList.add("list-container");
+  const idName = `list${list.id}`;
+  listContainer.setAttribute("id", idName);
+
+  // Display name as title
+  const titleContainer = document.createElement("div");
+  titleContainer.classList.add("title-container");
+  listContainer.appendChild(titleContainer);
+  const title = document.createElement(listTitleElement);
+  title.classList.add("list-title");
+  title.textContent = list.name;
+  listContainer.appendChild(title);
+
+  // Display list contents
+  const todoContainer = document.createElement("div");
+  todoContainer.classList.add("todo-container");
+  listContainer.appendChild(todoContainer);
+  list.todoArray.forEach((element) => {
+    const todo = document.createElement("div");
+    todo.classList.add("todo");
+    todo.setAttribute("id", list.name + element.id);
+    todoContainer.appendChild(todo);
+    const todoName = document.createElement(todoNameElement);
+    todoName.textContent = element.name;
+    todo.appendChild(todoName);
+    todoContainer.appendChild(todo);
+  });
+
+  // Add list container to DOM
+  projectView.appendChild(listContainer);
+};
+
+const myTodoList = createNewList("My first list", 1, "This is my first list");
 
 for (let i = 0; i < 10; i++) {
   myTodoList.create();
 }
 
-console.table(myTodoList.todoArray);
-console.log(myTodoList.todoArray[3].id);
+displayNewList(myTodoList);
 
-myTodoList.todoArray = myTodoList.deleteItem(myTodoList.todoArray[3].id);
+console.log(myTodoList);
+
 console.table(myTodoList.todoArray);
+
+// myTodoList.todoArray = myTodoList.deleteItem(myTodoList.todoArray[3].id);
+// console.table(myTodoList.todoArray);
