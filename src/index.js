@@ -1,4 +1,7 @@
 import "./style.css";
+import plusIcon from "./images/plus-box-outline.svg";
+import trashCanIcon from "./images/trash-can-outline.svg";
+import fileEditIcon from "./images/file-edit-outline.svg";
 import todoList from "./todoList";
 import project from "./project";
 
@@ -58,7 +61,24 @@ const displayNewList = (list) => {
   const title = document.createElement(listTitleElement);
   title.classList.add("list-title");
   title.textContent = list.name;
-  listContainer.appendChild(title);
+  titleContainer.appendChild(title);
+
+  // Display icons
+  const iconContainer = document.createElement("div");
+  iconContainer.classList.add("icon-container");
+  const addIcon = new Image();
+  addIcon.src = plusIcon;
+  addIcon.classList.add("add-todo");
+  iconContainer.appendChild(addIcon);
+  const editIcon = new Image();
+  editIcon.src = fileEditIcon;
+  editIcon.classList.add("edit-icon");
+  iconContainer.appendChild(editIcon);
+  const removeIcon = new Image();
+  removeIcon.src = trashCanIcon;
+  removeIcon.classList.add("remove-icon");
+  iconContainer.appendChild(removeIcon);
+  titleContainer.appendChild(iconContainer);
 
   // Display list contents
   const todoContainer = document.createElement("div");
@@ -70,7 +90,7 @@ const displayNewList = (list) => {
     todo.setAttribute("id", list.name + element.id);
     todoContainer.appendChild(todo);
     const todoName = document.createElement(todoNameElement);
-    todoName.textContent = element.name;
+    todoName.textContent = element.id;
     todo.appendChild(todoName);
     todoContainer.appendChild(todo);
   });
