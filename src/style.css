@@ -1,14 +1,16 @@
 :root {
   --bg-color: rgb(174, 192, 198);
+  --bg-list: rgb(255, 252, 239);
+  --title-icon-width: 1.5em;
 }
 
 body {
   margin: 0;
 }
 
-/* div {
-  border: 1px solid red;
-} */
+h5, h6 {
+  margin: 0px;
+}
 
 .content {
   width: 100vw;
@@ -23,14 +25,64 @@ body {
   height: 100%;
 }
 
+
+/* ------------ SIDEBAR VIEW ------------ */
 .sidebar {
   background: #000;
   border-right: 2px solid white;
 }
 
+
+/* ------------ PROJECT VIEW ------------ */
 .project-view {
   border: 2px solid white;
   border-bottom: none;
   margin: 10px 10px 0 10px;
 }
 
+.list-container {
+  display: grid;
+  gap: 10px;
+  width: 300px;
+  background-color: var(--bg-list);
+  padding: 25px 30px;
+  border-radius: 20px;
+  
+  border: 2px solid red;
+}
+
+.title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+
+  border: 1px solid blue;
+}
+
+.icon-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-content: center;
+  gap: 10px;
+}
+
+.title-container img {
+  width: var(--title-icon-width);
+  height: var(--title-icon-width);
+}
+
+.list-title {
+  margin: 0;
+}
+
+.todo-container {
+  display: grid;
+  gap: 10px;
+  border: 1px solid green;
+}
+
+.todo {
+  border: 1px solid red;
+}
