@@ -85,13 +85,34 @@ const displayNewList = (list) => {
   todoContainer.classList.add("todo-container");
   listContainer.appendChild(todoContainer);
   list.todoArray.forEach((element) => {
+    // Todo box
     const todo = document.createElement("div");
     todo.classList.add("todo");
     todo.setAttribute("id", list.name + element.id);
     todoContainer.appendChild(todo);
+    // Checkbox
+    const checkBox = document.createElement("input");
+    checkBox.setAttribute("type", "checkbox");
+    checkBox.setAttribute("id", `chk-${list.name + element.id}`);
+    todo.appendChild(checkBox);
+    // Todo name
     const todoName = document.createElement(todoNameElement);
+    todoName.classList.add("todo-name");
     todoName.textContent = element.id;
     todo.appendChild(todoName);
+    // Todo icons
+    const todoIcons = document.createElement("div");
+    todoIcons.classList.add("icon-container");
+    const todoEdit = new Image();
+    todoEdit.src = fileEditIcon;
+    todoEdit.classList.add("edit-icon");
+    todoIcons.appendChild(todoEdit);
+    const todoDel = new Image();
+    todoDel.src = trashCanIcon;
+    todoDel.classList.add("remove-icon");
+    todoIcons.appendChild(todoDel);
+    todo.appendChild(todoIcons);
+    // Add todo to container
     todoContainer.appendChild(todo);
   });
 
