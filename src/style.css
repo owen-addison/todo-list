@@ -84,5 +84,29 @@ h5, h6 {
 }
 
 .todo {
+  /* width: 100%; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border: 1px solid red;
+}
+
+.todo-name {
+  width: 70%;
+  height: fit-content;
+  border: 1px solid blue;
+}
+
+.todo .icon-container {
+  border: 1px solid green;
+  width: fit-content;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-content: center;
+  gap: 10px;
+}
+
+.todo img {
+  width: calc(var(--title-icon-width) * 0.8);
+  height: calc(var(--title-icon-width) * 0.8);
 }
