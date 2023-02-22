@@ -5,6 +5,8 @@ import fileEditIcon from "./images/file-edit-outline.svg";
 import todoList from "./todoList";
 import project from "./project";
 
+const listArray = [];
+
 const listTitleElement = "h3";
 const todoNameElement = "h5";
 
@@ -38,7 +40,7 @@ content.appendChild(contentContainer);
   Todo/list logic
 -------------------------
 */
-
+// Global event listener
 function addGlobalEventListener(type, selector, callback) {
   document.addEventListener(type, (e) => {
     if (e.target.matches(selector)) callback(e);
@@ -47,9 +49,13 @@ function addGlobalEventListener(type, selector, callback) {
 
 // Event listener functionality for add icons
 addGlobalEventListener("click", ".add-icon", (e) => {
-  console.log(`Add target:`);
-  console.log(e.target);
+  const { type } = e.target;
+  console.log(type);
 });
+
+// if (e.target.parent === "list") {
+//   console.log(`Add target:`);
+// }
 
 // Event listener functionality for edit icons
 addGlobalEventListener("click", ".edit-icon", (e) => {
@@ -59,29 +65,37 @@ addGlobalEventListener("click", ".edit-icon", (e) => {
 
 // Event listener functionality for delete icons
 addGlobalEventListener("click", ".del-icon", (e) => {
+  const delDOMItem = e.target;
   console.log(`Del target:`);
-  console.log(e.target);
+  console.log(delDOMItem);
 });
 
 /*
 -------------------------
-  List create/display
+  List create
 -------------------------
 */
 // Function to create new todo list
 const createNewList = (name = "New List", id = undefined, info = undefined) => {
-  const newList = todoList(name, id, info);
+  const newList = todoList(name, `list${id}`, info);
+  listArray.push(newList);
+  console.table(listArray);
 
   return newList;
 };
 
+/*
+-------------------------
+  List display
+-------------------------
+*/
 // Function to display todo list
 const displayNewList = (list) => {
   // Create new element
   const listContainer = document.createElement("div");
   // Assign class and id name
   listContainer.classList.add("list-container");
-  const listIdName = `list${list.id}`;
+  const listIdName = `${list.id}`;
   listContainer.setAttribute("id", listIdName);
 
   // Display name as title
@@ -99,6 +113,8 @@ const displayNewList = (list) => {
   const addIcon = new Image();
   addIcon.src = plusIcon;
   addIcon.classList.add("add-icon");
+  addIcon.setAttribute("id", `add-${listIdName}`);
+  addIcon.setAttribute("parent", "list");
   iconContainer.appendChild(addIcon);
   const editIcon = new Image();
   editIcon.src = fileEditIcon;
@@ -108,6 +124,7 @@ const displayNewList = (list) => {
   const removeIcon = new Image();
   removeIcon.src = trashCanIcon;
   removeIcon.classList.add("del-icon");
+  removeIcon.setAttribute("id", `del-${listIdName}`);
   iconContainer.appendChild(removeIcon);
   titleContainer.appendChild(iconContainer);
 
@@ -118,7 +135,7 @@ const displayNewList = (list) => {
   list.todoArray.forEach((element) => {
     // Todo box
     const todo = document.createElement("div");
-    const todoIdName = `${listIdName}_td${element.id}`;
+    const todoIdName = `${element.id}`;
     todo.classList.add("todo");
     todo.setAttribute("id", todoIdName);
     todoContainer.appendChild(todo);
@@ -154,17 +171,15 @@ const displayNewList = (list) => {
   projectView.appendChild(listContainer);
 };
 
+// Function to update list view
+function updateView(list) {}
+
 const myTodoList = createNewList("My first list", 1, "This is my first list");
 
 for (let i = 0; i < 7; i++) {
   myTodoList.create();
 }
 
+console.table(myTodoList);
+
 displayNewList(myTodoList);
-
-// console.log(myTodoList);
-
-// console.table(myTodoList.todoArray);
-
-// myTodoList.todoArray = myTodoList.deleteItem(myTodoList.todoArray[3].id);
-// console.table(myTodoList.todoArray);
