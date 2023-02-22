@@ -49,13 +49,22 @@ function addGlobalEventListener(type, selector, callback) {
 
 // Event listener functionality for add icons
 addGlobalEventListener("click", ".add-icon", (e) => {
-  const { type } = e.target;
-  console.log(type);
-});
+  // Set variables for the DOM element's type and id attributes
+  const elType = e.target.getAttribute("type");
+  const elId = e.target.getAttribute("listId");
 
-// if (e.target.parent === "list") {
-//   console.log(`Add target:`);
-// }
+  // Check if element type is a list
+  if (elType === "list") {
+    // Filter through array of lists to find matching list object
+    const filteredArray = listArray.filter((element) => element.id === elId);
+    if (filteredArray.length === 1) {
+      const [relative] = filteredArray; // Destructure array to return relative object
+      console.log(relative);
+    } else {
+      alert("ERROR! More than one relative found!"); // Alert if more that one relative object found
+    }
+  }
+});
 
 // Event listener functionality for edit icons
 addGlobalEventListener("click", ".edit-icon", (e) => {
@@ -114,17 +123,20 @@ const displayNewList = (list) => {
   addIcon.src = plusIcon;
   addIcon.classList.add("add-icon");
   addIcon.setAttribute("id", `add-${listIdName}`);
-  addIcon.setAttribute("parent", "list");
+  addIcon.setAttribute("type", "list");
+  addIcon.setAttribute("listId", listIdName);
   iconContainer.appendChild(addIcon);
   const editIcon = new Image();
   editIcon.src = fileEditIcon;
   editIcon.classList.add("edit-icon");
   editIcon.setAttribute("id", `edit-${listIdName}`);
+  editIcon.setAttribute("listId", listIdName);
   iconContainer.appendChild(editIcon);
   const removeIcon = new Image();
   removeIcon.src = trashCanIcon;
   removeIcon.classList.add("del-icon");
   removeIcon.setAttribute("id", `del-${listIdName}`);
+  removeIcon.setAttribute("listId", listIdName);
   iconContainer.appendChild(removeIcon);
   titleContainer.appendChild(iconContainer);
 
