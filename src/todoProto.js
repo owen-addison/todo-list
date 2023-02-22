@@ -3,9 +3,10 @@ const getDefaultName = (arrayLength) => `Item ${arrayLength + 1}`;
 const creator = (state, array, object) => ({
   create: (
     objName = getDefaultName(state[`${array}`].length),
-    idNum = state[`${array}`].length + 1
+    id = `${state.id}_td${state[`${array}`].length + 1}`
+    // id = state[`${array}`].length + 1,
   ) => {
-    state[`${array}`].push(object(objName, idNum));
+    state[`${array}`].push(object(objName, id));
   },
 });
 
