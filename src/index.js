@@ -49,7 +49,10 @@ function handleTodoAdd(array, elId) {
   const filteredArray = array.filter((element) => element.id === elId);
   if (filteredArray.length === 1) {
     const [relative] = filteredArray; // Destructure array to return relative object
-    console.log(relative);
+    // Create a todo item
+    relative.create();
+    // Display list in DOM
+    updateListView(elId, relative);
   } else {
     alert("ERROR! More than one relative found!"); // Alert if more that one relative object found
   }
@@ -194,15 +197,29 @@ const displayNewList = (list) => {
   projectView.appendChild(listContainer);
 };
 
+/*
+-------------------------
+  DOM update
+-------------------------
+*/
 // Function to update list view
-function updateView(list) {}
+function updateListView(listId, list) {
+  const listDOM = document.getElementById(listId);
+  const proj = listDOM.parentElement;
+  console.log(listDOM);
+  proj.removeChild(listDOM);
+  displayNewList(list);
+}
 
+/*
+-------------------------
+  Init
+-------------------------
+*/
 const myTodoList = createNewList("My first list", 1, "This is my first list");
 
 for (let i = 0; i < 7; i++) {
   myTodoList.create();
 }
-
-// console.table(myTodoList);
 
 displayNewList(myTodoList);
