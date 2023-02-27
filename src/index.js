@@ -40,6 +40,24 @@ content.appendChild(contentContainer);
   Todo/list logic
 -------------------------
 */
+/*
+  ___HANDLER EVENTS___ (for event listeners)
+*/
+// Handle list add event
+function handleTodoAdd(array, elId) {
+  // Filter through array of lists to find matching list object
+  const filteredArray = array.filter((element) => element.id === elId);
+  if (filteredArray.length === 1) {
+    const [relative] = filteredArray; // Destructure array to return relative object
+    console.log(relative);
+  } else {
+    alert("ERROR! More than one relative found!"); // Alert if more that one relative object found
+  }
+}
+
+/*
+  ___EVENT LISTENERS___
+*/
 // Global event listener
 function addGlobalEventListener(type, selector, callback) {
   document.addEventListener(type, (e) => {
@@ -55,14 +73,7 @@ addGlobalEventListener("click", ".add-icon", (e) => {
 
   // Check if element type is a list
   if (elType === "list") {
-    // Filter through array of lists to find matching list object
-    const filteredArray = listArray.filter((element) => element.id === elId);
-    if (filteredArray.length === 1) {
-      const [relative] = filteredArray; // Destructure array to return relative object
-      console.log(relative);
-    } else {
-      alert("ERROR! More than one relative found!"); // Alert if more that one relative object found
-    }
+    handleTodoAdd(listArray, elId);
   }
 });
 
@@ -88,7 +99,7 @@ addGlobalEventListener("click", ".del-icon", (e) => {
 const createNewList = (name = "New List", id = undefined, info = undefined) => {
   const newList = todoList(name, `list${id}`, info);
   listArray.push(newList);
-  console.table(listArray);
+  // console.table(listArray);
 
   return newList;
 };
@@ -192,6 +203,6 @@ for (let i = 0; i < 7; i++) {
   myTodoList.create();
 }
 
-console.table(myTodoList);
+// console.table(myTodoList);
 
 displayNewList(myTodoList);
