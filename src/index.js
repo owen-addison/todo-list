@@ -44,17 +44,17 @@ content.appendChild(contentContainer);
   ___HANDLER EVENTS___ (for event listeners)
 */
 // Handle list add event
-function handleTodoAdd(array, elId) {
+function handleTodoAdd(array, targetId) {
   // Filter through array of lists to find matching list object
-  const filteredArray = array.filter((element) => element.id === elId);
+  const filteredArray = array.filter((element) => element.id === targetId);
   if (filteredArray.length === 1) {
     const [relative] = filteredArray; // Destructure array to return relative object
     // Create a todo item
     relative.create();
     // Display list in DOM
-    updateListView(elId, relative);
+    updateListView(targetId, relative);
   } else {
-    alert("ERROR! More than one relative found!"); // Alert if more that one relative object found
+    throw Error("ERROR! More than one relative found!"); // Alert if more that one relative object found
   }
 }
 
@@ -71,12 +71,12 @@ function addGlobalEventListener(type, selector, callback) {
 // Event listener functionality for add icons
 addGlobalEventListener("click", ".add-icon", (e) => {
   // Set variables for the DOM element's type and id attributes
-  const elType = e.target.getAttribute("type");
-  const elId = e.target.getAttribute("listId");
+  const targetType = e.target.getAttribute("type");
+  const targetId = e.target.getAttribute("listId");
 
   // Check if element type is a list
-  if (elType === "list") {
-    handleTodoAdd(listArray, elId);
+  if (targetType === "list") {
+    handleTodoAdd(listArray, targetId);
   }
 });
 
@@ -88,6 +88,7 @@ addGlobalEventListener("click", ".edit-icon", (e) => {
 
 // Event listener functionality for delete icons
 addGlobalEventListener("click", ".del-icon", (e) => {
+  // Get target ID
   const delDOMItem = e.target;
   console.log(`Del target:`);
   console.log(delDOMItem);
