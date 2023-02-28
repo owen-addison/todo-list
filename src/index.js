@@ -41,21 +41,60 @@ content.appendChild(contentContainer);
 -------------------------
 */
 /*
+  ___OBJECT LOGIC___
+*/
+// Get object from array
+function returnObjectFromArray(id, array) {
+  // Filter through array of lists to find matching list object
+  const filteredArray = array.filter((element) => element.id === id);
+  // Check for uniqueness
+  if (filteredArray.length > 1) {
+    // If more than one list object found throw error
+    console.log(filteredArray);
+    throw Error("ERROR! More than one relative found."); // Error if more that one relative object found
+  } else if (filteredArray.length < 1) {
+    throw Error("ERROR! No relative found."); // Error if no relative object found
+  } else {
+    // Destructure array of objects
+    const [relative] = filteredArray;
+    // Return list object
+    return relative;
+  }
+}
+
+function removeObjFromList(id, list, parentObj) {
+  const filteredArray = list.filter((element) => element.id !== id);
+}
+
+/*
   ___HANDLER EVENTS___ (for event listeners)
 */
 // Handle list add event
-function handleTodoAdd(array, targetId) {
+function handleTodoAdd(targetId) {
+  // Get list object
+  const list = returnObjectFromArray(targetId, listArray);
+  // Create a todo item
+  list.create();
+  // Display list in DOM
+  updateListView(targetId, list);
+}
+
+// Handle todo delete event
+function handleTodoDel(targetId, parentId) {
   // Filter through array of lists to find matching list object
-  const filteredArray = array.filter((element) => element.id === targetId);
-  if (filteredArray.length === 1) {
-    const [relative] = filteredArray; // Destructure array to return relative object
-    // Create a todo item
-    relative.create();
-    // Display list in DOM
-    updateListView(targetId, relative);
-  } else {
-    throw Error("ERROR! More than one relative found!"); // Alert if more that one relative object found
-  }
+  const list = returnObjectFromArray(parentId, listArray);
+  // Remove the first 4 characters from targetId string (First 4 characters: "del-")
+  const todoObjId = targetId.substring(4);
+  // Remove the todo object from array in parent list object
+  list.todoArray = list.todoArray.filter((element) => element.id !== todoObjId);
+  updateListView(parentId, list);
+}
+
+// Handle list delete event
+function handleListDel(targetId) {
+  // Filter through array of lists to find matching list object
+  const list = returnObjectFromArray(targetId, listArray);
+  console.log(list);
 }
 
 /*
@@ -76,7 +115,7 @@ addGlobalEventListener("click", ".add-icon", (e) => {
 
   // Check if element type is a list
   if (targetType === "list") {
-    handleTodoAdd(listArray, targetId);
+    handleTodoAdd(targetId);
   }
 });
 
@@ -88,10 +127,18 @@ addGlobalEventListener("click", ".edit-icon", (e) => {
 
 // Event listener functionality for delete icons
 addGlobalEventListener("click", ".del-icon", (e) => {
+  // Get target type
+  const targetType = e.target.getAttribute("type");
   // Get target ID
-  const delDOMItem = e.target;
-  console.log(`Del target:`);
-  console.log(delDOMItem);
+  const targetId = e.target.getAttribute("id");
+  // Get parent ID
+  const parentId = e.target.getAttribute("listId");
+  // Handle depending on target type
+  if (targetType === "todo") {
+    handleTodoDel(targetId, parentId);
+  } else if (targetType === "list") {
+    handleListDel(parentId);
+  }
 });
 
 /*
@@ -145,12 +192,14 @@ const displayNewList = (list) => {
   editIcon.src = fileEditIcon;
   editIcon.classList.add("edit-icon");
   editIcon.setAttribute("id", `edit-${listIdName}`);
+  editIcon.setAttribute("type", "list");
   editIcon.setAttribute("listId", listIdName);
   iconContainer.appendChild(editIcon);
   const removeIcon = new Image();
   removeIcon.src = trashCanIcon;
   removeIcon.classList.add("del-icon");
   removeIcon.setAttribute("id", `del-${listIdName}`);
+  removeIcon.setAttribute("type", "list");
   removeIcon.setAttribute("listId", listIdName);
   iconContainer.appendChild(removeIcon);
   titleContainer.appendChild(iconContainer);
@@ -183,11 +232,15 @@ const displayNewList = (list) => {
     todoEdit.src = fileEditIcon;
     todoEdit.classList.add("edit-icon");
     todoEdit.setAttribute("id", `edit-${todoIdName}`);
+    todoEdit.setAttribute("type", "todo");
+    todoEdit.setAttribute("listId", listIdName);
     todoIcons.appendChild(todoEdit);
     const todoDel = new Image();
     todoDel.src = trashCanIcon;
     todoDel.classList.add("del-icon");
     todoDel.setAttribute("id", `del-${todoIdName}`);
+    todoDel.setAttribute("type", "todo");
+    todoDel.setAttribute("listId", listIdName);
     todoIcons.appendChild(todoDel);
     todo.appendChild(todoIcons);
     // Add todo to container
@@ -207,7 +260,7 @@ const displayNewList = (list) => {
 function updateListView(listId, list) {
   const listDOM = document.getElementById(listId);
   const proj = listDOM.parentElement;
-  console.log(listDOM);
+  // console.log(listDOM);
   proj.removeChild(listDOM);
   displayNewList(list);
 }
