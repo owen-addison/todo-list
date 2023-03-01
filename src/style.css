@@ -1,7 +1,10 @@
 :root {
-  --bg-color: rgb(174, 192, 198);
+  --bg-side-header: #3e3e3e;
+  --bg-color: rgb(186, 186, 186);
   --bg-list: rgb(255, 252, 239);
   --title-icon-width: 1.5em;
+  --list-width: 350px;
+  --header-height: 100px;
 }
 
 body {
@@ -28,22 +31,39 @@ h5, h6 {
 
 /* ------------ SIDEBAR VIEW ------------ */
 .sidebar {
-  background: #000;
+  background: var(--bg-side-header);
   border-right: 2px solid white;
 }
 
 
 /* ------------ PROJECT VIEW ------------ */
-.project-view {
-  border: 2px solid white;
-  border-bottom: none;
-  margin: 10px 10px 0 10px;
+.project-header {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  border-bottom: 2px solid white;
+  background: var(--bg-side-header);
+  height: var(--header-height);
+}
+
+.header-icon-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.project-container {
+  display: grid;
+  /* grid-template-columns: minmax(repeat(2, var(--list-width)), repeat(4, (--list-width))); */
+  grid-template-columns: repeat(3, var(--list-width));
+  padding: 20px;
 }
 
 .list-container {
   display: grid;
   gap: 10px;
-  width: 300px;
+  /* width: var(--list-width); */
   background-color: var(--bg-list);
   padding: 25px 30px;
   border-radius: 20px;
