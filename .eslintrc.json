@@ -22,6 +22,7 @@
           "classes": true,
           "variables": false,
           "allowNamedExports": false
-        }]
+        }],
+        "no-param-reassign": "off"
     }
 }
