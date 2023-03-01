@@ -91,10 +91,14 @@ function handleTodoDel(targetId, parentId) {
 }
 
 // Handle list delete event
-function handleListDel(targetId) {
+function handleListDel(targetId, array) {
   // Filter through array of lists to find matching list object
-  const list = returnObjectFromArray(targetId, listArray);
+  const list = returnObjectFromArray(targetId, array);
   console.log(list);
+  // Remove the list from the list array
+  console.log(array);
+  array = array.filter((element) => element.id !== targetId);
+  console.log(array);
 }
 
 /*
@@ -137,7 +141,7 @@ addGlobalEventListener("click", ".del-icon", (e) => {
   if (targetType === "todo") {
     handleTodoDel(targetId, parentId);
   } else if (targetType === "list") {
-    handleListDel(parentId);
+    handleListDel(parentId, listArray);
   }
 });
 
