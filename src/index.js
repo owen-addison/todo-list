@@ -75,8 +75,10 @@ function handleTodoAdd(targetId) {
   const list = returnObjectFromArray(targetId, listArray);
   // Create a todo item
   list.create();
-  // Display list in DOM
-  updateListView(targetId, list);
+  // // Display list in DOM
+  // updateListView(targetId, list);
+  // Update view of lists in array in DOM
+  updateProjView(targetId, listArray);
 }
 
 // Handle todo delete event
@@ -87,18 +89,18 @@ function handleTodoDel(targetId, parentId) {
   const todoObjId = targetId.substring(4);
   // Remove the todo object from array in parent list object
   list.todoArray = list.todoArray.filter((element) => element.id !== todoObjId);
-  updateListView(parentId, list);
+  // Update list view in DOM
+  updateProjView(parentId, listArray);
 }
 
 // Handle list delete event
 function handleListDel(targetId, array) {
   // Filter through array of lists to find matching list object
   const list = returnObjectFromArray(targetId, array);
-  console.log(list);
   // Remove the list from the list array
-  console.log(array);
   array = array.filter((element) => element.id !== targetId);
-  console.log(array);
+  // Update view of lists in array in DOM
+  updateProjView(targetId, array);
 }
 
 /*
@@ -260,13 +262,39 @@ const displayNewList = (list) => {
   DOM update
 -------------------------
 */
-// Function to update list view
-function updateListView(listId, list) {
-  const listDOM = document.getElementById(listId);
-  const proj = listDOM.parentElement;
-  // console.log(listDOM);
-  proj.removeChild(listDOM);
+// Function to remove list from DOM
+function removeListFromDOM(list) {
+  // Get project element from DOM
+  const proj = list.parentElement;
+  // Remove the list DOM element from the project DOM element
+  proj.removeChild(list);
+}
+
+// Function to add list to DOM
+function addListToDOM(list) {
+  // Display list in DOM
   displayNewList(list);
+}
+
+// Function to update project view
+function updateProjView(listId, array) {
+  if (array.length === 0) {
+    // If array empty
+    // Get DOM element for list
+    const listDOM = document.getElementById(listId);
+    // Remove list DOM element from project DOM element
+    removeListFromDOM(listDOM);
+  } else {
+    // For each element in the list array
+    array.forEach((element) => {
+      // Get old DOM element for this array element
+      const oldDOM = document.getElementById(element.id);
+      // Remove old DOM element
+      removeListFromDOM(oldDOM);
+      // Add new DOM element
+      addListToDOM(element);
+    });
+  }
 }
 
 /*
