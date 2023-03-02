@@ -13,7 +13,7 @@ const todoNameElement = "h5";
 
 /*
 -------------------------
-  HTML setup
+  HTML SETUP
 -------------------------
 */
 // Get content div element
@@ -76,7 +76,7 @@ content.appendChild(contentContainer);
 
 /*
 -------------------------
-  Todo/list logic
+  TODO/LIST LOGIC
 -------------------------
 */
 /*
@@ -194,12 +194,10 @@ addGlobalEventListener("click", ".del-icon", (e) => {
 });
 
 /*
--------------------------
-  List create
--------------------------
+  ___CREATE LIST/PROJ___
 */
 // Function to create new todo list
-const createNewList = (name = "New List", id = undefined, info = undefined) => {
+const createList = (name = "New List", id = undefined, info = undefined) => {
   const newList = todoList(name, `list${id}`, info);
   listArray.push(newList);
   // console.table(listArray);
@@ -209,11 +207,11 @@ const createNewList = (name = "New List", id = undefined, info = undefined) => {
 
 /*
 -------------------------
-  List display
+DOM UPDATE
 -------------------------
 */
 // Function to display todo list
-const displayNewList = (list) => {
+const displayList = (list) => {
   // Create new element
   const listContainer = document.createElement("div");
   // Assign class and id name
@@ -304,9 +302,7 @@ const displayNewList = (list) => {
 };
 
 /*
--------------------------
-  DOM update
--------------------------
+  ___UPDATE PROJECT VIEW___
 */
 // Function to remove list from DOM
 function removeListFromDOM(list) {
@@ -319,7 +315,7 @@ function removeListFromDOM(list) {
 // Function to add list to DOM
 function addListToDOM(list) {
   // Display list in DOM
-  displayNewList(list);
+  displayList(list);
 }
 
 // Function to update project view
@@ -345,13 +341,13 @@ function updateProjView(listId, array) {
 
 /*
 -------------------------
-  Init
+  INITIALIZE
 -------------------------
 */
-const myTodoList = createNewList("My first list", 1, "This is my first list");
+const myTodoList = createList("My first list", 1, "This is my first list");
 
 for (let i = 0; i < 7; i++) {
   myTodoList.create();
 }
 
-displayNewList(myTodoList);
+displayList(myTodoList);
