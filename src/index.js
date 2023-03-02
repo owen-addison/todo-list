@@ -45,11 +45,13 @@ projectHeader.appendChild(headerIconContainer);
 const headerAddIcon = new Image();
 headerAddIcon.src = plusIcon;
 headerAddIcon.classList.add("add-icon");
+// headerAddIcon.setAttribute("projId", "proj1");
 headerAddIcon.setAttribute("type", "proj");
 headerIconContainer.appendChild(headerAddIcon);
 const headerEditIcon = new Image();
 headerEditIcon.src = fileEditIcon;
 headerEditIcon.classList.add("edit-icon");
+// headerEditIcon.setAttribute("projId", "proj");
 headerEditIcon.setAttribute("type", "proj");
 headerIconContainer.appendChild(headerEditIcon);
 const headerRemoveIcon = new Image();
@@ -106,7 +108,7 @@ function removeObjFromList(id, list, parentObj) {
 /*
   ___HANDLER EVENTS___ (for event listeners)
 */
-// Handle list add event
+// Handle todo add event
 function handleTodoAdd(targetId) {
   // Get list object
   const list = returnObjectFromArray(targetId, listArray);
@@ -116,6 +118,11 @@ function handleTodoAdd(targetId) {
   // updateListView(targetId, list);
   // Update view of lists in array in DOM
   updateProjView(targetId, listArray);
+}
+
+// Handle list add event
+function handleListAdd(targetId) {
+  console.log(targetId);
 }
 
 // Handle todo delete event
@@ -159,6 +166,8 @@ addGlobalEventListener("click", ".add-icon", (e) => {
   // Check if element type is a list
   if (targetType === "list") {
     handleTodoAdd(targetId);
+  } else if (targetType === "proj") {
+    handleListAdd(targetId);
   }
 });
 
