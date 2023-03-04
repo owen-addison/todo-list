@@ -5,13 +5,14 @@ import fileEditIcon from "./images/file-edit-outline.svg";
 import todoList from "./todoList";
 import project from "./project";
 
+const projArray = [];
 const listArray = [];
 
 const headerTitleElement = "h2";
 const listTitleElement = "h3";
 const todoNameElement = "h5";
 
-/*
+/* STAY ??
 -------------------------
   HTML SETUP
 -------------------------
@@ -74,7 +75,7 @@ contentContainer.appendChild(sidebar);
 contentContainer.appendChild(projectView);
 content.appendChild(contentContainer);
 
-/*
+/* REFACTOR TO MODULE
 -------------------------
   TODO/LIST LOGIC
 -------------------------
@@ -147,7 +148,7 @@ function handleListDel(targetId, array) {
   updateProjView(targetId, array);
 }
 
-/*
+/* STAY
   ___EVENT LISTENERS___
 */
 // Global event listener
@@ -196,6 +197,14 @@ addGlobalEventListener("click", ".del-icon", (e) => {
 /*
   ___CREATE LIST/PROJ___
 */
+// Function to create new project
+const createProj = (name = "New Project", id = undefined, info = undefined) => {
+  const newProj = project(name, `proj{id}`, info);
+  projArray.push(newProj);
+
+  return newProj;
+};
+
 // Function to create new todo list
 const createList = (name = "New List", id = undefined, info = undefined) => {
   const newList = todoList(name, `list${id}`, info);
@@ -205,7 +214,7 @@ const createList = (name = "New List", id = undefined, info = undefined) => {
   return newList;
 };
 
-/*
+/* REFACTOR TO MODULE
 -------------------------
 DOM UPDATE
 -------------------------
@@ -344,6 +353,11 @@ function updateProjView(listId, array) {
   INITIALIZE
 -------------------------
 */
+// Create new project
+const myProj = createProj("My first project", 1, "This is my first project");
+
+console.table(myProj);
+
 const myTodoList = createList("My first list", 1, "This is my first list");
 
 for (let i = 0; i < 7; i++) {
