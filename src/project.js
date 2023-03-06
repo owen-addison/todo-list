@@ -10,7 +10,7 @@ This function called by index.js to create and return a todoList
 ********************************************************************* 
 */
 
-import { creator, remover } from "./todoProto";
+import { todoProto, creator, remover } from "./todoProto";
 import todoList from "./todoList";
 
 const project = (
@@ -21,13 +21,9 @@ const project = (
   arrayName = "listArray",
   obj = todoList
 ) => {
-  const {
-    todoArray: listArray,
-    addItem,
-    ...rest
-  } = todoList(name, id, info, type, arrayName);
+  const listArray = [];
   const state = {
-    ...rest,
+    ...todoProto(name, id, info, type),
     listArray,
   };
   return {
