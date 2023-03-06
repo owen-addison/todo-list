@@ -81,6 +81,26 @@ content.appendChild(contentContainer);
 -------------------------
 */
 /*
+___CREATE PROJ/LIST___
+*/
+// Function to create new project
+const createProj = (name = "New Project", id = undefined, info = undefined) => {
+  const newProj = project(name, `proj{id}`, info);
+  projArray.push(newProj);
+
+  return newProj;
+};
+
+// Function to create new todo list
+const createList = (name = "New List", id = undefined, info = undefined) => {
+  const newList = todoList(name, `list${id}`, info);
+  listArray.push(newList);
+  // console.table(listArray);
+
+  return newList;
+};
+
+/*
   ___OBJECT LOGIC___
 */
 // Get object from array
@@ -113,6 +133,7 @@ function removeObjFromList(id, list, parentObj) {
 function handleTodoAdd(targetId) {
   // Get list object
   const list = returnObjectFromArray(targetId, listArray);
+  console.table(list.todoArray);
   // Create a todo item
   list.create();
   // // Display list in DOM
@@ -148,7 +169,7 @@ function handleListDel(targetId, array) {
   updateProjView(targetId, array);
 }
 
-/* STAY
+/* REFACTOR TO MODULE
   ___EVENT LISTENERS___
 */
 // Global event listener
@@ -193,26 +214,6 @@ addGlobalEventListener("click", ".del-icon", (e) => {
     handleListDel(parentId, listArray);
   }
 });
-
-/*
-  ___CREATE LIST/PROJ___
-*/
-// Function to create new project
-const createProj = (name = "New Project", id = undefined, info = undefined) => {
-  const newProj = project(name, `proj{id}`, info);
-  projArray.push(newProj);
-
-  return newProj;
-};
-
-// Function to create new todo list
-const createList = (name = "New List", id = undefined, info = undefined) => {
-  const newList = todoList(name, `list${id}`, info);
-  listArray.push(newList);
-  // console.table(listArray);
-
-  return newList;
-};
 
 /* REFACTOR TO MODULE
 -------------------------
