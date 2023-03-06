@@ -358,7 +358,6 @@ function updateProjView(listId, array) {
 const myProj = createProj("My first project", 1, "This is my first project");
 
 myProj.create("Proj list", 2, "This should be a list inside my project object");
-console.table(myProj);
 
 const myTodoList = createList("My first list", 1, "This is my first list");
 
