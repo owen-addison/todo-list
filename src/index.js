@@ -127,15 +127,17 @@ function removeObjFromList(id, list, parentObj) {
 }
 
 /*
-  ___HANDLER EVENTS___ (for event listeners)
+  ___EVENT HANDLERS___ (for event listeners)
 */
 // Handle todo add event
 function handleTodoAdd(targetId) {
   // Get list object
   const list = returnObjectFromArray(targetId, listArray);
-  console.table(list.todoArray);
+  console.log(list.todoArray);
   // Create a todo item
+  // console.table(list.todoArray);
   list.create();
+  // console.table(list.todoArray);
   // // Display list in DOM
   // updateListView(targetId, list);
   // Update view of lists in array in DOM
@@ -148,7 +150,13 @@ function handleListAdd(targetId) {
 }
 
 // Handle todo delete event
-function handleTodoDel(targetId, parentId) {
+function handleTodoDel(e) {
+  // Get target type
+  const targetType = e.target.getAttribute("type");
+  // Get target ID
+  const targetId = e.target.getAttribute("id");
+  // Get parent ID
+  const parentId = e.target.getAttribute("listId");
   // Filter through array of lists to find matching list object
   const list = returnObjectFromArray(parentId, listArray);
   // Remove the first 4 characters from targetId string (First 4 characters: "del-")
@@ -160,7 +168,19 @@ function handleTodoDel(targetId, parentId) {
 }
 
 // Handle list delete event
-function handleListDel(targetId, array) {
+function handleListDel(e) {
+  // array
+  let array = [listArray];
+
+  console.table(array);
+  console.log(e.target);
+
+  // Get target type
+  const targetType = e.target.getAttribute("type");
+  // Get target ID
+  const targetId = e.target.getAttribute("id");
+  // Get parent ID
+  const parentId = e.target.getAttribute("listId");
   // Filter through array of lists to find matching list object
   const list = returnObjectFromArray(targetId, array);
   // Remove the list from the list array
@@ -197,22 +217,6 @@ addGlobalEventListener("click", ".add-icon", (e) => {
 addGlobalEventListener("click", ".edit-icon", (e) => {
   console.log(`Edit target:`);
   console.log(e.target);
-});
-
-// Event listener functionality for delete icons
-addGlobalEventListener("click", ".del-icon", (e) => {
-  // Get target type
-  const targetType = e.target.getAttribute("type");
-  // Get target ID
-  const targetId = e.target.getAttribute("id");
-  // Get parent ID
-  const parentId = e.target.getAttribute("listId");
-  // Handle depending on target type
-  if (targetType === "todo") {
-    handleTodoDel(targetId, parentId);
-  } else if (targetType === "list") {
-    handleListDel(parentId, listArray);
-  }
 });
 
 /* REFACTOR TO MODULE
@@ -261,6 +265,7 @@ const displayList = (list) => {
   removeIcon.setAttribute("id", `del-${listIdName}`);
   removeIcon.setAttribute("type", "list");
   removeIcon.setAttribute("listId", listIdName);
+  removeIcon.addEventListener("click", handleListDel, { once: true });
   iconContainer.appendChild(removeIcon);
   titleContainer.appendChild(iconContainer);
 
@@ -301,6 +306,7 @@ const displayList = (list) => {
     todoDel.setAttribute("id", `del-${todoIdName}`);
     todoDel.setAttribute("type", "todo");
     todoDel.setAttribute("listId", listIdName);
+    todoDel.addEventListener("click", handleTodoDel, { once: true });
     todoIcons.appendChild(todoDel);
     todo.appendChild(todoIcons);
     // Add todo to container
