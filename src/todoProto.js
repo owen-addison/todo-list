@@ -27,15 +27,19 @@ const getDefaultId = (array) => {
   const newIDs = generateIdArray(length);
   const oldIDs = array.map((x) => x.id);
 
+  console.table("old IDs:", oldIDs);
+  console.table("new IDs:", newIDs);
+  console.log("Generated ID", checkIDs(oldIDs, newIDs));
+
   // Check arrays of old and new IDs and return the suitable new ID number
   return checkIDs(oldIDs, newIDs);
 };
 
-const getDefaultName = (arrayLength) => `Item ${arrayLength + 1}`;
+// const getDefaultName = (arrayLength) => `Item ${arrayLength + 1}`;
 
 const creator = (state, arrayName, object) => ({
   create: (
-    objName = getDefaultName(state[`${arrayName}`].length),
+    objName = `Item ${getDefaultId(state[`${arrayName}`])}`,
     id = `${state.id}_td${getDefaultId(state[`${arrayName}`])}`,
     info = undefined
     // id = state[`${array}`].length + 1,
