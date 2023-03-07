@@ -1,7 +1,7 @@
-const generateIdArray = (length) => {
+const generateIdArray = (length, idPrepend) => {
   const array = [];
   for (let i = 0; i < length + 1; i++) {
-    array.push(i + 1);
+    array.push(`${idPrepend}${i + 1}`);
   }
   return array;
 };
@@ -16,16 +16,17 @@ const checkIDs = (oldIDs, newIDs) => {
   return returnID;
 };
 
-const getDefaultId = (array) => {
-  const { length } = array;
+const getDefaultId = (state, arrayName) => {
+  const { length } = state[`${arrayName}`];
+  const idPrepend = `${state.id}_item`;
 
   // If button array empty return ID of 1
   if (length === 0) {
     return 1;
   }
 
-  const newIDs = generateIdArray(length);
-  const oldIDs = array.map((x) => x.id);
+  const newIDs = generateIdArray(length, idPrepend);
+  const oldIDs = state[`${arrayName}`].map((x) => x.id);
 
   console.table("old IDs:", oldIDs);
   console.table("new IDs:", newIDs);
@@ -39,10 +40,9 @@ const getDefaultId = (array) => {
 
 const creator = (state, arrayName, object) => ({
   create: (
-    objName = `Item ${getDefaultId(state[`${arrayName}`])}`,
-    id = `${state.id}_td${getDefaultId(state[`${arrayName}`])}`,
+    objName = `Item ${getDefaultId(state, arrayName)}`,
+    id = `${state.id}_item${getDefaultId(state, arrayName)}`,
     info = undefined
-    // id = state[`${array}`].length + 1,
   ) => {
     state[`${arrayName}`].push(object(objName, id, info));
   },
