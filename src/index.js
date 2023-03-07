@@ -85,7 +85,7 @@ ___CREATE PROJ/LIST___
 */
 // Function to create new project
 const createProj = (name = "New Project", id = undefined, info = undefined) => {
-  const newProj = project(name, `proj{id}`, info);
+  const newProj = project(name, `proj${id}`, info);
   projArray.push(newProj);
 
   return newProj;
