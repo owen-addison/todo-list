@@ -122,10 +122,6 @@ function returnObjectFromArray(id, array) {
   }
 }
 
-// function removeObjFromList(id, list, parentObj) {
-//   const filteredArray = list.filter((element) => element.id !== id);
-// }
-
 /*
   ___EVENT HANDLERS___ (for event listeners)
 */
