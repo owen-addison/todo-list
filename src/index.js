@@ -133,15 +133,8 @@ function returnObjectFromArray(id, array) {
 function handleTodoAdd(targetId) {
   // Get list object
   const list = returnObjectFromArray(targetId, listArray);
-  console.log(list.todoArray);
   // Create a todo item
-  // console.table(list.todoArray);
   list.create();
-
-  console.log(list.todoArray);
-  // console.table(list.todoArray);
-  // // Display list in DOM
-  // updateListView(targetId, list);
   // Update view of lists in array in DOM
   updateProjView(targetId, listArray);
 }
@@ -162,13 +155,12 @@ function handleTodoDel(e) {
   console.log(list);
   // Remove the first 4 characters from targetId string (First 4 characters: "del-")
   const todoObjId = targetId.substring(4);
+  // Find index of object in array
+  const arrayIndex = list.todoArray.findIndex(
+    (element) => element.id === todoObjId
+  );
   // Remove the todo object from array in parent list object
-  list.todoArray = list.todoArray.filter((element) => element.id !== todoObjId);
-  // list.todoArray.pop();
-  // list.deleteItem(todoObjId);
-  // list.todoArray = list.deleteItem(todoObjId);
-  console.log(listArray);
-  console.log(list);
+  list.todoArray.splice(arrayIndex, 1);
   // Update list view in DOM
   updateProjView(parentId, listArray);
 }
