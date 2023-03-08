@@ -122,9 +122,9 @@ function returnObjectFromArray(id, array) {
   }
 }
 
-function removeObjFromList(id, list, parentObj) {
-  const filteredArray = list.filter((element) => element.id !== id);
-}
+// function removeObjFromList(id, list, parentObj) {
+//   const filteredArray = list.filter((element) => element.id !== id);
+// }
 
 /*
   ___EVENT HANDLERS___ (for event listeners)
@@ -137,6 +137,8 @@ function handleTodoAdd(targetId) {
   // Create a todo item
   // console.table(list.todoArray);
   list.create();
+
+  console.log(list.todoArray);
   // console.table(list.todoArray);
   // // Display list in DOM
   // updateListView(targetId, list);
@@ -151,18 +153,22 @@ function handleListAdd(targetId) {
 
 // Handle todo delete event
 function handleTodoDel(e) {
-  // Get target type
-  const targetType = e.target.getAttribute("type");
   // Get target ID
   const targetId = e.target.getAttribute("id");
   // Get parent ID
   const parentId = e.target.getAttribute("listId");
   // Filter through array of lists to find matching list object
   const list = returnObjectFromArray(parentId, listArray);
+  console.log(list);
   // Remove the first 4 characters from targetId string (First 4 characters: "del-")
   const todoObjId = targetId.substring(4);
   // Remove the todo object from array in parent list object
   list.todoArray = list.todoArray.filter((element) => element.id !== todoObjId);
+  // list.todoArray.pop();
+  // list.deleteItem(todoObjId);
+  // list.todoArray = list.deleteItem(todoObjId);
+  console.log(listArray);
+  console.log(list);
   // Update list view in DOM
   updateProjView(parentId, listArray);
 }
@@ -204,6 +210,7 @@ addGlobalEventListener("click", ".add-icon", (e) => {
   // Set variables for the DOM element's type and id attributes
   const targetType = e.target.getAttribute("type");
   const targetId = e.target.getAttribute("listId");
+  console.log(targetType, targetId);
 
   // Check if element type is a list
   if (targetType === "list") {
@@ -306,7 +313,7 @@ const displayList = (list) => {
     todoDel.setAttribute("id", `del-${todoIdName}`);
     todoDel.setAttribute("type", "todo");
     todoDel.setAttribute("listId", listIdName);
-    todoDel.addEventListener("click", handleTodoDel, { once: true });
+    todoDel.addEventListener("click", handleTodoDel, { once: false });
     todoIcons.appendChild(todoDel);
     todo.appendChild(todoIcons);
     // Add todo to container
@@ -361,9 +368,9 @@ function updateProjView(listId, array) {
 -------------------------
 */
 // Create new project
-const myProj = createProj("My first project", 1, "This is my first project");
+// const myProj = createProj("My first project", 1, "This is my first project");
 
-myProj.create("Proj list", 2, "This should be a list inside my project object");
+// myProj.create("proj");
 
 const myTodoList = createList("My first list", 1, "This is my first list");
 

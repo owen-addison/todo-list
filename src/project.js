@@ -1,15 +1,3 @@
-/* 
-*********************************************************************
-
-Factory function to return a project object
-OAL 16-02-2023
-Version 0.1 genesis
-
-This function called by index.js to create and return a todoList
-
-********************************************************************* 
-*/
-
 import { todoProto, creator, remover } from "./todoProto";
 import todoList from "./todoList";
 
@@ -17,7 +5,7 @@ const project = (
   name,
   id,
   info,
-  type = "project",
+  type = "proj",
   arrayName = "listArray",
   obj = todoList
 ) => {
@@ -28,7 +16,7 @@ const project = (
   };
   return {
     ...state,
-    ...creator(state, arrayName, obj),
+    ...creator(state, arrayName, obj, type),
     ...remover(state, arrayName),
   };
 };

@@ -15,16 +15,6 @@ functions for adding and removing todoItems from array.
 import { todoProto, creator, remover } from "./todoProto";
 import todoItem from "./todoItem";
 
-// const nameUpdater = (state) => ({
-//   updateNames: () => {
-//     const { todoArray } = state;
-
-//     todoArray.map((obj) => {
-//       obj.id = 6;
-//     });
-//   },
-// });
-
 const todoList = (
   name,
   id,
@@ -40,7 +30,7 @@ const todoList = (
   };
   return {
     ...state,
-    ...creator(state, arrayName, obj),
+    ...creator(state, arrayName, obj, type),
     ...remover(state, arrayName),
   };
 };
