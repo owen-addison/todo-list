@@ -5,20 +5,15 @@ const creator = (state, arrayName, object, type) => ({
     const objName = idPrefix;
     const id = uniqid(idPrefix);
     const info = null;
+    // Get the type of child to add
     let childType;
     if (type === "list") {
       childType = "todo";
     } else if (type === "proj") {
       childType = "list";
     }
-    console.log("Generated ID", id);
+    // Add a child object to the array
     state[`${arrayName}`].push(object(objName, id, info, childType));
-    console.log("Updated array:", state[`${arrayName}`]);
-
-    return state[`${arrayName}`];
-  },
-  deleteItem: (id) => {
-    state[`${arrayName}`].filter((element) => element.id !== id);
   },
 });
 
