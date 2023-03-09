@@ -63,7 +63,9 @@ function returnObjectFromArray(id, array) {
   ___EVENT HANDLERS___ (for event listeners)
 */
 // Handle todo add event
-function handleTodoAdd(targetId) {
+function handleTodoAdd(e) {
+  // Get id of target
+  const targetId = e.target.getAttribute("listId");
   // Get list object
   const list = returnObjectFromArray(targetId, listArray);
   // Create a todo item
@@ -85,7 +87,6 @@ function handleTodoDel(e) {
   const parentId = e.target.getAttribute("listId");
   // Filter through array of lists to find matching list object
   const list = returnObjectFromArray(parentId, listArray);
-  console.log(list);
   // Remove the first 4 characters from targetId string (First 4 characters: "del-")
   const todoObjId = targetId.substring(4);
   // Find index of object in array
@@ -124,24 +125,33 @@ function handleListDel(e) {
   ___EVENT LISTENERS___
 */
 // Global event listener
-function addGlobalEventListener(type, selector, callback) {
-  document.addEventListener(type, (e) => {
-    if (e.target.matches(selector)) callback(e);
-  });
+function addGlobalEventListener(type, selector, callback, option) {
+  if (!option) {
+    document.addEventListener(type, (e) => {
+      if (e.target.matches(selector)) callback(e);
+    });
+  } else {
+    console.log({ option });
+    document.addEventListener(
+      type,
+      (e) => {
+        if (e.target.matches(selector)) callback(e);
+      },
+      { option }
+    );
+  }
 }
 
 // Event listener functionality for add icons
 addGlobalEventListener("click", ".add-icon", (e) => {
   // Set variables for the DOM element's type and id attributes
   const targetType = e.target.getAttribute("type");
-  const targetId = e.target.getAttribute("listId");
-  console.log(targetType, targetId);
 
   // Check if element type is a list
   if (targetType === "list") {
-    handleTodoAdd(targetId);
+    handleTodoAdd(e);
   } else if (targetType === "proj") {
-    handleListAdd(targetId);
+    handleListAdd(e);
   }
 });
 
@@ -150,6 +160,24 @@ addGlobalEventListener("click", ".edit-icon", (e) => {
   console.log(`Edit target:`);
   console.log(e.target);
 });
+
+// Event listener functionality for delete icons
+addGlobalEventListener(
+  "click",
+  ".del-icon",
+  (e) => {
+    // Set variables for the DOM element's type and id attributes
+    const targetType = e.target.getAttribute("type");
+
+    // Check if element type is a list
+    if (targetType === "list") {
+      handleTodoDel(e);
+    } else if (targetType === "proj") {
+      handleListDel(e);
+    }
+  },
+  { once: true }
+);
 
 /* REFACTOR TO MODULE
 -------------------------
@@ -200,7 +228,7 @@ const displayList = (list) => {
   removeIcon.setAttribute("id", `del-${listIdName}`);
   removeIcon.setAttribute("type", "list");
   removeIcon.setAttribute("listId", listIdName);
-  removeIcon.addEventListener("click", handleListDel, { once: true });
+  // removeIcon.addEventListener("click", handleListDel, { once: true });
   iconContainer.appendChild(removeIcon);
   titleContainer.appendChild(iconContainer);
 
@@ -299,9 +327,10 @@ function updateProjView(listId, array) {
 setUpDOM();
 
 // Create new project
-// const myProj = createProj("My first project", 1, "This is my first project");
+const myProj = createProj("My first project", 1, "This is my first project");
 
-// myProj.create("proj");
+myProj.create("proj");
+console.log(myProj);
 
 const myTodoList = createList("My first list", 1, "This is my first list");
 
