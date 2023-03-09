@@ -64,6 +64,9 @@ function returnObjectFromArray(id, array) {
 */
 // Handle todo add event
 function handleTodoAdd(e) {
+  console.log(e.target);
+  // Get project from array
+
   // Get id of target
   const targetId = e.target.getAttribute("listId");
   // Get list object
@@ -81,7 +84,6 @@ function handleListAdd(targetId) {
 
 // Handle todo delete event
 function handleTodoDel(e) {
-  console.log("working");
   // Get target ID
   const targetId = e.target.getAttribute("id");
   // Get parent ID
@@ -121,6 +123,64 @@ function handleListDel(e) {
   // Update view of lists in array in DOM
   updateProjView(targetId, array);
 }
+
+/*
+  ___EVENT LISTENERS___
+*/
+// Global event listener
+function addGlobalEventListener(type, selector, callback, once) {
+  if (!once) {
+    document.addEventListener(type, (e) => {
+      if (e.target.matches(selector)) callback(e);
+    });
+  } else {
+    console.log(once);
+    document.addEventListener(
+      type,
+      (e) => {
+        if (e.target.matches(selector)) callback(e);
+      },
+      { once: true }
+    );
+  }
+}
+
+// Event listener functionality for add icons
+addGlobalEventListener("click", ".add-icon", (e) => {
+  // Set variables for the DOM element's type and id attributes
+  const targetType = e.target.getAttribute("type");
+
+  // Check if element type is a list
+  if (targetType === "list") {
+    handleTodoAdd(e);
+  } else if (targetType === "proj") {
+    handleListAdd(e);
+  }
+});
+
+// Event listener functionality for edit icons
+addGlobalEventListener("click", ".edit-icon", (e) => {
+  console.log(`Edit target:`);
+  console.log(e.target);
+});
+
+// // Event listener functionality for delete icons
+// addGlobalEventListener(
+//   "click",
+//   ".del-icon",
+//   (e) => {
+//     // Set variables for the DOM element's type and id attributes
+//     const targetType = e.target.getAttribute("type");
+
+//     // Check if element type is a list
+//     if (targetType === "list") {
+//       handleTodoDel(e);
+//     } else if (targetType === "proj") {
+//       handleListDel(e);
+//     }
+//   },
+//   true
+// );
 
 /* REFACTOR TO MODULE
 -------------------------
@@ -262,62 +322,17 @@ function updateProjView(listId, array) {
 }
 
 /*
-  ___EVENT LISTENERS___
+  ___DISPLAY PROJECT___
 */
-// Global event listener
-function addGlobalEventListener(type, selector, callback, once) {
-  if (!once) {
-    document.addEventListener(type, (e) => {
-      if (e.target.matches(selector)) callback(e);
-    });
-  } else {
-    console.log(once);
-    document.addEventListener(
-      type,
-      (e) => {
-        if (e.target.matches(selector)) callback(e);
-      },
-      { once: true }
-    );
-  }
+function displayProject(projObj) {
+  // Get the length of the listArray for project object
+  const listArrayLength = projObj.listArray.length;
+
+  projObj.listArray.forEach((element) => {
+    console.log(element);
+    displayList(element);
+  });
 }
-
-// Event listener functionality for add icons
-addGlobalEventListener("click", ".add-icon", (e) => {
-  // Set variables for the DOM element's type and id attributes
-  const targetType = e.target.getAttribute("type");
-
-  // Check if element type is a list
-  if (targetType === "list") {
-    handleTodoAdd(e);
-  } else if (targetType === "proj") {
-    handleListAdd(e);
-  }
-});
-
-// Event listener functionality for edit icons
-addGlobalEventListener("click", ".edit-icon", (e) => {
-  console.log(`Edit target:`);
-  console.log(e.target);
-});
-
-// // Event listener functionality for delete icons
-// addGlobalEventListener(
-//   "click",
-//   ".del-icon",
-//   (e) => {
-//     // Set variables for the DOM element's type and id attributes
-//     const targetType = e.target.getAttribute("type");
-
-//     // Check if element type is a list
-//     if (targetType === "list") {
-//       handleTodoDel(e);
-//     } else if (targetType === "proj") {
-//       handleListDel(e);
-//     }
-//   },
-//   true
-// );
 
 /*
 -------------------------
@@ -330,13 +345,15 @@ setUpDOM();
 // Create new project
 const myProj = createProj("My first project", 1, "This is my first project");
 
-myProj.create("proj");
 console.log(myProj);
+myProj.create("proj_list");
 
-const myTodoList = createList("My first list", 1, "This is my first list");
+// const myTodoList = createList("My first list", 1, "This is my first list");
 
 for (let i = 0; i < 7; i++) {
-  myTodoList.create();
+  myProj.listArray[0].create();
 }
 
-displayList(myTodoList);
+displayProject(myProj);
+
+// displayList(myTodoList);
