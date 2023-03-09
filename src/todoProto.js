@@ -1,9 +1,13 @@
 import uniqid from "uniqid";
 
+function getUniqueID(idPrefix) {
+  return uniqid(idPrefix);
+}
+
 const creator = (state, arrayName, object, type) => ({
   create: (idPrefix) => {
     const objName = idPrefix;
-    const id = uniqid(idPrefix);
+    const id = getUniqueID(idPrefix);
     const info = null;
     // Get the type of child to add
     let childType;
@@ -34,4 +38,4 @@ const todoProto = (name, id, info, type) => {
   };
 };
 
-export { todoProto, creator, remover };
+export { todoProto, creator, remover, getUniqueID };
