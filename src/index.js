@@ -318,10 +318,13 @@ function updateProjView(listId, array) {
 function displayProject(projObj) {
   // Get the project ID
   const projectID = projObj.id;
-  console.log(projectID);
+  // Get the project container element from DOM
+  const projectContainer = document.querySelector(".project-container");
+  // Add ID to project container element
+  projectContainer.setAttribute("id", projectID);
 
   projObj.listArray.forEach((element) => {
-    console.log(element);
+    // console.log(element);
     displayList(element);
   });
 }
