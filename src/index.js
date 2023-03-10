@@ -23,10 +23,14 @@ ___CREATE PROJ/LIST___
 */
 // Function to create new project
 const createProj = (name = "New Project", info = undefined) => {
+  // Get a unique ID for the project
   const id = getUniqueID("proj-");
+  // Create a new project object
   const newProj = project(name, id, info);
+  // Push the new project object to the project array
   projArray.push(newProj);
 
+  // Return the project object
   return newProj;
 };
 
@@ -67,8 +71,8 @@ function returnObjectFromArray(id, array) {
 // Handle todo add event
 function handleTodoAdd(e) {
   console.log(e.target);
-  // Get project from array
-
+  // Get project id
+  const projId = e.target.closest(".project-container").id;
   // Get id of target
   const targetId = e.target.getAttribute("listId");
   // Get list object
@@ -312,8 +316,9 @@ function updateProjView(listId, array) {
   ___DISPLAY PROJECT___
 */
 function displayProject(projObj) {
-  // Get the length of the listArray for project object
-  const listArrayLength = projObj.listArray.length;
+  // Get the project ID
+  const projectID = projObj.id;
+  console.log(projectID);
 
   projObj.listArray.forEach((element) => {
     console.log(element);
@@ -329,18 +334,29 @@ function displayProject(projObj) {
 // Set up the DOM
 setUpDOM();
 
-// Create new project
-const myProj = createProj("My first project", "This is my first project");
+// Create a blank project
+function createExampleProj() {
+  // Create the project
+  const myProj = createProj("My first project", "This is my first project");
 
-console.log(myProj);
-myProj.create("list-");
+  // Create a list in the project
+  myProj.create("list-");
 
-// const myTodoList = createList("My first list", 1, "This is my first list");
-
-for (let i = 0; i < 7; i++) {
-  myProj.listArray[0].create("todo-");
+  // Create a set of todo items in the new list
+  for (let i = 0; i < 7; i++) {
+    myProj.listArray[0].create("todo-");
+  }
 }
 
-displayProject(myProj);
+// Call the function for creating a blank project
+createExampleProj();
 
-// displayList(myTodoList);
+// Check details of default project
+console.log(projArray[0]);
+
+// Display the default project
+function displayDefaultProject(index = 0) {
+  displayProject(projArray[index]);
+}
+
+displayDefaultProject();
