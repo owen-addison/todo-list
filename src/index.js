@@ -31,15 +31,6 @@ const createProj = (name = "New Project", info = undefined) => {
   return newProj;
 };
 
-// // Function to create new todo list
-// const createList = (name = "New List", id = undefined, info = undefined) => {
-//   const newList = todoList(name, `list${id}`, info);
-//   listArray.push(newList);
-//   // console.table(listArray);
-
-//   return newList;
-// };
-
 /*
   ___OBJECT LOGIC___
 */
@@ -67,17 +58,18 @@ function returnObjectFromArray(id, array) {
 */
 // Handle todo add event
 function handleTodoAdd(e) {
-  console.log(e.target);
   // Get project id
   const projId = e.target.closest(".project-container").id;
-  // Get id of target
-  const targetId = e.target.getAttribute("listId");
+  // Get project object from array
+  const proj = returnObjectFromArray(projId, projArray);
+  // Get list id
+  const listId = e.target.getAttribute("listId");
   // Get list object
-  const list = returnObjectFromArray(targetId, listArray);
+  const list = returnObjectFromArray(listId, proj.listArray);
   // Create a todo item
   list.create();
   // Update view of lists in array in DOM
-  updateProjView(targetId, listArray);
+  updateProjView(listId, proj.listArray);
 }
 
 // Handle list add event
@@ -87,14 +79,18 @@ function handleListAdd(targetId) {
 
 // Handle todo delete event
 function handleTodoDel(e) {
-  // Get target ID
-  const targetId = e.target.getAttribute("id");
-  // Get parent ID
-  const parentId = e.target.closest(".list-container").id;
+  // Get project id
+  const projId = e.target.closest(".project-container").id;
+  // Get project object from array
+  const proj = returnObjectFromArray(projId, projArray);
+  // Get todo ID
+  const todoId = e.target.getAttribute("id");
+  // Get list ID
+  const listId = e.target.closest(".list-container").id;
   // Filter through array of lists to find matching list object
-  const list = returnObjectFromArray(parentId, listArray);
+  const list = returnObjectFromArray(listId, proj.listArray);
   // Remove the first 4 characters from targetId string (First 4 characters: "del-")
-  const todoObjId = targetId.substring(4);
+  const todoObjId = todoId.substring(4);
   // Find index of object in array
   const arrayIndex = list.todoArray.findIndex(
     (element) => element.id === todoObjId
@@ -102,7 +98,7 @@ function handleTodoDel(e) {
   // Remove the todo object from array in parent list object
   list.todoArray.splice(arrayIndex, 1);
   // Update list view in DOM
-  updateProjView(parentId, listArray);
+  updateProjView(listId, proj.listArray);
 }
 
 // Handle list delete event
@@ -160,7 +156,6 @@ addGlobalEventListener("click", ".edit-icon", (e) => {
 addGlobalEventListener("click", ".del-icon", (e) => {
   // Set variables for the DOM element's type and id attributes
   const targetType = e.target.getAttribute("type");
-  console.log(targetType);
 
   // Check if element type is a list
   if (targetType === "todo") {
@@ -195,8 +190,8 @@ function createExampleProj() {
 // Call the function for creating a blank project
 createExampleProj();
 
-// Check details of default project
-console.log(projArray[0]);
+// // Check details of default project
+// console.log(projArray[0]);
 
 // Display the default project
 function displayDefaultProject(index = 0) {
