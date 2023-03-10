@@ -10,9 +10,6 @@ import { setUpDOM, updateProjView, displayProject } from "./domManager";
 const projArray = [];
 const listArray = [];
 
-const listTitleElement = "h3";
-const todoNameElement = "h5";
-
 /* REFACTOR TO MODULE
 -------------------------
   TODO/LIST LOGIC
