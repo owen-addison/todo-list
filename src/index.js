@@ -63,18 +63,31 @@ function handleTodoAdd(e) {
   // Get project object from array
   const proj = returnObjectFromArray(projId, projArray);
   // Get list id
-  const listId = e.target.getAttribute("listId");
+  const listId = e.target.closest(".list-container").id;
   // Get list object
   const list = returnObjectFromArray(listId, proj.listArray);
   // Create a todo item
-  list.create();
+  list.create("todo-");
   // Update view of lists in array in DOM
   updateProjView(listId, proj.listArray);
 }
 
 // Handle list add event
-function handleListAdd(targetId) {
-  console.log(targetId);
+function handleListAdd(e) {
+  // Get project id
+  const projId = document.querySelector(".project-container").id;
+  // Get project object from array
+  const proj = returnObjectFromArray(projId, projArray);
+  // Create a list in the project
+  proj.create("list-");
+  // Get new list object
+  const list = proj.listArray[proj.listArray.length - 1];
+  console.log(list);
+  // Get ID of new list
+  const listId = list.id;
+  console.log(list.id);
+  // Update view of lists in array in DOM
+  updateProjView(listId, proj.listArray);
 }
 
 // Handle todo delete event
