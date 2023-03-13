@@ -199,10 +199,13 @@ function updateProjView(listId, array) {
   } else {
     // For each element in the list array
     array.forEach((element) => {
-      // Get old DOM element for this array element
+      // Get old DOM element for this array element (if one exists)
       const oldDOM = document.getElementById(element.id);
-      // Remove old DOM element
-      removeListFromDOM(oldDOM);
+      // If a DOM element exists, remove it
+      if (oldDOM !== null) {
+        // Remove old DOM element
+        removeListFromDOM(oldDOM);
+      }
       // Add new DOM element
       addListToDOM(element);
     });
