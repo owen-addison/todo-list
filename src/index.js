@@ -69,7 +69,7 @@ function handleTodoAdd(e) {
   // Create a todo item
   list.create("todo-");
   // Update view of lists in array in DOM
-  updateProjView(listId, proj.listArray);
+  updateProjView(proj.listArray);
 }
 
 // Handle list add event
@@ -85,7 +85,7 @@ function handleListAdd(e) {
   // Get ID of new list
   const listId = list.id;
   // Update view of project in array in DOM
-  updateProjView(listId, proj.listArray);
+  updateProjView(proj.listArray);
 }
 
 // Handle todo delete event
@@ -109,7 +109,7 @@ function handleTodoDel(e) {
   // Remove the todo object from array in parent list object
   list.todoArray.splice(arrayIndex, 1);
   // Update project view in DOM
-  updateProjView(listId, proj.listArray);
+  updateProjView(proj.listArray);
 }
 
 // Handle list delete event
@@ -129,7 +129,7 @@ function handleListDel(e) {
   // Remove the list object from array in parent project object
   proj.listArray.splice(arrayIndex, 1);
   // Update proj view in DOM
-  updateProjView(listId, proj.listArray);
+  updateProjView(proj.listArray);
 }
 
 /*
