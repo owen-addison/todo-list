@@ -174,12 +174,14 @@ const displayList = (list) => {
 /*
   ___UPDATE PROJECT VIEW___
 */
-// Function to remove list from DOM
-function removeListFromDOM(list) {
-  // Get project element from DOM
-  const proj = list.parentElement;
-  // Remove the list DOM element from the project DOM element
-  proj.removeChild(list);
+// Function to remove all lists from project view in DOM
+function emptyProjView(list) {
+  // Get project node in DOM
+  const projNode = document.querySelector(".project-container");
+  // Remove all children of project node
+  while (projNode.firstChild) {
+    projNode.removeChild(projNode.lastChild);
+  }
 }
 
 // Function to add list to DOM
@@ -189,27 +191,14 @@ function addListToDOM(list) {
 }
 
 // Function to update project view
-function updateProjView(listId, array) {
-  if (array.length === 0) {
-    // If array empty
-    // Get DOM element for list
-    const listDOM = document.getElementById(listId);
-    // Remove list DOM element from project DOM element
-    removeListFromDOM(listDOM);
-  } else {
-    // For each element in the list array
-    array.forEach((element) => {
-      // Get old DOM element for this array element (if one exists)
-      const oldDOM = document.getElementById(element.id);
-      // If a DOM element exists, remove it
-      if (oldDOM !== null) {
-        // Remove old DOM element
-        removeListFromDOM(oldDOM);
-      }
-      // Add new DOM element
-      addListToDOM(element);
-    });
-  }
+function updateProjView(array) {
+  // Empty project view
+  emptyProjView();
+  // Cycle through all elements of project's list array
+  array.forEach((element) => {
+    // Add element to DOM
+    addListToDOM(element);
+  });
 }
 
 /*
