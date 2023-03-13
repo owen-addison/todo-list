@@ -6,8 +6,8 @@ function getUniqueID(idPrefix) {
 
 const creator = (state, arrayName, object, type) => ({
   create: (idPrefix) => {
-    const objName = idPrefix;
     const id = getUniqueID(idPrefix);
+    const objName = id;
     const info = null;
     // Get the type of child to add
     let childType;
