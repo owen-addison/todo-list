@@ -82,10 +82,8 @@ function handleListAdd(e) {
   proj.create("list-");
   // Get new list object
   const list = proj.listArray[proj.listArray.length - 1];
-  console.log(list);
   // Get ID of new list
   const listId = list.id;
-  console.log(list.id);
   // Update view of lists in array in DOM
   updateProjView(listId, proj.listArray);
 }
