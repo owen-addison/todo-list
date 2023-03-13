@@ -84,7 +84,7 @@ function handleListAdd(e) {
   const list = proj.listArray[proj.listArray.length - 1];
   // Get ID of new list
   const listId = list.id;
-  // Update view of lists in array in DOM
+  // Update view of project in array in DOM
   updateProjView(listId, proj.listArray);
 }
 
@@ -108,30 +108,28 @@ function handleTodoDel(e) {
   );
   // Remove the todo object from array in parent list object
   list.todoArray.splice(arrayIndex, 1);
-  // Update list view in DOM
+  // Update project view in DOM
   updateProjView(listId, proj.listArray);
 }
 
 // Handle list delete event
 function handleListDel(e) {
-  // array
-  let array = [listArray];
-
-  console.table(array);
-  console.log(e.target);
-
-  // Get target type
-  const targetType = e.target.getAttribute("type");
-  // Get target ID
-  const targetId = e.target.getAttribute("id");
-  // Get parent ID
-  const parentId = e.target.getAttribute("listId");
+  // Get project id
+  const projId = e.target.closest(".project-container").id;
+  // Get project object from array
+  const proj = returnObjectFromArray(projId, projArray);
+  // Get list ID
+  const listId = e.target.closest(".list-container").id;
   // Filter through array of lists to find matching list object
-  const list = returnObjectFromArray(targetId, array);
-  // Remove the list from the list array
-  array = array.filter((element) => element.id !== targetId);
-  // Update view of lists in array in DOM
-  updateProjView(targetId, array);
+  const list = returnObjectFromArray(listId, proj.listArray);
+  // Find index of list object in array
+  const arrayIndex = proj.listArray.findIndex(
+    (element) => element.id === listId
+  );
+  // Remove the list object from array in parent project object
+  proj.listArray.splice(arrayIndex, 1);
+  // Update proj view in DOM
+  updateProjView(listId, proj.listArray);
 }
 
 /*
