@@ -61,6 +61,7 @@ function setUpDOM(projArray) {
   const sidebarProjList = document.createElement("div");
   sidebarProjList.classList.add("projects-sidebar");
   sidebarContainer.appendChild(sidebarProjList);
+
   // For each project in array, add name of project to sidebar proj list div
   projArray.forEach((element) => {
     const projItem = document.createElement(listTitleElement);
@@ -68,6 +69,15 @@ function setUpDOM(projArray) {
     projItem.textContent = element.name;
     sidebarProjList.appendChild(projItem);
   });
+
+  // Add button for creating new projects to sidebar
+  const addProjContainer = document.createElement("div");
+  addProjContainer.classList.add("sb-button-container");
+  const addProjButton = document.createElement("button");
+  addProjButton.classList.add("sb-button");
+  addProjButton.textContent = "Add Project";
+  addProjContainer.appendChild(addProjButton);
+  sidebarContainer.appendChild(addProjContainer);
 
   // Create project view
   const projectView = document.createElement("div");
