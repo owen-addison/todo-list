@@ -7,11 +7,36 @@ import fileEditIcon from "./images/file-edit-outline.svg";
 DOM SETUP
 -------------------------
 */
+const sidebarTitleElement = "h2";
 const headerTitleElement = "h2";
 const listTitleElement = "h3";
 const todoNameElement = "h5";
 
-function setUpDOM() {
+// Function to remove all lists from project view in DOM
+function emptySidebarList(sidebarProjList) {
+  // Remove all children of project node
+  while (sidebarProjList.firstChild) {
+    sidebarProjList.removeChild(sidebarProjList.lastChild);
+  }
+}
+
+function updateSidebarList(projArray) {
+  // Get container for projects in sidebar
+  const sidebarProjList = document.querySelector(".projects-sidebar");
+
+  // Empty sidebar list
+  emptySidebarList(sidebarProjList);
+
+  // For each project in array, add name of project to sidebar proj list div
+  projArray.forEach((element) => {
+    const projItem = document.createElement(listTitleElement);
+    projItem.classList.add("sb-proj-item");
+    projItem.textContent = element.name;
+    sidebarProjList.appendChild(projItem);
+  });
+}
+
+function setUpDOM(projArray) {
   // Get content div element
   const content = document.querySelector(".content");
 
@@ -22,6 +47,27 @@ function setUpDOM() {
   // Create sidebar section
   const sidebar = document.createElement("div");
   sidebar.classList.add("sidebar");
+
+  // Create sidebar container
+  const sidebarContainer = document.createElement("div");
+  sidebarContainer.classList.add("sidebar-container");
+  sidebar.appendChild(sidebarContainer);
+  // Create title for sidebar
+  const sidebarTitle = document.createElement(sidebarTitleElement);
+  sidebarTitle.classList.add("sidebar-title");
+  sidebarTitle.textContent = "Projects";
+  sidebarContainer.appendChild(sidebarTitle);
+  // Create container for projects in sidebar
+  const sidebarProjList = document.createElement("div");
+  sidebarProjList.classList.add("projects-sidebar");
+  sidebarContainer.appendChild(sidebarProjList);
+  // For each project in array, add name of project to sidebar proj list div
+  projArray.forEach((element) => {
+    const projItem = document.createElement(listTitleElement);
+    projItem.classList.add("sb-proj-item");
+    projItem.textContent = element.name;
+    sidebarProjList.appendChild(projItem);
+  });
 
   // Create project view
   const projectView = document.createElement("div");
@@ -229,4 +275,4 @@ function displayProject(projObj) {
   });
 }
 
-export { setUpDOM, updateProjView, displayProject };
+export { setUpDOM, updateProjView, displayProject, updateSidebarList };
