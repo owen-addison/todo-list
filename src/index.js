@@ -5,7 +5,12 @@ import "./style.css";
 import { getUniqueID } from "./todoProto";
 import todoList from "./todoList";
 import project from "./project";
-import { setUpDOM, updateProjView, displayProject } from "./domManager";
+import {
+  setUpDOM,
+  updateProjView,
+  displayProject,
+  updateSidebarList,
+} from "./domManager";
 
 const projArray = [];
 const listArray = [];
@@ -179,8 +184,6 @@ addGlobalEventListener("click", ".del-icon", (e) => {
   INITIALIZE
 -------------------------
 */
-// Set up the DOM
-setUpDOM();
 
 // Create a blank project
 function createExampleProj() {
@@ -199,8 +202,8 @@ function createExampleProj() {
 // Call the function for creating a blank project
 createExampleProj();
 
-// // Check details of default project
-// console.log(projArray[0]);
+// Set up the DOM
+setUpDOM(projArray);
 
 // Display the default project
 function displayDefaultProject(index = 0) {
