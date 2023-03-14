@@ -42,6 +42,22 @@ h2, h3, h4, h5, h6 {
   border-right: 2px solid white;
 }
 
+.sidebar-title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: large;
+}
+
+.sidebar-container {
+  display: grid;
+  gap: 30px;
+  padding: 20px;
+  margin-top: 30px;
+}
+
+.projects-sidebar {
+  display: grid;
+  gap: 20px;
+}
 
 /* ------------ PROJECT VIEW ------------ */
 .project-view {
