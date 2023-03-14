@@ -30,10 +30,15 @@ function setUpDOM() {
   // Create project view header
   const projectHeader = document.createElement("div");
   projectHeader.classList.add("project-header");
+  // Add container for title
+  const titleContainer = document.createElement("div");
+  titleContainer.classList.add("header-title");
+  projectHeader.appendChild(titleContainer);
   // Add title to project header
   const headerTitle = document.createElement(headerTitleElement);
   projectHeader.appendChild(headerTitle);
-  headerTitle.classList.add("header-title");
+  // headerTitle.classList.add("header-title");
+  titleContainer.appendChild(headerTitle);
   // Add icon container to header
   const headerIconContainer = document.createElement("div");
   headerIconContainer.classList.add("header-icon-container");
