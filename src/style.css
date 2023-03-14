@@ -23,10 +23,6 @@ h2, h3, h4, h5, h6 {
   margin: 0px;
 }
 
-h2 {
-  font-family: 'Press Start 2P', cursive;
-}
-
 .content {
   width: 100vw;
   height: 100vh;
@@ -56,10 +52,19 @@ h2 {
 .project-header {
   display: grid;
   grid-template-columns: 1fr 200px;
+  align-content: center;
   border-bottom: 2px solid white;
   background: var(--bg-side-header);
   height: var(--header-height);
   /* width: 100%; */
+}
+
+.header-title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: larger;
+  display: grid;
+  align-content: center;
+  padding-left: 2em;
 }
 
 .project-header img {
