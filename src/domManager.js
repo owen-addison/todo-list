@@ -33,6 +33,7 @@ function setUpDOM() {
   // Add title to project header
   const headerTitle = document.createElement(headerTitleElement);
   projectHeader.appendChild(headerTitle);
+  headerTitle.classList.add("header-title");
   // Add icon container to header
   const headerIconContainer = document.createElement("div");
   headerIconContainer.classList.add("header-icon-container");
@@ -211,6 +212,11 @@ function displayProject(projObj) {
   const projectContainer = document.querySelector(".project-container");
   // Add ID to project container element
   projectContainer.setAttribute("id", projectID);
+
+  // Get the header title element
+  const headerTitle = document.querySelector(".header-title");
+  // Set text for title to project name
+  headerTitle.textContent = projObj.name;
 
   projObj.listArray.forEach((element) => {
     // console.log(element);
