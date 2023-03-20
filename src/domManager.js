@@ -266,11 +266,22 @@ function updateProjView(array) {
 /*
   ___DISPLAY PROJECT___
 */
+// Function to remove all lists from project view in DOM
+function emptyProjContainer(projectContainer) {
+  // Remove all children of project node
+  while (projectContainer.firstChild) {
+    projectContainer.removeChild(projectContainer.lastChild);
+  }
+}
+
 function displayProject(projObj) {
-  // Get the project ID
-  const projectID = projObj.id;
   // Get the project container element from DOM
   const projectContainer = document.querySelector(".project-container");
+  // Empty existing project container
+  emptyProjContainer(projectContainer);
+
+  // Get the project ID
+  const projectID = projObj.id;
   // Add ID to project container element
   projectContainer.setAttribute("id", projectID);
 
