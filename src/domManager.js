@@ -36,6 +36,40 @@ function updateSidebarList(projArray) {
   });
 }
 
+function setUpHeader(projectHeader) {
+  // Add container for title
+  const titleContainer = document.createElement("div");
+  titleContainer.classList.add("header-title");
+  projectHeader.appendChild(titleContainer);
+  // Add title to project header
+  const headerTitle = document.createElement(headerTitleElement);
+  projectHeader.appendChild(headerTitle);
+  // headerTitle.classList.add("header-title");
+  titleContainer.appendChild(headerTitle);
+  // Add icon container to header
+  const headerIconContainer = document.createElement("div");
+  headerIconContainer.classList.add("header-icon-container");
+  projectHeader.appendChild(headerIconContainer);
+  // Add icons to container
+  const headerAddIcon = new Image();
+  headerAddIcon.src = plusIcon;
+  headerAddIcon.classList.add("add-icon");
+  // headerAddIcon.setAttribute("projId", "proj1");
+  headerAddIcon.setAttribute("type", "proj");
+  headerIconContainer.appendChild(headerAddIcon);
+  const headerEditIcon = new Image();
+  headerEditIcon.src = fileEditIcon;
+  headerEditIcon.classList.add("edit-icon");
+  // headerEditIcon.setAttribute("projId", "proj");
+  headerEditIcon.setAttribute("type", "proj");
+  headerIconContainer.appendChild(headerEditIcon);
+  const headerRemoveIcon = new Image();
+  headerRemoveIcon.src = trashCanIcon;
+  headerRemoveIcon.classList.add("del-icon");
+  headerRemoveIcon.setAttribute("type", "proj");
+  headerIconContainer.appendChild(headerRemoveIcon);
+}
+
 function setUpDOM(projArray) {
   // Get content div element
   const content = document.querySelector(".content");
@@ -86,37 +120,7 @@ function setUpDOM(projArray) {
   // Create project view header
   const projectHeader = document.createElement("div");
   projectHeader.classList.add("project-header");
-  // Add container for title
-  const titleContainer = document.createElement("div");
-  titleContainer.classList.add("header-title");
-  projectHeader.appendChild(titleContainer);
-  // Add title to project header
-  const headerTitle = document.createElement(headerTitleElement);
-  projectHeader.appendChild(headerTitle);
-  // headerTitle.classList.add("header-title");
-  titleContainer.appendChild(headerTitle);
-  // Add icon container to header
-  const headerIconContainer = document.createElement("div");
-  headerIconContainer.classList.add("header-icon-container");
-  projectHeader.appendChild(headerIconContainer);
-  // Add icons to container
-  const headerAddIcon = new Image();
-  headerAddIcon.src = plusIcon;
-  headerAddIcon.classList.add("add-icon");
-  // headerAddIcon.setAttribute("projId", "proj1");
-  headerAddIcon.setAttribute("type", "proj");
-  headerIconContainer.appendChild(headerAddIcon);
-  const headerEditIcon = new Image();
-  headerEditIcon.src = fileEditIcon;
-  headerEditIcon.classList.add("edit-icon");
-  // headerEditIcon.setAttribute("projId", "proj");
-  headerEditIcon.setAttribute("type", "proj");
-  headerIconContainer.appendChild(headerEditIcon);
-  const headerRemoveIcon = new Image();
-  headerRemoveIcon.src = trashCanIcon;
-  headerRemoveIcon.classList.add("del-icon");
-  headerRemoveIcon.setAttribute("type", "proj");
-  headerIconContainer.appendChild(headerRemoveIcon);
+  setUpHeader(projectHeader);
 
   // Add project header to project view
   projectView.appendChild(projectHeader);
@@ -280,6 +284,13 @@ function displayProject(projObj) {
   // Empty existing project container
   emptyProjContainer(projectContainer);
 
+  // If project array previously empty then setUpHeader
+  if (projectContainer.id === "empty") {
+    // Get project header element
+    const projectHeader = document.querySelector(".project-header");
+    setUpHeader(projectHeader);
+  }
+
   // Get the project ID
   const projectID = projObj.id;
   // Add ID to project container element
@@ -296,4 +307,35 @@ function displayProject(projObj) {
   });
 }
 
-export { setUpDOM, updateProjView, displayProject, updateSidebarList };
+// Function to empty project header
+function emptyHeader(projectHeader) {
+  // Remove all children of header node
+  while (projectHeader.firstChild) {
+    projectHeader.removeChild(projectHeader.lastChild);
+  }
+}
+
+function displayEmptyProjArray() {
+  // Get the project container element from DOM
+  const projectContainer = document.querySelector(".project-container");
+  // Empty existing project container
+  emptyProjContainer(projectContainer);
+
+  // Set empty id for project container
+  projectContainer.setAttribute("id", "empty");
+
+  // Set text for empty project array
+  projectContainer.textContent = "No projects! Add a project in the sidebar!";
+
+  // Get project header element
+  const projectHeader = document.querySelector(".project-header");
+  emptyHeader(projectHeader);
+}
+
+export {
+  setUpDOM,
+  updateProjView,
+  displayProject,
+  updateSidebarList,
+  displayEmptyProjArray,
+};
