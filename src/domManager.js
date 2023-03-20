@@ -74,7 +74,7 @@ function setUpDOM(projArray) {
   const addProjContainer = document.createElement("div");
   addProjContainer.classList.add("sb-button-container");
   const addProjButton = document.createElement("button");
-  addProjButton.classList.add("sb-button");
+  addProjButton.classList.add("sb-add-button");
   addProjButton.textContent = "Add Project";
   addProjContainer.appendChild(addProjButton);
   sidebarContainer.appendChild(addProjContainer);
