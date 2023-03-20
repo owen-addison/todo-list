@@ -1,7 +1,4 @@
 import "./style.css";
-// import plusIcon from "./images/plus-box-outline.svg";
-// import trashCanIcon from "./images/trash-can-outline.svg";
-// import fileEditIcon from "./images/file-edit-outline.svg";
 import { getUniqueID } from "./todoProto";
 import todoList from "./todoList";
 import project from "./project";
@@ -13,7 +10,6 @@ import {
 } from "./domManager";
 
 const projArray = [];
-const listArray = [];
 
 /* REFACTOR TO MODULE
 -------------------------
@@ -146,6 +142,15 @@ function addGlobalEventListener(type, selector, callback) {
     if (e.target.matches(selector)) callback(e);
   });
 }
+
+// Event listener functionality for sidebar add project button
+addGlobalEventListener("click", ".sb-add-button", (e) => {
+  // Create a new project
+  createProj();
+
+  // Update sidebar
+  updateSidebarList(projArray);
+});
 
 // Event listener functionality for add icons
 addGlobalEventListener("click", ".add-icon", (e) => {
