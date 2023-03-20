@@ -130,6 +130,13 @@ h2, h3, h4, h5, h6 {
   padding: var(--list-padding);
 }
 
+#empty {
+  font-family: var(--title-font);
+  font-size: larger;
+  grid-template-columns: auto;
+  /* width: fit-content; */
+}
+
 .list-container {
   display: grid;
   gap: 10px;
