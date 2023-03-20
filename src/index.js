@@ -145,6 +145,27 @@ function handleProjAdd(e) {
   displayProject(newProj);
 }
 
+// Handle project deletion event
+function handleProjDel(e) {
+  // Get project id from project container
+  const projId = document.querySelector(".project-container").id;
+  // Get project object from array
+  const projObj = returnObjectFromArray(projId, projArray);
+  // Find index of list object in array
+  const arrayIndex = projArray.findIndex((element) => element.id === projId);
+  // Remove the list object from array in parent project object
+  projArray.splice(arrayIndex, 1);
+  // Display previous project
+  if (projArray.length > 0) {
+    displayProject(projArray[arrayIndex - 1]);
+  } else {
+    alert("Handle empty project array");
+    Error("Handle empty project array");
+  }
+  // Update sidebar list of projects
+  updateSidebarList(projArray);
+}
+
 /*
   ___EVENT LISTENERS___
 */
@@ -190,6 +211,8 @@ addGlobalEventListener("click", ".del-icon", (e) => {
     handleTodoDel(e);
   } else if (targetType === "list") {
     handleListDel(e);
+  } else if (targetType === "proj") {
+    handleProjDel(e);
   }
 });
 
