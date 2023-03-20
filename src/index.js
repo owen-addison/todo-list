@@ -7,6 +7,7 @@ import {
   updateProjView,
   displayProject,
   updateSidebarList,
+  displayEmptyProjArray,
 } from "./domManager";
 
 const projArray = [];
@@ -159,8 +160,7 @@ function handleProjDel(e) {
   if (projArray.length > 0) {
     displayProject(projArray[arrayIndex - 1]);
   } else {
-    alert("Handle empty project array");
-    Error("Handle empty project array");
+    displayEmptyProjArray();
   }
   // Update sidebar list of projects
   updateSidebarList(projArray);
