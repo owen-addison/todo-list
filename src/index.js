@@ -133,6 +133,15 @@ function handleListDel(e) {
   updateProjView(proj.listArray);
 }
 
+// Handle project add event
+function handleProjAdd(e) {
+  // Create a new project
+  createProj();
+
+  // Update sidebar
+  updateSidebarList(projArray);
+}
+
 /*
   ___EVENT LISTENERS___
 */
@@ -145,11 +154,8 @@ function addGlobalEventListener(type, selector, callback) {
 
 // Event listener functionality for sidebar add project button
 addGlobalEventListener("click", ".sb-add-button", (e) => {
-  // Create a new project
-  createProj();
-
-  // Update sidebar
-  updateSidebarList(projArray);
+  // Call event handler for adding a project
+  handleProjAdd(e);
 });
 
 // Event listener functionality for add icons
