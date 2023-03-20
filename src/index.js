@@ -123,8 +123,6 @@ function handleListDel(e) {
   // Get list ID
   const listId = e.target.closest(".list-container").id;
   // Filter through array of lists to find matching list object
-  const list = returnObjectFromArray(listId, proj.listArray);
-  // Find index of list object in array
   const arrayIndex = proj.listArray.findIndex(
     (element) => element.id === listId
   );
@@ -151,8 +149,6 @@ function handleProjDel(e) {
   // Get project id from project container
   const projId = document.querySelector(".project-container").id;
   // Get project object from array
-  const projObj = returnObjectFromArray(projId, projArray);
-  // Find index of list object in array
   const arrayIndex = projArray.findIndex((element) => element.id === projId);
   // Remove the list object from array in parent project object
   projArray.splice(arrayIndex, 1);
