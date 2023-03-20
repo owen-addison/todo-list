@@ -136,10 +136,13 @@ function handleListDel(e) {
 // Handle project add event
 function handleProjAdd(e) {
   // Create a new project
-  createProj();
+  const newProj = createProj();
 
   // Update sidebar
   updateSidebarList(projArray);
+
+  // Display new project
+  displayProject(newProj);
 }
 
 /*
