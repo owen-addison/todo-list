@@ -1,6 +1,5 @@
 import "./style.css";
 import { getUniqueID } from "./todoProto";
-import todoList from "./todoList";
 import project from "./project";
 import {
   setUpDOM,
