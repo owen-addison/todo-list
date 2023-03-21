@@ -6,9 +6,6 @@ function getUniqueID(idPrefix) {
 
 const creator = (state, arrayName, object, type) => ({
   create: (idPrefix) => {
-    const id = getUniqueID(idPrefix);
-    const objName = id;
-    const info = null;
     // Get the type of child to add
     let childType;
     if (type === "list") {
@@ -16,6 +13,9 @@ const creator = (state, arrayName, object, type) => ({
     } else if (type === "proj") {
       childType = "list";
     }
+    const id = getUniqueID(idPrefix);
+    const objName = `New ${childType}`;
+    const info = null;
     // Add a child object to the array
     state[`${arrayName}`].push(object(objName, id, info, childType));
   },
