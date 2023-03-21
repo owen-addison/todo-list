@@ -209,7 +209,7 @@ const displayList = (list) => {
     // Todo name
     const todoName = document.createElement(todoNameElement);
     todoName.classList.add("todo-name");
-    todoName.textContent = element.id;
+    todoName.textContent = element.name;
     todo.appendChild(todoName);
     // Todo icons
     const todoIcons = document.createElement("div");
