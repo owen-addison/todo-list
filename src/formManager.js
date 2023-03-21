@@ -19,6 +19,7 @@ function generateTodoForm() {
   // Add label for name input
   const todoNameLabel = document.createElement("label");
   todoNameLabel.setAttribute("for", "todo-name");
+  todoNameLabel.textContent = "Name:";
   // Add input for name and set attributes
   const todoNameInput = document.createElement("input");
   todoNameInput.setAttribute("type", "text");
@@ -37,6 +38,7 @@ function generateTodoForm() {
   // Add label for priority select
   const priorityLabel = document.createElement("label");
   priorityLabel.setAttribute("for", "todo-priority");
+  priorityLabel.textContent = "Priority:";
   // Add priority select element
   const prioritySelect = document.createElement("select");
   prioritySelect.name = "todo-priority";
@@ -55,12 +57,20 @@ function generateTodoForm() {
     // Add option element to select element
     prioritySelect.appendChild(priorityOption);
   });
-  // Add the select to priority container
+  // Add the select elements to priority container
+  priorityDiv.appendChild(priorityLabel);
   priorityDiv.appendChild(prioritySelect);
   // Append the priority container to the form container
   formContainer.appendChild(priorityDiv);
+
+  // Add form container to document
+  const content = document.querySelector(".content-container");
+  content.appendChild(formBackground);
 }
 
 // List edit form
+function generateListForm() {}
 
 // Project edit form
+
+export { generateTodoForm, generateListForm };
