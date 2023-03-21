@@ -209,3 +209,20 @@ h2, h3, h4, h5, h6 {
   height: calc(var(--title-icon-width) * 0.8);
   filter: invert(100%) sepia(0%) saturate(7454%) hue-rotate(94deg) brightness(110%) contrast(105%);
 }
+
+.form-background {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  position: absolute;
+  /* top: 50%; */
+  /* left: 50%; */
+  width: 100%;
+  height: 100%;
+  background: #3e3e3e6e;
+}
+
+.form-container {
+  background-color: #3e3e3e;
+  padding: 50px;
+}
