@@ -8,6 +8,7 @@ import {
   updateSidebarList,
   displayEmptyProjArray,
 } from "./domManager";
+import { generateTodoForm } from "./formManager";
 
 const projArray = [];
 
@@ -244,3 +245,6 @@ function displayDefaultProject(index = 0) {
 
 // Call function for displaying the default project
 displayDefaultProject();
+
+// Call generateTodoForm for testing
+generateTodoForm();
