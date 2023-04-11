@@ -1,8 +1,10 @@
+import returnObjectFromArray from "./objectLogic";
+
 // Define priority options array
 const priorityOptionsArray = ["none", "low", "medium", "high"];
 
 // Todo edit form
-function generateTodoForm() {
+function generateTodoForm(projId, projArray, listId, todoId) {
   // Create form background
   const formBackground = document.createElement("div");
   formBackground.classList.add("form-background");
@@ -62,6 +64,42 @@ function generateTodoForm() {
   priorityDiv.appendChild(prioritySelect);
   // Append the priority container to the form container
   formContainer.appendChild(priorityDiv);
+
+  // Add container for info
+  const infoDiv = document.createElement("div");
+  infoDiv.classList.add("form-div");
+  // Add label for info box
+  const infoLabel = document.createElement("label");
+  infoLabel.setAttribute("for", "todo-info");
+  infoLabel.textContent = "Info:";
+  // Add info text area element
+  const infoTextArea = document.createElement("textarea");
+  infoTextArea.name = "todo-info";
+  // Add the info elements to info container
+  infoDiv.appendChild(infoLabel);
+  infoDiv.appendChild(infoTextArea);
+  // Append the info container to the form container
+  formContainer.appendChild(infoDiv);
+
+  // Add container for submit button
+  const submitDiv = document.createElement("div");
+  submitDiv.classList.add("form-button-div");
+  // Add input element of type submit
+  const submitBtn = document.createElement("input");
+  submitBtn.setAttribute("type", "submit");
+  // Add submit button to the submit div
+  submitDiv.appendChild(submitBtn);
+  // Add submit container to form container
+  formContainer.appendChild(submitDiv);
+
+  // Add event listener to submit button
+  submitBtn.addEventListener("click", () => {
+    // Get the project object from the project array
+    const proj = returnObjectFromArray(projId, projArray);
+    console.log(projId);
+
+    console.log(infoTextArea.value);
+  });
 
   // Add form container to document
   const content = document.querySelector(".content-container");
