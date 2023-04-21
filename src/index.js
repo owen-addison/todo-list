@@ -254,7 +254,13 @@ const curProjId = document.querySelector(".project-container").id;
 // Get object of current project from main project array
 const curProjObj = returnObjectFromArray(curProjId, projArray);
 
-console.table(curProjObj);
+// Get id of first list from current project object
+const curListObj = curProjObj.listArray[0];
+const curListId = curListObj.id;
+// Get id of first todo item in the list object's todo array
+const curTodoId = curListObj.todoArray[0].id;
+
+console.log(curTodoId);
 
 // Call generateTodoForm for testing
 // generateTodoForm();
