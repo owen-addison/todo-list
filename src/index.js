@@ -247,5 +247,12 @@ function displayDefaultProject(index = 0) {
 // Call function for displaying the default project
 displayDefaultProject();
 
+// Get current project id of DOM project container element
+const curProjId = document.querySelector(".project-container").id;
+// Remove the first 5 characters to get the id of the project object
+const curProjObjId = curProjId.substring(5);
+
+console.log(curProjObjId);
+
 // Call generateTodoForm for testing
-generateTodoForm();
+// generateTodoForm();
