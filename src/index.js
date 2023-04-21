@@ -260,7 +260,5 @@ const curListId = curListObj.id;
 // Get id of first todo item in the list object's todo array
 const curTodoId = curListObj.todoArray[0].id;
 
-console.log(curTodoId);
-
 // Call generateTodoForm for testing
-// generateTodoForm();
+generateTodoForm(curProjId, projArray, curListId, curTodoId);
