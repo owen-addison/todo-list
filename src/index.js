@@ -104,7 +104,8 @@ function handleTodoDel(e) {
   // Filter through array of lists to find matching list object
   const list = returnObjectFromArray(listId, proj.listArray);
   // Remove the first 4 characters from targetId string (First 4 characters: "del-")
-  const todoObjId = todoId.substring(4);
+  const todoObjId =
+    todoId.substring(4); /* NOTE: THIS MAY BREAK OPERATION OF TODO DELETE!!! */
   // Find index of object in array
   const arrayIndex = list.todoArray.findIndex(
     (element) => element.id === todoObjId
@@ -249,10 +250,11 @@ displayDefaultProject();
 
 // Get current project id of DOM project container element
 const curProjId = document.querySelector(".project-container").id;
-// Remove the first 5 characters to get the id of the project object
-const curProjObjId = curProjId.substring(5);
 
-console.log(curProjObjId);
+// Get object of current project from main project array
+const curProjObj = returnObjectFromArray(curProjId, projArray);
+
+console.table(curProjObj);
 
 // Call generateTodoForm for testing
 // generateTodoForm();
