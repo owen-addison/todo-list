@@ -153,7 +153,13 @@ function handleTodoEdit(e) {
   // Get project id
   const projId = e.target.closest(".project-container").id;
   // Get project object from array
-  const proj = returnObjectFromArray(projId, projArray);
+  const listId = e.target.closest(".list-container").id;
+  // Get the id of the targeted todo DOM element
+  const todoId = e.target.id;
+  // Remove the first 4 characters from targetId string (First 5 characters: "edit-")
+  const todoObjId = todoId.substring(5);
+
+  generateTodoForm(projId, projArray, listId, todoObjId);
 }
 
 // Handle list edit event
@@ -280,8 +286,6 @@ const curListObj = curProjObj.listArray[0];
 const curListId = curListObj.id;
 // Get id of first todo item in the list object's todo array
 const curTodoId = curListObj.todoArray[0].id;
-
-console.log(curTodoId);
 
 // Call generateTodoForm for testing
 // generateTodoForm(curProjId, projArray, curListId, curTodoId);
