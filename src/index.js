@@ -37,6 +37,9 @@ const createProj = (name = "New Project", info = undefined) => {
 /*
   ___EVENT HANDLERS___ (for event listeners)
 */
+
+/* ADD EVENTS */
+
 // Handle todo add event
 function handleTodoAdd(e) {
   // Get project id
@@ -68,6 +71,20 @@ function handleListAdd(e) {
   // Update view of project in array in DOM
   updateProjView(proj.listArray);
 }
+
+// Handle project add event
+function handleProjAdd(e) {
+  // Create a new project
+  const newProj = createProj();
+
+  // Update sidebar
+  updateSidebarList(projArray);
+
+  // Display new project
+  displayProject(newProj);
+}
+
+/* DELETE EVENTS */
 
 // Handle todo delete event
 function handleTodoDel(e) {
@@ -111,36 +128,6 @@ function handleListDel(e) {
   updateProjView(proj.listArray);
 }
 
-// Handle todo edit event
-function handleTodoEdit(e) {
-  // Get project id
-  const projId = e.target.closest(".project-container").id;
-  // Get project object from array
-  const proj = returnObjectFromArray(projId, projArray);
-}
-
-// Handle list edit event
-function handleListEdit(e) {
-  console.log("STILL TO IMPLEMENT");
-
-  // Get project id
-  const projId = e.target.closest(".project-container").id;
-  // Get project object from array
-  const proj = returnObjectFromArray(projId, projArray);
-}
-
-// Handle project add event
-function handleProjAdd(e) {
-  // Create a new project
-  const newProj = createProj();
-
-  // Update sidebar
-  updateSidebarList(projArray);
-
-  // Display new project
-  displayProject(newProj);
-}
-
 // Handle project deletion event
 function handleProjDel(e) {
   // Get project id from project container
@@ -157,6 +144,26 @@ function handleProjDel(e) {
   }
   // Update sidebar list of projects
   updateSidebarList(projArray);
+}
+
+/* EDIT EVENTS */
+
+// Handle todo edit event
+function handleTodoEdit(e) {
+  // Get project id
+  const projId = e.target.closest(".project-container").id;
+  // Get project object from array
+  const proj = returnObjectFromArray(projId, projArray);
+}
+
+// Handle list edit event
+function handleListEdit(e) {
+  console.log("STILL TO IMPLEMENT");
+
+  // Get project id
+  const projId = e.target.closest(".project-container").id;
+  // Get project object from array
+  const proj = returnObjectFromArray(projId, projArray);
 }
 
 // Handle project edit event
