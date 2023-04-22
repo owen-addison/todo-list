@@ -104,8 +104,7 @@ function handleTodoDel(e) {
   // Filter through array of lists to find matching list object
   const list = returnObjectFromArray(listId, proj.listArray);
   // Remove the first 4 characters from targetId string (First 4 characters: "del-")
-  const todoObjId =
-    todoId.substring(4); /* NOTE: THIS MAY BREAK OPERATION OF TODO DELETE!!! */
+  const todoObjId = todoId.substring(4);
   // Find index of object in array
   const arrayIndex = list.todoArray.findIndex(
     (element) => element.id === todoObjId
@@ -132,6 +131,24 @@ function handleListDel(e) {
   proj.listArray.splice(arrayIndex, 1);
   // Update proj view in DOM
   updateProjView(proj.listArray);
+}
+
+// Handle todo edit event
+function handleTodoEdit(e) {
+  // Get project id
+  const projId = e.target.closest(".project-container").id;
+  // Get project object from array
+  const proj = returnObjectFromArray(projId, projArray);
+}
+
+// Handle list edit event
+function handleListEdit(e) {
+  console.log("STILL TO IMPLEMENT");
+
+  // Get project id
+  const projId = e.target.closest(".project-container").id;
+  // Get project object from array
+  const proj = returnObjectFromArray(projId, projArray);
 }
 
 // Handle project add event
@@ -162,6 +179,16 @@ function handleProjDel(e) {
   }
   // Update sidebar list of projects
   updateSidebarList(projArray);
+}
+
+// Handle project edit event
+function handleProjEdit(e) {
+  console.log("STILL TO IMPLEMENT");
+
+  // Get project id from project container
+  const projId = document.querySelector(".project-container").id;
+  // Get project object from array
+  const arrayIndex = projArray.findIndex((element) => element.id === projId);
 }
 
 /*
@@ -195,8 +222,17 @@ addGlobalEventListener("click", ".add-icon", (e) => {
 
 // Event listener functionality for edit icons
 addGlobalEventListener("click", ".edit-icon", (e) => {
-  console.log(`Edit target:`);
-  console.log(e.target);
+  // Set variables for the DOM element's type and id attributes
+  const targetType = e.target.getAttribute("type");
+
+  // Check if element type is a list
+  if (targetType === "todo") {
+    handleTodoEdit(e);
+  } else if (targetType === "list") {
+    handleListEdit(e);
+  } else if (targetType === "proj") {
+    handleProjEdit(e);
+  }
 });
 
 // Event listener functionality for delete icons
@@ -260,5 +296,7 @@ const curListId = curListObj.id;
 // Get id of first todo item in the list object's todo array
 const curTodoId = curListObj.todoArray[0].id;
 
+console.log(curTodoId);
+
 // Call generateTodoForm for testing
-generateTodoForm(curProjId, projArray, curListId, curTodoId);
+// generateTodoForm(curProjId, projArray, curListId, curTodoId);
