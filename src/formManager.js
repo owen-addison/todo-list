@@ -27,6 +27,8 @@ function generateTodoForm(projId, projArray, listId, todoId) {
   todoNameInput.setAttribute("type", "text");
   todoNameInput.setAttribute("id", "todo-name");
   todoNameInput.setAttribute("name", "todo-name");
+  // Set input as required
+  todoNameInput.required = true;
 
   // Append both label and input for name to name container
   nameDiv.appendChild(todoNameLabel);
@@ -96,9 +98,26 @@ function generateTodoForm(projId, projArray, listId, todoId) {
   submitBtn.addEventListener("click", () => {
     // Get the project object from the project array
     const proj = returnObjectFromArray(projId, projArray);
-    console.log(projId);
+    // Get the list object from the project's list array
+    const list = returnObjectFromArray(listId, proj.listArray);
+    // Get the todo object from the list's todo array
+    const todo = returnObjectFromArray(todoId, list.todoArray);
 
-    console.log(infoTextArea.value);
+    if (todoNameInput) {
+      // Change the name of todo object
+      todo.name = todoNameInput.value;
+      // Change the priority of todo object
+      todo.priority = prioritySelect.value;
+      // Change the info of the todo object
+      todo.info = infoTextArea;
+    } else {
+      // Throw error and cancel submission of form
+      alert("no name");
+    }
+
+    console.log(todo);
+
+    // console.log(infoTextArea.value);
   });
 
   // Add form container to document
