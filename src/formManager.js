@@ -1,4 +1,5 @@
 import returnObjectFromArray from "./objectLogic";
+import { updateProjView } from "./domManager";
 
 // Define priority options array
 const priorityOptionsArray = ["none", "low", "medium", "high"];
@@ -103,21 +104,23 @@ function generateTodoForm(projId, projArray, listId, todoId) {
     // Get the todo object from the list's todo array
     const todo = returnObjectFromArray(todoId, list.todoArray);
 
-    if (todoNameInput) {
+    if (todoNameInput.value !== "") {
       // Change the name of todo object
       todo.name = todoNameInput.value;
       // Change the priority of todo object
       todo.priority = prioritySelect.value;
       // Change the info of the todo object
       todo.info = infoTextArea;
+
+      // Update project view
+      updateProjView(proj.listArray);
+
+      // Remove form background element from DOM
+      formBackground.remove();
     } else {
       // Throw error and cancel submission of form
       alert("no name");
     }
-
-    console.log(todo);
-
-    // console.log(infoTextArea.value);
   });
 
   // Add form container to document
