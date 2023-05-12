@@ -131,6 +131,12 @@ function generateTodoForm(projId, projArray, listId, todoId) {
     }
   });
 
+  // Add event listener to cancel button
+  cancelBtn.addEventListener("click", () => {
+    // Remove form background element from DOM
+    formBackground.remove();
+  });
+
   // Add form container to document
   const content = document.querySelector(".content-container");
   content.appendChild(formBackground);
