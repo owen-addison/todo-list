@@ -6,6 +6,20 @@ const priorityOptionsArray = ["none", "low", "medium", "high"];
 
 // Todo edit form
 function generateTodoForm(projId, projArray, listId, todoId) {
+  // Get the project object from the project array
+  const proj = returnObjectFromArray(projId, projArray);
+  // Get the list object from the project's list array
+  const list = returnObjectFromArray(listId, proj.listArray);
+  // Get the todo object from the list's todo array
+  const todo = returnObjectFromArray(todoId, list.todoArray);
+
+  // Get current name of todo
+  const currentName = todo.name;
+  // Get current priority of todo
+  const currentPriority = todo.priority;
+  // Get current info of todo
+  const currentInfo = todo.info;
+
   // Create form background
   const formBackground = document.createElement("div");
   formBackground.classList.add("form-background");
@@ -30,6 +44,8 @@ function generateTodoForm(projId, projArray, listId, todoId) {
   todoNameInput.setAttribute("name", "todo-name");
   // Set input as required
   todoNameInput.required = true;
+  // Set input value to current name
+  todoNameInput.value = currentName;
 
   // Append both label and input for name to name container
   nameDiv.appendChild(todoNameLabel);
@@ -62,6 +78,9 @@ function generateTodoForm(projId, projArray, listId, todoId) {
     // Add option element to select element
     prioritySelect.appendChild(priorityOption);
   });
+  // Set select value to current priority
+  prioritySelect.value = currentPriority;
+
   // Add the select elements to priority container
   priorityDiv.appendChild(priorityLabel);
   priorityDiv.appendChild(prioritySelect);
@@ -78,6 +97,9 @@ function generateTodoForm(projId, projArray, listId, todoId) {
   // Add info text area element
   const infoTextArea = document.createElement("textarea");
   infoTextArea.name = "todo-info";
+  // Set info text area value to current info
+  infoTextArea.value = currentInfo;
+
   // Add the info elements to info container
   infoDiv.appendChild(infoLabel);
   infoDiv.appendChild(infoTextArea);
@@ -105,20 +127,13 @@ function generateTodoForm(projId, projArray, listId, todoId) {
 
   // Add event listener to submit button
   submitBtn.addEventListener("click", () => {
-    // Get the project object from the project array
-    const proj = returnObjectFromArray(projId, projArray);
-    // Get the list object from the project's list array
-    const list = returnObjectFromArray(listId, proj.listArray);
-    // Get the todo object from the list's todo array
-    const todo = returnObjectFromArray(todoId, list.todoArray);
-
     if (todoNameInput.value !== "") {
       // Change the name of todo object
       todo.name = todoNameInput.value;
       // Change the priority of todo object
       todo.priority = prioritySelect.value;
       // Change the info of the todo object
-      todo.info = infoTextArea;
+      todo.info = infoTextArea.value;
 
       // Update project view
       updateProjView(proj.listArray);
