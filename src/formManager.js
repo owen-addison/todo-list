@@ -84,16 +84,24 @@ function generateTodoForm(projId, projArray, listId, todoId) {
   // Append the info container to the form container
   formContainer.appendChild(infoDiv);
 
-  // Add container for submit button
-  const submitDiv = document.createElement("div");
-  submitDiv.classList.add("form-button-div");
+  // Add container for submit and cancel buttons
+  const buttonDiv = document.createElement("div");
+  buttonDiv.classList.add("form-button-div");
   // Add input element of type submit
   const submitBtn = document.createElement("input");
   submitBtn.setAttribute("type", "submit");
-  // Add submit button to the submit div
-  submitDiv.appendChild(submitBtn);
+  submitBtn.classList.add("edit-form-btn");
+  // Add submit button to the button div
+  buttonDiv.appendChild(submitBtn);
+  // Add a button element for cancelling action
+  const cancelBtn = document.createElement("button");
+  cancelBtn.classList.add("edit-form-btn");
+  // Set button text
+  cancelBtn.textContent = "Cancel";
+  // Add cancel button to the button div
+  buttonDiv.appendChild(cancelBtn);
   // Add submit container to form container
-  formContainer.appendChild(submitDiv);
+  formContainer.appendChild(buttonDiv);
 
   // Add event listener to submit button
   submitBtn.addEventListener("click", () => {
