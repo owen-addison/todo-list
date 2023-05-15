@@ -80,6 +80,8 @@ function generateTodoForm(projId, projArray, listId, todoId) {
   });
   // Set select value to current priority
   prioritySelect.value = currentPriority;
+  // Set ID attribute for select element
+  prioritySelect.setAttribute("id", "todo-priority");
 
   // Add the select elements to priority container
   priorityDiv.appendChild(priorityLabel);
