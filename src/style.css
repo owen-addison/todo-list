@@ -223,6 +223,40 @@ h2, h3, h4, h5, h6 {
 }
 
 .form-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
   background-color: #3e3e3e;
-  padding: 50px;
+  padding: 100px;
+  border: var(--font-col) solid 2px;
+  border-radius: 20px;
+}
+
+.form-div {
+  display: grid;
+  grid-template-columns: 100px auto;
+  gap: 10px;
+}
+
+#todo-name {
+  width: 80px;
+}
+
+#todo-priority {
+  width: 90px;
+}
+
+.form-button-div {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 20px;
+  width: 100%;
+  justify-content: center;
+  align-content: center;
+  margin-top: 20px;
+}
+
+.edit-form-btn {
+  padding: 0.4em 1em;
+  border-radius: 0.6em;
 }
