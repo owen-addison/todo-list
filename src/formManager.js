@@ -160,7 +160,21 @@ function generateTodoForm(projId, projArray, listId, todoId) {
 }
 
 // List edit form
-function generateListForm() {}
+function generateListForm(projId, projArray, listId) {
+  // Get the project object from the project array
+  const proj = returnObjectFromArray(projId, projArray);
+  // Get the list object from the project's list array
+  const list = returnObjectFromArray(listId, proj.listArray);
+
+  // Get current name of list
+  const currentName = list.name;
+  // Get current info of list
+  const currentInfo = list.info;
+
+  console.log(currentName);
+  console.log(currentInfo);
+  console.log(list);
+}
 
 // Project edit form
 
