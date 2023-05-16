@@ -8,7 +8,7 @@ import {
   updateSidebarList,
   displayEmptyProjArray,
 } from "./domManager";
-import { generateTodoForm } from "./formManager";
+import { generateTodoForm, generateListForm } from "./formManager";
 import returnObjectFromArray from "./objectLogic";
 
 const projArray = [];
@@ -169,7 +169,7 @@ function handleListEdit(e) {
   // Get list id
   const listId = e.target.closest(".list-container").id;
 
-  console.log(listId);
+  generateListForm(projId, projArray, listId);
 }
 
 // Handle project edit event
