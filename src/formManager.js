@@ -171,9 +171,105 @@ function generateListForm(projId, projArray, listId) {
   // Get current info of list
   const currentInfo = list.info;
 
-  console.log(currentName);
-  console.log(currentInfo);
-  console.log(list);
+  // Create form background
+  const formBackground = document.createElement("div");
+  formBackground.classList.add("form-background");
+  // Create form container
+  const formContainer = document.createElement("div");
+  formContainer.classList.add("form-container");
+
+  // Append container to background element
+  formBackground.appendChild(formContainer);
+
+  // Add container for name elements
+  const nameDiv = document.createElement("div");
+  nameDiv.classList.add("form-div");
+  // Add label for name input
+  const listNameLabel = document.createElement("label");
+  listNameLabel.setAttribute("for", "list-name");
+  listNameLabel.textContent = "Name:";
+  // Add input for name and set attributes
+  const listNameInput = document.createElement("input");
+  listNameInput.setAttribute("type", "text");
+  listNameInput.setAttribute("id", "list-name");
+  listNameInput.setAttribute("name", "list-name");
+  // Set input as required
+  listNameInput.required = true;
+  // Set input value to current name
+  listNameInput.value = currentName;
+
+  // Append both label and input for name to name container
+  nameDiv.appendChild(listNameLabel);
+  nameDiv.appendChild(listNameInput);
+  // Append the name container to form container
+  formContainer.appendChild(nameDiv);
+
+  // Add container for info
+  const infoDiv = document.createElement("div");
+  infoDiv.classList.add("form-div");
+  // Add label for info box
+  const infoLabel = document.createElement("label");
+  infoLabel.setAttribute("for", "todo-info");
+  infoLabel.textContent = "Info:";
+  // Add info text area element
+  const infoTextArea = document.createElement("textarea");
+  infoTextArea.name = "todo-info";
+  // Set info text area value to current info
+  infoTextArea.value = currentInfo;
+
+  // Add the info elements to info container
+  infoDiv.appendChild(infoLabel);
+  infoDiv.appendChild(infoTextArea);
+  // Append the info container to the form container
+  formContainer.appendChild(infoDiv);
+
+  // Add container for submit and cancel buttons
+  const buttonDiv = document.createElement("div");
+  buttonDiv.classList.add("form-button-div");
+  // Add input element of type submit
+  const submitBtn = document.createElement("input");
+  submitBtn.setAttribute("type", "submit");
+  submitBtn.classList.add("edit-form-btn");
+  // Add submit button to the button div
+  buttonDiv.appendChild(submitBtn);
+  // Add a button element for cancelling action
+  const cancelBtn = document.createElement("button");
+  cancelBtn.classList.add("edit-form-btn");
+  // Set button text
+  cancelBtn.textContent = "Cancel";
+  // Add cancel button to the button div
+  buttonDiv.appendChild(cancelBtn);
+  // Add submit container to form container
+  formContainer.appendChild(buttonDiv);
+
+  // Add event listener to submit button
+  submitBtn.addEventListener("click", () => {
+    if (listNameInput.value !== "") {
+      // Change the name of todo object
+      list.name = listNameInput.value;
+      // Change the info of the todo object
+      list.info = infoTextArea.value;
+
+      // Update project view
+      updateProjView(proj.listArray);
+
+      // Remove form background element from DOM
+      formBackground.remove();
+    } else {
+      // Throw error and cancel submission of form
+      alert("no name");
+    }
+  });
+
+  // Add event listener to cancel button
+  cancelBtn.addEventListener("click", () => {
+    // Remove form background element from DOM
+    formBackground.remove();
+  });
+
+  // Add form container to document
+  const content = document.querySelector(".content-container");
+  content.appendChild(formBackground);
 }
 
 // Project edit form
