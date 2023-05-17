@@ -4,22 +4,8 @@ import { updateProjView } from "./domManager";
 // Define priority options array
 const priorityOptionsArray = ["none", "low", "medium", "high"];
 
-// Todo edit form
-function generateTodoForm(projId, projArray, listId, todoId) {
-  // Get the project object from the project array
-  const proj = returnObjectFromArray(projId, projArray);
-  // Get the list object from the project's list array
-  const list = returnObjectFromArray(listId, proj.listArray);
-  // Get the todo object from the list's todo array
-  const todo = returnObjectFromArray(todoId, list.todoArray);
-
-  // Get current name of todo
-  const currentName = todo.name;
-  // Get current priority of todo
-  const currentPriority = todo.priority;
-  // Get current info of todo
-  const currentInfo = todo.info;
-
+// Function for initializing form
+function initForm() {
   // Create form background
   const formBackground = document.createElement("div");
   formBackground.classList.add("form-background");
@@ -30,39 +16,55 @@ function generateTodoForm(projId, projArray, listId, todoId) {
   // Append container to background element
   formBackground.appendChild(formContainer);
 
+  // Add form container to document
+  const content = document.querySelector(".content-container");
+  content.appendChild(formBackground);
+}
+
+// Function for adding name input elements
+function addNameInput(currentName) {
+  // Get the form container
+  const formContainer = document.querySelector(".form-container");
+
   // Add container for name elements
   const nameDiv = document.createElement("div");
   nameDiv.classList.add("form-div");
   // Add label for name input
-  const todoNameLabel = document.createElement("label");
-  todoNameLabel.setAttribute("for", "todo-name");
-  todoNameLabel.textContent = "Name:";
+  const nameLabel = document.createElement("label");
+  nameLabel.setAttribute("for", "name-input");
+  nameLabel.textContent = "Name:";
   // Add input for name and set attributes
-  const todoNameInput = document.createElement("input");
-  todoNameInput.setAttribute("type", "text");
-  todoNameInput.setAttribute("id", "todo-name");
-  todoNameInput.setAttribute("name", "todo-name");
+  const nameInput = document.createElement("input");
+  nameInput.setAttribute("type", "text");
+  nameInput.setAttribute("id", "name-input");
+  nameInput.setAttribute("name", "name-input");
   // Set input as required
-  todoNameInput.required = true;
+  nameInput.required = true;
   // Set input value to current name
-  todoNameInput.value = currentName;
+  nameInput.value = currentName;
 
   // Append both label and input for name to name container
-  nameDiv.appendChild(todoNameLabel);
-  nameDiv.appendChild(todoNameInput);
+  nameDiv.appendChild(nameLabel);
+  nameDiv.appendChild(nameInput);
   // Append the name container to form container
   formContainer.appendChild(nameDiv);
+}
+
+// Function for adding priority select input elements
+function addPriorityInput(currentPriority) {
+  // Get the form container
+  const formContainer = document.querySelector(".form-container");
 
   // Add container for priority elements
   const priorityDiv = document.createElement("div");
   priorityDiv.classList.add("form-div");
   // Add label for priority select
   const priorityLabel = document.createElement("label");
-  priorityLabel.setAttribute("for", "todo-priority");
+  priorityLabel.setAttribute("for", "priority-input");
   priorityLabel.textContent = "Priority:";
   // Add priority select element
   const prioritySelect = document.createElement("select");
-  prioritySelect.name = "todo-priority";
+  prioritySelect.name = "priority-input";
   // Loop through options array
   priorityOptionsArray.forEach((element) => {
     // Create option element
@@ -81,32 +83,48 @@ function generateTodoForm(projId, projArray, listId, todoId) {
   // Set select value to current priority
   prioritySelect.value = currentPriority;
   // Set ID attribute for select element
-  prioritySelect.setAttribute("id", "todo-priority");
+  prioritySelect.setAttribute("id", "priority-input");
 
   // Add the select elements to priority container
   priorityDiv.appendChild(priorityLabel);
   priorityDiv.appendChild(prioritySelect);
   // Append the priority container to the form container
   formContainer.appendChild(priorityDiv);
+}
+
+// Function for adding info input elements
+function addInfoInput(currentInfo) {
+  // Get the form container
+  const formContainer = document.querySelector(".form-container");
 
   // Add container for info
   const infoDiv = document.createElement("div");
   infoDiv.classList.add("form-div");
   // Add label for info box
   const infoLabel = document.createElement("label");
-  infoLabel.setAttribute("for", "todo-info");
+  infoLabel.setAttribute("for", "info-input");
   infoLabel.textContent = "Info:";
   // Add info text area element
-  const infoTextArea = document.createElement("textarea");
-  infoTextArea.name = "todo-info";
+  const infoInput = document.createElement("textarea");
+  infoInput.name = "info-input";
+  // Set ID attribute for info text area input element
+  infoInput.setAttribute("id", "info-input");
   // Set info text area value to current info
-  infoTextArea.value = currentInfo;
+  infoInput.value = currentInfo;
 
   // Add the info elements to info container
   infoDiv.appendChild(infoLabel);
-  infoDiv.appendChild(infoTextArea);
+  infoDiv.appendChild(infoInput);
   // Append the info container to the form container
   formContainer.appendChild(infoDiv);
+}
+
+// Function for adding button elements
+function addButtons(proj, obj, priorityBool) {
+  // Get the form background
+  const formBackground = document.querySelector(".form-background");
+  // Get the form container
+  const formContainer = document.querySelector(".form-container");
 
   // Add container for submit and cancel buttons
   const buttonDiv = document.createElement("div");
@@ -129,13 +147,27 @@ function generateTodoForm(projId, projArray, listId, todoId) {
 
   // Add event listener to submit button
   submitBtn.addEventListener("click", () => {
-    if (todoNameInput.value !== "") {
-      // Change the name of todo object
-      todo.name = todoNameInput.value;
-      // Change the priority of todo object
-      todo.priority = prioritySelect.value;
-      // Change the info of the todo object
-      todo.info = infoTextArea.value;
+    // Get name input element
+    const nameInput = document.getElementById("name-input");
+
+    // Check whether todo boolean is true
+    const prioritySelect = priorityBool
+      ? document.getElementById("priority-input")
+      : null;
+
+    // Get info input element
+    const infoInput = document.getElementById("info-input");
+
+    if (nameInput.value !== "") {
+      // Change the name of object
+      obj.name = nameInput.value;
+      // If priority select is present then change the object priority
+      if (prioritySelect !== null) {
+        // Change the priority of object
+        obj.priority = prioritySelect.value;
+      }
+      // Change the info of the object
+      obj.info = infoInput.value;
 
       // Update project view
       updateProjView(proj.listArray);
@@ -153,10 +185,33 @@ function generateTodoForm(projId, projArray, listId, todoId) {
     // Remove form background element from DOM
     formBackground.remove();
   });
+}
 
-  // Add form container to document
-  const content = document.querySelector(".content-container");
-  content.appendChild(formBackground);
+// Todo edit form
+function generateTodoForm(projId, projArray, listId, todoId) {
+  // Get the project object from the project array
+  const proj = returnObjectFromArray(projId, projArray);
+  // Get the list object from the project's list array
+  const list = returnObjectFromArray(listId, proj.listArray);
+  // Get the todo object from the list's todo array
+  const todo = returnObjectFromArray(todoId, list.todoArray);
+
+  // Get current name of todo
+  const currentName = todo.name;
+  // Get current priority of todo
+  const currentPriority = todo.priority;
+  // Get current info of todo
+  const currentInfo = todo.info;
+
+  initForm();
+
+  addNameInput(currentName);
+
+  addPriorityInput(currentPriority);
+
+  addInfoInput(currentInfo);
+
+  addButtons(proj, todo, true);
 }
 
 // List edit form
@@ -171,105 +226,13 @@ function generateListForm(projId, projArray, listId) {
   // Get current info of list
   const currentInfo = list.info;
 
-  // Create form background
-  const formBackground = document.createElement("div");
-  formBackground.classList.add("form-background");
-  // Create form container
-  const formContainer = document.createElement("div");
-  formContainer.classList.add("form-container");
+  initForm();
 
-  // Append container to background element
-  formBackground.appendChild(formContainer);
+  addNameInput(currentName);
 
-  // Add container for name elements
-  const nameDiv = document.createElement("div");
-  nameDiv.classList.add("form-div");
-  // Add label for name input
-  const listNameLabel = document.createElement("label");
-  listNameLabel.setAttribute("for", "list-name");
-  listNameLabel.textContent = "Name:";
-  // Add input for name and set attributes
-  const listNameInput = document.createElement("input");
-  listNameInput.setAttribute("type", "text");
-  listNameInput.setAttribute("id", "list-name");
-  listNameInput.setAttribute("name", "list-name");
-  // Set input as required
-  listNameInput.required = true;
-  // Set input value to current name
-  listNameInput.value = currentName;
+  addInfoInput(currentInfo);
 
-  // Append both label and input for name to name container
-  nameDiv.appendChild(listNameLabel);
-  nameDiv.appendChild(listNameInput);
-  // Append the name container to form container
-  formContainer.appendChild(nameDiv);
-
-  // Add container for info
-  const infoDiv = document.createElement("div");
-  infoDiv.classList.add("form-div");
-  // Add label for info box
-  const infoLabel = document.createElement("label");
-  infoLabel.setAttribute("for", "todo-info");
-  infoLabel.textContent = "Info:";
-  // Add info text area element
-  const infoTextArea = document.createElement("textarea");
-  infoTextArea.name = "todo-info";
-  // Set info text area value to current info
-  infoTextArea.value = currentInfo;
-
-  // Add the info elements to info container
-  infoDiv.appendChild(infoLabel);
-  infoDiv.appendChild(infoTextArea);
-  // Append the info container to the form container
-  formContainer.appendChild(infoDiv);
-
-  // Add container for submit and cancel buttons
-  const buttonDiv = document.createElement("div");
-  buttonDiv.classList.add("form-button-div");
-  // Add input element of type submit
-  const submitBtn = document.createElement("input");
-  submitBtn.setAttribute("type", "submit");
-  submitBtn.classList.add("edit-form-btn");
-  // Add submit button to the button div
-  buttonDiv.appendChild(submitBtn);
-  // Add a button element for cancelling action
-  const cancelBtn = document.createElement("button");
-  cancelBtn.classList.add("edit-form-btn");
-  // Set button text
-  cancelBtn.textContent = "Cancel";
-  // Add cancel button to the button div
-  buttonDiv.appendChild(cancelBtn);
-  // Add submit container to form container
-  formContainer.appendChild(buttonDiv);
-
-  // Add event listener to submit button
-  submitBtn.addEventListener("click", () => {
-    if (listNameInput.value !== "") {
-      // Change the name of todo object
-      list.name = listNameInput.value;
-      // Change the info of the todo object
-      list.info = infoTextArea.value;
-
-      // Update project view
-      updateProjView(proj.listArray);
-
-      // Remove form background element from DOM
-      formBackground.remove();
-    } else {
-      // Throw error and cancel submission of form
-      alert("no name");
-    }
-  });
-
-  // Add event listener to cancel button
-  cancelBtn.addEventListener("click", () => {
-    // Remove form background element from DOM
-    formBackground.remove();
-  });
-
-  // Add form container to document
-  const content = document.querySelector(".content-container");
-  content.appendChild(formBackground);
+  addButtons(proj, list, false);
 }
 
 // Project edit form
