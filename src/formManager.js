@@ -121,6 +121,8 @@ function addInfoInput(currentInfo) {
 
 // Function for adding button elements
 function addButtons(proj, obj, priorityBool) {
+  console.log(obj.type);
+
   // Get the form background
   const formBackground = document.querySelector(".form-background");
   // Get the form container
@@ -236,5 +238,22 @@ function generateListForm(projId, projArray, listId) {
 }
 
 // Project edit form
+function generateProjForm(projId, projArray) {
+  // Get the project object from the project array
+  const proj = returnObjectFromArray(projId, projArray);
 
-export { generateTodoForm, generateListForm };
+  // Get current name of project
+  const currentName = proj.name;
+  // Get the current info of project
+  const currentInfo = proj.info;
+
+  initForm();
+
+  addNameInput(currentName);
+
+  addInfoInput(currentInfo);
+
+  addButtons(proj, proj, false);
+}
+
+export { generateTodoForm, generateListForm, generateProjForm };

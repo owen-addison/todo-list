@@ -8,7 +8,11 @@ import {
   updateSidebarList,
   displayEmptyProjArray,
 } from "./domManager";
-import { generateTodoForm, generateListForm } from "./formManager";
+import {
+  generateTodoForm,
+  generateListForm,
+  generateProjForm,
+} from "./formManager";
 import returnObjectFromArray from "./objectLogic";
 
 const projArray = [];
@@ -176,6 +180,8 @@ function handleListEdit(e) {
 function handleProjEdit(e) {
   // Get project id from project container
   const projId = document.querySelector(".project-container").id;
+
+  generateProjForm(projId, projArray);
 
   // // Get project object from array
   // const arrayIndex = projArray.findIndex((element) => element.id === projId);
