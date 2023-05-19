@@ -174,12 +174,11 @@ function handleListEdit(e) {
 
 // Handle project edit event
 function handleProjEdit(e) {
-  console.log("STILL TO IMPLEMENT");
-
   // Get project id from project container
   const projId = document.querySelector(".project-container").id;
-  // Get project object from array
-  const arrayIndex = projArray.findIndex((element) => element.id === projId);
+
+  // // Get project object from array
+  // const arrayIndex = projArray.findIndex((element) => element.id === projId);
 }
 
 /*
