@@ -120,8 +120,9 @@ function addInfoInput(currentInfo) {
 }
 
 // Function for adding button elements
-function addButtons(proj, obj, priorityBool) {
-  console.log(obj.type);
+function addButtons(obj, proj) {
+  // Get the object type
+  const { type } = obj;
 
   // Get the form background
   const formBackground = document.querySelector(".form-background");
@@ -152,27 +153,30 @@ function addButtons(proj, obj, priorityBool) {
     // Get name input element
     const nameInput = document.getElementById("name-input");
 
-    // Check whether todo boolean is true
-    const prioritySelect = priorityBool
-      ? document.getElementById("priority-input")
-      : null;
-
     // Get info input element
     const infoInput = document.getElementById("info-input");
 
+    // Check whether the name input is empty
     if (nameInput.value !== "") {
       // Change the name of object
       obj.name = nameInput.value;
-      // If priority select is present then change the object priority
-      if (prioritySelect !== null) {
+
+      // If the type is todo then change the todo priority
+      if (type === "todo") {
         // Change the priority of object
-        obj.priority = prioritySelect.value;
+        obj.priority = document.getElementById("priority-input").value;
       }
+
       // Change the info of the object
       obj.info = infoInput.value;
 
-      // Update project view
-      updateProjView(proj.listArray);
+      if (type === "todo" || type === "list") {
+        // Update project view
+        updateProjView(proj.listArray);
+      } else if (type === "proj") {
+        // Update project view
+        updateProjView(obj.listArray);
+      }
 
       // Remove form background element from DOM
       formBackground.remove();
@@ -213,7 +217,7 @@ function generateTodoForm(projId, projArray, listId, todoId) {
 
   addInfoInput(currentInfo);
 
-  addButtons(proj, todo, true);
+  addButtons(todo, proj);
 }
 
 // List edit form
@@ -234,7 +238,7 @@ function generateListForm(projId, projArray, listId) {
 
   addInfoInput(currentInfo);
 
-  addButtons(proj, list, false);
+  addButtons(list, proj);
 }
 
 // Project edit form
@@ -253,7 +257,7 @@ function generateProjForm(projId, projArray) {
 
   addInfoInput(currentInfo);
 
-  addButtons(proj, proj, false);
+  addButtons(proj);
 }
 
 export { generateTodoForm, generateListForm, generateProjForm };
