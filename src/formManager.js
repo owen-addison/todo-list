@@ -1,5 +1,9 @@
 import returnObjectFromArray from "./objectLogic";
-import { updateProjView, displayProject } from "./domManager";
+import {
+  updateProjView,
+  displayProject,
+  updateSidebarList,
+} from "./domManager";
 
 // Define priority options array
 const priorityOptionsArray = ["none", "low", "medium", "high"];
@@ -120,7 +124,7 @@ function addInfoInput(currentInfo) {
 }
 
 // Function for adding button elements
-function addButtons(obj, proj) {
+function addButtons(obj, projArray, proj) {
   // Get the object type
   const { type } = obj;
 
@@ -176,6 +180,7 @@ function addButtons(obj, proj) {
       } else if (type === "proj") {
         // Update project view
         displayProject(obj);
+        updateSidebarList(projArray);
       }
 
       // Remove form background element from DOM
@@ -217,7 +222,7 @@ function generateTodoForm(projId, projArray, listId, todoId) {
 
   addInfoInput(currentInfo);
 
-  addButtons(todo, proj);
+  addButtons(todo, projArray, proj);
 }
 
 // List edit form
@@ -238,7 +243,7 @@ function generateListForm(projId, projArray, listId) {
 
   addInfoInput(currentInfo);
 
-  addButtons(list, proj);
+  addButtons(list, projArray, proj);
 }
 
 // Project edit form
@@ -257,7 +262,7 @@ function generateProjForm(projId, projArray) {
 
   addInfoInput(currentInfo);
 
-  addButtons(proj);
+  addButtons(proj, projArray);
 }
 
 export { generateTodoForm, generateListForm, generateProjForm };
