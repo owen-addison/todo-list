@@ -1,5 +1,5 @@
 import returnObjectFromArray from "./objectLogic";
-import { updateProjView } from "./domManager";
+import { updateProjView, displayProject } from "./domManager";
 
 // Define priority options array
 const priorityOptionsArray = ["none", "low", "medium", "high"];
@@ -175,7 +175,7 @@ function addButtons(obj, proj) {
         updateProjView(proj.listArray);
       } else if (type === "proj") {
         // Update project view
-        updateProjView(obj.listArray);
+        displayProject(obj);
       }
 
       // Remove form background element from DOM
