@@ -182,9 +182,6 @@ function handleProjEdit(e) {
   const projId = document.querySelector(".project-container").id;
 
   generateProjForm(projId, projArray);
-
-  // // Get project object from array
-  // const arrayIndex = projArray.findIndex((element) => element.id === projId);
 }
 
 /*
