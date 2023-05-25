@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import "./style.css";
 import { getUniqueID } from "./todoProto";
 import project from "./project";
@@ -291,3 +292,9 @@ const curTodoId = curListObj.todoArray[0].id;
 
 // Call generateTodoForm for testing
 // generateTodoForm(curProjId, projArray, curListId, curTodoId);
+
+const date = new Date(2023, 4, 25);
+
+const formatDate = format(date, "yyyy-MM-dd");
+
+console.log(formatDate);
