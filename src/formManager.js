@@ -198,6 +198,9 @@ function addButtons(obj, projArray, proj) {
   });
 }
 
+// Function for adding due date selection
+function addDateInput(currentDate) {}
+
 // Todo edit form
 function generateTodoForm(projId, projArray, listId, todoId) {
   // Get the project object from the project array
