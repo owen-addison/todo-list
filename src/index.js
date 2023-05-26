@@ -277,3 +277,16 @@ function displayDefaultProject(index = 0) {
 
 // Call function for displaying the default project
 displayDefaultProject();
+
+// Get current project id of DOM project container element
+const curProjId = document.querySelector(".project-container").id;
+
+// Get object of current project from main project array
+const curProjObj = returnObjectFromArray(curProjId, projArray);
+
+// Get id of first list from current project object
+const curListObj = curProjObj.listArray[0];
+// Get the creation date of first todo item in the list object's todo array
+const curTodoCreationDate = curListObj.todoArray[0].creationDate;
+
+console.log(curTodoCreationDate);
