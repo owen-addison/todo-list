@@ -10,7 +10,6 @@ This function called by project or todoList code to create and return a todoItem
 ********************************************************************* 
 */
 
-import { format } from "date-fns";
 import { todoProto } from "./todoProto";
 
 const todoItem = (
@@ -25,7 +24,7 @@ const todoItem = (
 ) => {
   const state = {
     ...todoProto(name, id, info, type),
-    creationDate: format(new Date(), "dd-MM-yyyy"),
+    creationDate: new Date(),
     dueDate,
     priority,
     checklist,
