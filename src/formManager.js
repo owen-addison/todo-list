@@ -1,3 +1,4 @@
+import { format, formatDistance } from "date-fns";
 import returnObjectFromArray from "./objectLogic";
 import {
   updateProjView,
@@ -199,7 +200,40 @@ function addButtons(obj, projArray, proj) {
 }
 
 // Function for adding due date selection
-function addDateInput(currentDate) {}
+function addDateInput(currentDate) {
+  // Get the form container
+  const formContainer = document.querySelector(".form-container");
+
+  // Add container for date
+  const dateDiv = document.createElement("div");
+  dateDiv.classList.add("form-div");
+  // Add label for date box
+  const dateLabel = document.createElement("label");
+  dateLabel.setAttribute("for", "date-input");
+  dateLabel.textContent = "Due Date:";
+  // Add date input element
+  const dateInput = document.createElement("input");
+  dateInput.setAttribute("type", "date");
+  dateInput.name = "date-input";
+  // Set ID attribute for date input element
+  dateInput.setAttribute("id", "date-input");
+
+  // Check current due date on todo item and set to either the previously set date or current date
+  if (currentDate === null) {
+    const date = format(new Date(), "yyyy-MM-dd");
+    console.log(date);
+    // Set date value to current date
+    dateInput.value = date;
+  } else {
+    dateInput.value = format(currentDate, "yyyy-MM-dd");
+  }
+
+  // Add the date elements to date container
+  dateDiv.appendChild(dateLabel);
+  dateDiv.appendChild(dateInput);
+  // Append the date container to the form container
+  formContainer.appendChild(dateDiv);
+}
 
 // Todo edit form
 function generateTodoForm(projId, projArray, listId, todoId) {
@@ -216,6 +250,8 @@ function generateTodoForm(projId, projArray, listId, todoId) {
   const currentPriority = todo.priority;
   // Get current info of todo
   const currentInfo = todo.info;
+  // Get current due date of todo
+  const currentDate = todo.dueDate;
 
   initForm();
 
@@ -224,6 +260,8 @@ function generateTodoForm(projId, projArray, listId, todoId) {
   addPriorityInput(currentPriority);
 
   addInfoInput(currentInfo);
+
+  addDateInput(currentDate);
 
   addButtons(todo, projArray, proj);
 }

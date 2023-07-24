@@ -298,4 +298,4 @@ const deadline = new Date(2023, 6, 19);
 // Calculate the time left
 const timeLeft = formatDistance(currDate, deadline);
 
-console.log(timeLeft);
+console.log(timeLeft, curTodoCreationDate);
