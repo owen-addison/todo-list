@@ -161,15 +161,31 @@ function addButtons(obj, projArray, proj) {
     // Get info input element
     const infoInput = document.getElementById("info-input");
 
+    // Get date input element
+    const dateInput = document.getElementById("date-input");
+
     // Check whether the name input is empty
     if (nameInput.value !== "") {
       // Change the name of object
       obj.name = nameInput.value;
 
-      // If the type is todo then change the todo priority
+      // If the type is todo then change the todo priority and due date
       if (type === "todo") {
         // Change the priority of object
         obj.priority = document.getElementById("priority-input").value;
+
+        // Change the due date of object
+        if (obj.dueDate === null) {
+          obj.dueDate = new Date(document.getElementById("date-input").value);
+        } else {
+          const yr = document.getElementById("date-input").value.slice(0, 4);
+          const month = document.getElementById("date-input").value.slice(5, 7);
+          const day = document.getElementById("date-input").value.slice(8, 10);
+
+          obj.dueDate.setFullYear(yr);
+          obj.dueDate.setMonth(month - 1);
+          obj.dueDate.setDate(day);
+        }
       }
 
       // Change the info of the object
@@ -220,11 +236,14 @@ function addDateInput(currentDate) {
 
   // Check current due date on todo item and set to either the previously set date or current date
   if (currentDate === null) {
+    // console.log("null");
     const date = format(new Date(), "yyyy-MM-dd");
-    console.log(date);
+    // console.log(date);
     // Set date value to current date
     dateInput.value = date;
   } else {
+    // console.log("not null");
+    // console.log(currentDate);
     dateInput.value = format(currentDate, "yyyy-MM-dd");
   }
 
