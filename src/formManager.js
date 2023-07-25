@@ -124,6 +124,54 @@ function addInfoInput(currentInfo) {
   formContainer.appendChild(infoDiv);
 }
 
+// Function for adding due date selection
+function addDateInput(currentDate) {
+  // Get the form container
+  const formContainer = document.querySelector(".form-container");
+
+  // Add container for date
+  const dateDiv = document.createElement("div");
+  dateDiv.classList.add("form-div");
+
+  // Add label for date box
+  const dateLabel = document.createElement("label");
+  dateLabel.setAttribute("for", "date-input");
+  dateLabel.textContent = "Due Date:";
+  // Add date input element
+  const dateInput = document.createElement("input");
+  dateInput.setAttribute("type", "date");
+  dateInput.name = "date-input";
+  // Set ID attribute for date input element
+  dateInput.setAttribute("id", "date-input");
+
+  // Check current due date on todo item and set to either the previously set date or current date
+  if (currentDate === null) {
+    // console.log("null");
+    const date = format(new Date(), "yyyy-MM-dd");
+    // console.log(date);
+    // Set date value to current date
+    dateInput.value = date;
+  } else {
+    // console.log("not null");
+    // console.log(currentDate);
+    dateInput.value = format(currentDate, "yyyy-MM-dd");
+  }
+
+  // Add paragraph element for countdown
+  const countdown = document.createElement("p");
+  // Set id for countdown element
+  countdown.setAttribute("id", "countdown");
+  // Change countdown text
+  countdown.textContent = "So many days left";
+
+  // Add the date elements to date container
+  dateDiv.appendChild(dateLabel);
+  dateDiv.appendChild(dateInput);
+  dateDiv.appendChild(countdown);
+  // Append the date container to the form container
+  formContainer.appendChild(dateDiv);
+}
+
 // Function for adding button elements
 function addButtons(obj, projArray, proj) {
   // Get the object type
@@ -213,45 +261,6 @@ function addButtons(obj, projArray, proj) {
     // Remove form background element from DOM
     formBackground.remove();
   });
-}
-
-// Function for adding due date selection
-function addDateInput(currentDate) {
-  // Get the form container
-  const formContainer = document.querySelector(".form-container");
-
-  // Add container for date
-  const dateDiv = document.createElement("div");
-  dateDiv.classList.add("form-div");
-  // Add label for date box
-  const dateLabel = document.createElement("label");
-  dateLabel.setAttribute("for", "date-input");
-  dateLabel.textContent = "Due Date:";
-  // Add date input element
-  const dateInput = document.createElement("input");
-  dateInput.setAttribute("type", "date");
-  dateInput.name = "date-input";
-  // Set ID attribute for date input element
-  dateInput.setAttribute("id", "date-input");
-
-  // Check current due date on todo item and set to either the previously set date or current date
-  if (currentDate === null) {
-    // console.log("null");
-    const date = format(new Date(), "yyyy-MM-dd");
-    // console.log(date);
-    // Set date value to current date
-    dateInput.value = date;
-  } else {
-    // console.log("not null");
-    // console.log(currentDate);
-    dateInput.value = format(currentDate, "yyyy-MM-dd");
-  }
-
-  // Add the date elements to date container
-  dateDiv.appendChild(dateLabel);
-  dateDiv.appendChild(dateInput);
-  // Append the date container to the form container
-  formContainer.appendChild(dateDiv);
 }
 
 // Todo edit form
