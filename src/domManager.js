@@ -202,16 +202,27 @@ const displayList = (list) => {
     todo.classList.add("todo");
     todo.setAttribute("id", todoIdName);
     todoContainer.appendChild(todo);
+
+    // Start container for checkbox and name
+    const todoStart = document.createElement("div");
+    todoStart.classList.add("todo-start-container");
     // Checkbox
     const checkBox = document.createElement("input");
     checkBox.setAttribute("type", "checkbox");
     checkBox.setAttribute("id", `chk-${todoIdName}`);
-    todo.appendChild(checkBox);
+    todoStart.appendChild(checkBox);
     // Todo name
     const todoName = document.createElement(todoNameElement);
     todoName.classList.add("todo-name");
     todoName.textContent = element.name;
-    todo.appendChild(todoName);
+    todoStart.appendChild(todoName);
+
+    // Add todo start container to todo box
+    todo.appendChild(todoStart);
+
+    // End container for countdown and icons
+    const todoEnd = document.createElement("div");
+    todoEnd.classList.add("todo-end-container");
     // Todo countdown
     const todoCountdown = document.createElement("p");
     todoCountdown.classList.add("todo-countdown");
@@ -219,7 +230,7 @@ const displayList = (list) => {
       ? `${formatDistance(element.dueDate, new Date())}`
       : "";
     todoCountdown.textContent = countdownText;
-    todo.appendChild(todoCountdown);
+    todoEnd.appendChild(todoCountdown);
     // Todo icons
     const todoIcons = document.createElement("div");
     todoIcons.classList.add("icon-container");
@@ -237,7 +248,11 @@ const displayList = (list) => {
     todoDel.setAttribute("type", "todo");
     todoDel.setAttribute("listId", listIdName);
     todoIcons.appendChild(todoDel);
-    todo.appendChild(todoIcons);
+    todoEnd.appendChild(todoIcons);
+
+    // Add todo end container to todo box
+    todo.appendChild(todoEnd);
+
     // Add todo to container
     todoContainer.appendChild(todo);
   });
