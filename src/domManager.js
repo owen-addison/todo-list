@@ -1,3 +1,4 @@
+import formatDistance from "date-fns/formatDistance";
 import plusIcon from "./images/plus-box-outline.svg";
 import trashCanIcon from "./images/trash-can-outline.svg";
 import fileEditIcon from "./images/file-edit-outline.svg";
@@ -211,6 +212,14 @@ const displayList = (list) => {
     todoName.classList.add("todo-name");
     todoName.textContent = element.name;
     todo.appendChild(todoName);
+    // Todo countdown
+    const todoCountdown = document.createElement("p");
+    todoCountdown.classList.add("todo-countdown");
+    const countdownText = element.dueDate
+      ? `${formatDistance(element.dueDate, new Date())}`
+      : "";
+    todoCountdown.textContent = countdownText;
+    todo.appendChild(todoCountdown);
     // Todo icons
     const todoIcons = document.createElement("div");
     todoIcons.classList.add("icon-container");
