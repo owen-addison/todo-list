@@ -180,19 +180,40 @@ h2, h3, h4, h5, h6 {
 .todo-container {
   display: grid;
   gap: 10px;
-  /* border: 1px solid green; */
+  /* border: 1px solid pink; */
 }
 
 .todo {
-  /* width: 100%; */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  /* border: 1px solid red; */
+  display: grid;
+  grid-auto-flow: column;
+  justify-items: start;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid red;
+  gap: 10px;
+}
+
+
+.todo-start-container, .todo-end-container {
+  border: 1px solid orange;
+  /* width: fit-content; */
+  display: grid;
+  align-content: center;
+  /* gap: 10px; */
+}
+
+.todo-start-container {
+  grid-template-columns: 20px 1fr;
+  width: 100%;
+  /* justify-self: start; */
+}
+
+.todo-end-container {
+  grid-template-columns: repeat(2, 1fr);
+  width: fit-content;
+  justify-self: end;
 }
 
 .todo-name {
-  width: 70%;
   height: fit-content;
   border: 1px solid blue;
 }
@@ -200,17 +221,20 @@ h2, h3, h4, h5, h6 {
 .todo-countdown {
   width: fit-content;
   border: 1px solid green;
+  justify-self: start;
   margin: 0;
   font-size: 0.8em;
+  text-align: center;
 }
 
 .todo .icon-container {
-  /* border: 1px solid green; */
-  width: fit-content;
+  border: 1px solid green;
+  /* width: fit-content; */
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   align-content: center;
   gap: 10px;
+  justify-self: end;
 }
 
 .todo img {
