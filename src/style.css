@@ -194,7 +194,14 @@ h2, h3, h4, h5, h6 {
 .todo-name {
   width: 70%;
   height: fit-content;
-  /* border: 1px solid blue; */
+  border: 1px solid blue;
+}
+
+.todo-countdown {
+  width: fit-content;
+  border: 1px solid green;
+  margin: 0;
+  font-size: 0.8em;
 }
 
 .todo .icon-container {
