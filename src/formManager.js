@@ -144,25 +144,25 @@ function addDateInput(currentDate) {
   // Set ID attribute for date input element
   dateInput.setAttribute("id", "date-input");
 
-  // Check current due date on todo item and set to either the previously set date or current date
-  if (currentDate === null) {
-    // console.log("null");
-    const date = format(new Date(), "yyyy-MM-dd");
-    // console.log(date);
-    // Set date value to current date
-    dateInput.value = date;
-  } else {
-    // console.log("not null");
-    // console.log(currentDate);
-    dateInput.value = format(currentDate, "yyyy-MM-dd");
-  }
-
   // Add paragraph element for countdown
   const countdown = document.createElement("p");
   // Set id for countdown element
   countdown.setAttribute("id", "countdown");
-  // Change countdown text
-  countdown.textContent = "So many days left";
+
+  // Check current due date on todo item and set to either the previously set date or current date
+  if (currentDate === null) {
+    const date = format(new Date(), "yyyy-MM-dd");
+    // Set date value to current date
+    dateInput.value = date;
+    // Change countdown text
+    countdown.textContent = "";
+  } else {
+    dateInput.value = format(currentDate, "yyyy-MM-dd");
+    // Change countdown text
+    countdown.textContent = formatDistance(currentDate, new Date(), {
+      addSuffix: true,
+    });
+  }
 
   // Add the date elements to date container
   dateDiv.appendChild(dateLabel);
