@@ -20,7 +20,7 @@ const todoItem = (
   dueDate = null,
   priority = "none",
   checklist = [],
-  status = "pending"
+  complete = false
 ) => {
   const state = {
     ...todoProto(name, id, info, type),
@@ -28,7 +28,7 @@ const todoItem = (
     dueDate,
     priority,
     checklist,
-    status,
+    complete,
   };
   return {
     ...state,
