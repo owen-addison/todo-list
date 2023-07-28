@@ -180,47 +180,49 @@ h2, h3, h4, h5, h6 {
 .todo-container {
   display: grid;
   gap: 10px;
-  /* border: 1px solid pink; */
 }
 
 .todo {
+  /* border: 1px solid red; */
   display: grid;
   grid-auto-flow: column;
   justify-items: start;
   grid-template-columns: 1fr 1fr;
-  border: 1px solid red;
+  max-width: 100%;
   gap: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 
 .todo-start-container, .todo-end-container {
-  border: 1px solid orange;
-  /* width: fit-content; */
+  /* border: 1px solid orange; */
   display: grid;
   align-content: center;
-  /* gap: 10px; */
 }
 
 .todo-start-container {
   grid-template-columns: 20px 1fr;
-  width: 100%;
-  /* justify-self: start; */
+  gap: 5px;
 }
 
 .todo-end-container {
   grid-template-columns: repeat(2, 1fr);
-  width: fit-content;
+  /* width: fit-content; */
   justify-self: end;
 }
 
 .todo-name {
+  /* border: 1px solid blue; */
   height: fit-content;
-  border: 1px solid blue;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .todo-countdown {
+  /* border: 1px solid green; */
   width: fit-content;
-  border: 1px solid green;
   justify-self: start;
   margin: 0;
   font-size: 0.8em;
@@ -228,8 +230,7 @@ h2, h3, h4, h5, h6 {
 }
 
 .todo .icon-container {
-  border: 1px solid green;
-  /* width: fit-content; */
+  /* border: 1px solid green; */
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   align-content: center;
