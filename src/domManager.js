@@ -24,7 +24,6 @@ function emptySidebarList(sidebarProjList) {
 function updateSidebarList(projArray) {
   // Get container for projects in sidebar
   const sidebarProjList = document.querySelector(".projects-sidebar");
-
   // Empty sidebar list
   emptySidebarList(sidebarProjList);
 
@@ -32,6 +31,8 @@ function updateSidebarList(projArray) {
   projArray.forEach((element) => {
     const projItem = document.createElement(listTitleElement);
     projItem.classList.add("sb-proj-item");
+    // Add id to html object for project element
+    projItem.setAttribute("id", element.id);
     projItem.textContent = element.name;
     sidebarProjList.appendChild(projItem);
   });
@@ -45,7 +46,6 @@ function setUpHeader(projectHeader) {
   // Add title to project header
   const headerTitle = document.createElement(headerTitleElement);
   projectHeader.appendChild(headerTitle);
-  // headerTitle.classList.add("header-title");
   titleContainer.appendChild(headerTitle);
   // Add icon container to header
   const headerIconContainer = document.createElement("div");
@@ -100,6 +100,8 @@ function setUpDOM(projArray) {
   // For each project in array, add name of project to sidebar proj list div
   projArray.forEach((element) => {
     const projItem = document.createElement(listTitleElement);
+    // Add id to html object for project element
+    projItem.setAttribute("id", element.id);
     projItem.classList.add("sb-proj-item");
     projItem.textContent = element.name;
     sidebarProjList.appendChild(projItem);
