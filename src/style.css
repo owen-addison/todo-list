@@ -199,6 +199,7 @@ h2, h3, h4, h5, h6 {
 .todo-start-container, .todo-end-container {
   /* border: 1px solid orange; */
   display: grid;
+  gap: 10px;
   align-content: center;
 }
 
@@ -227,6 +228,14 @@ h2, h3, h4, h5, h6 {
   margin: 0;
   font-size: 0.8em;
   text-align: center;
+}
+
+.early {
+  color: green;
+}
+
+.late {
+  color: rgb(220, 0, 0);
 }
 
 .todo .icon-container {
@@ -293,8 +302,10 @@ h2, h3, h4, h5, h6 {
   border-radius: 0.6em;
 }
 
-#countdown {
-  font-size: 0.8em;
+.form-countdown {
+  width: fit-content;
+  text-align: center;
+  font-size: 0.9em;
   font-weight: 700;
   grid-column: 2;
   margin: 0px;
