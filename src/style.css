@@ -141,6 +141,7 @@ h2, h3, h4, h5, h6 {
   display: grid;
   /* grid-template-columns: minmax(repeat(2, var(--list-width)), repeat(4, (--list-width))); */
   grid-template-columns: repeat(3, var(--list-width));
+  gap: 20px;
   padding: var(--list-padding);
 }
 
@@ -155,6 +156,7 @@ h2, h3, h4, h5, h6 {
   display: grid;
   gap: 10px;
   /* width: var(--list-width); */
+  height: fit-content;
   background-color: var(--bg-list);
   padding: 25px 30px;
   border-radius: 20px;
