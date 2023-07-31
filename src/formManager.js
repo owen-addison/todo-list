@@ -1,4 +1,9 @@
-import { format, formatDistance } from "date-fns";
+import {
+  format,
+  formatDistanceToNowStrict,
+  intervalToDuration,
+  isPast,
+} from "date-fns";
 import returnObjectFromArray from "./objectLogic";
 import {
   updateProjView,
@@ -147,7 +152,7 @@ function addDateInput(currentDate) {
   // Add paragraph element for countdown
   const countdown = document.createElement("p");
   // Set id for countdown element
-  countdown.setAttribute("id", "countdown");
+  countdown.classList.add("form-countdown");
 
   // Check current due date on todo item and set to either the previously set date or current date
   if (currentDate === null) {
@@ -159,9 +164,17 @@ function addDateInput(currentDate) {
   } else {
     dateInput.value = format(currentDate, "yyyy-MM-dd");
     // Change countdown text
-    countdown.textContent = formatDistance(currentDate, new Date(), {
+    countdown.textContent = formatDistanceToNowStrict(currentDate, {
       addSuffix: true,
     });
+    // Check if due date is soon or late
+    if (isPast(currentDate)) {
+      countdown.classList.remove("early");
+      countdown.classList.add("late");
+    } else {
+      countdown.classList.remove("late");
+      countdown.classList.add("early");
+    }
   }
 
   // Add the date elements to date container
