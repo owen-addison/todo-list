@@ -64,6 +64,18 @@ h2, h3, h4, h5, h6 {
   gap: 20px;
 }
 
+.sb-proj-item {
+  width: fit-content;
+  border-radius: 0.25em;
+  /* border: 2px solid white; */
+  padding: 0.5em 1em;
+}
+
+.sb-proj-item:hover {
+  background-color: var(--font-col);
+  color: var(--bg-side-header);
+}
+
 .sb-button-container {
   display: grid;
   align-content: center;
@@ -82,7 +94,7 @@ h2, h3, h4, h5, h6 {
   border-radius: 16px;
 }
 
-.sb-button:hover {
+.sb-add-button:hover {
   color: var(--bg-side-header);
   background-color: var(--font-col);
   border: 3px solid var(--bg-side-header);
