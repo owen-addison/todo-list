@@ -185,9 +185,21 @@ function handleProjEdit(e) {
   generateProjForm(projId, projArray);
 }
 
+/* SWITCH EVENTS */
+
+// Handle project switch event
+function handProjSelect(e) {
+  // Get project id
+  const projId = e.target.id;
+  // Get project object from array
+  const proj = returnObjectFromArray(projId, projArray);
+  // Update the project view
+  displayProject(proj);
+}
+
 /*
-  ___EVENT LISTENERS___
-*/
+    ___EVENT LISTENERS___
+    */
 // Global event listener
 function addGlobalEventListener(type, selector, callback) {
   document.addEventListener(type, (e) => {
@@ -199,6 +211,12 @@ function addGlobalEventListener(type, selector, callback) {
 addGlobalEventListener("click", ".sb-add-button", (e) => {
   // Call event handler for adding a project
   handleProjAdd(e);
+});
+
+// Event listener functionality for sidebar project selection
+addGlobalEventListener("click", ".sb-proj-item", (e) => {
+  // Call event handler for selecting a project
+  handProjSelect(e);
 });
 
 // Event listener functionality for add icons
