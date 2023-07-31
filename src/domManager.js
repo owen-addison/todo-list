@@ -1,4 +1,4 @@
-import formatDistance from "date-fns/formatDistance";
+import { formatDistanceToNowStrict, isPast } from "date-fns";
 import plusIcon from "./images/plus-box-outline.svg";
 import trashCanIcon from "./images/trash-can-outline.svg";
 import fileEditIcon from "./images/file-edit-outline.svg";
@@ -226,10 +226,23 @@ const displayList = (list) => {
     // Todo countdown
     const todoCountdown = document.createElement("p");
     todoCountdown.classList.add("todo-countdown");
+    // Set text for countdown depending on due date
     const countdownText = element.dueDate
-      ? `${formatDistance(element.dueDate, new Date())}`
+      ? `${formatDistanceToNowStrict(element.dueDate, {
+          addSuffix: true,
+        })}`
       : "";
     todoCountdown.textContent = countdownText;
+    // Check whether due date for todo object is in past or not
+    if (element.dueDate) {
+      if (isPast(element.dueDate)) {
+        todoCountdown.classList.remove("early");
+        todoCountdown.classList.add("late");
+      } else {
+        todoCountdown.classList.remove("late");
+        todoCountdown.classList.add("early");
+      }
+    }
     todoEnd.appendChild(todoCountdown);
     // Todo icons
     const todoIcons = document.createElement("div");
@@ -326,7 +339,6 @@ function displayProject(projObj) {
   headerTitle.textContent = projObj.name;
 
   projObj.listArray.forEach((element) => {
-    // console.log(element);
     displayList(element);
   });
 }
