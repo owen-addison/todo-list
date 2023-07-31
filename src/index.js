@@ -16,7 +16,9 @@ import {
 } from "./formManager";
 import returnObjectFromArray from "./objectLogic";
 
-const projArray = [];
+const projArray = localStorage.getItem("projArray")
+  ? JSON.parse(localStorage.getItem("projArray"))
+  : [];
 
 /* REFACTOR TO MODULE
 -------------------------
@@ -195,6 +197,7 @@ function handProjSelect(e) {
   const proj = returnObjectFromArray(projId, projArray);
   // Update the project view
   displayProject(proj);
+  localStorage.setItem("defaultProjNum", projArray.indexOf(proj));
 }
 
 /*
@@ -203,7 +206,10 @@ function handProjSelect(e) {
 // Global event listener
 function addGlobalEventListener(type, selector, callback) {
   document.addEventListener(type, (e) => {
-    if (e.target.matches(selector)) callback(e);
+    if (e.target.matches(selector)) {
+      callback(e);
+      storeData();
+    }
   });
 }
 
@@ -280,18 +286,37 @@ function createExampleProj() {
   for (let i = 0; i < 7; i++) {
     myProj.listArray[0].create("todo-");
   }
+
+  // displayDefaultProject();
 }
-
-// Call the function for creating a blank project
-createExampleProj();
-
-// Set up the DOM
-setUpDOM(projArray);
 
 // Display the default project
 function displayDefaultProject(index = 0) {
   displayProject(projArray[index]);
 }
 
-// Call function for displaying the default project
-displayDefaultProject();
+// Check to see whether local storage is empty
+if (!localStorage.getItem("projArray")) {
+  // Call the function for creating a blank project
+  createExampleProj();
+  // Call function for displaying the default project
+  // Set up the DOM
+  setUpDOM(projArray);
+  displayDefaultProject();
+} else {
+  const defaultProjNum = localStorage.getItem("defaultProjNum");
+  // Set up the DOM
+  setUpDOM(projArray);
+  displayDefaultProject(defaultProjNum);
+}
+
+/*
+-------------------------
+  STORAGE
+-------------------------
+*/
+
+// If any event listener triggers then this triggers
+function storeData() {
+  localStorage.setItem("projArray", JSON.stringify(projArray));
+}
