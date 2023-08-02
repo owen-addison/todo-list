@@ -1,6 +1,7 @@
 import { format, formatDistance } from "date-fns";
 import "./style.css";
 import { getUniqueID } from "./todoProto";
+import rebuild from "./rebuildProjArray";
 import project from "./project";
 import {
   setUpDOM,
@@ -17,8 +18,36 @@ import {
 import returnObjectFromArray from "./objectLogic";
 
 const projArray = localStorage.getItem("projArray")
-  ? JSON.parse(localStorage.getItem("projArray"))
+  ? rebuildJSONdata(localStorage.getItem("projArray"))
   : [];
+
+// Rebuild the project objects from from the project array
+function rebuildJSONdata(jsonString) {
+  const oldArray = JSON.parse(jsonString);
+  console.log("old array", oldArray);
+
+  const newArray = rebuild(oldArray);
+  console.log("new array", newArray);
+
+  // projArray.length = 0;
+  // projArray.push(...newArray);
+  // console.log("rebuilt array", projArray);
+
+  return newArray;
+}
+
+// if (projArray.length > 0) {
+//   // Set the
+//   const oldArray = projArray;
+//   console.log("old array", oldArray);
+//   const newArray = rebuild(oldArray);
+//   console.log("new array", newArray);
+//   projArray.length = 0;
+//   projArray.push(...newArray);
+//   console.log("rebuilt array", projArray);
+// } else {
+//   console.log("rebuild unnecessary");
+// }
 
 // Log the storage data received from localStorage
 if (!JSON.parse(localStorage.getItem("projArray"))) {
@@ -35,7 +64,7 @@ if (!JSON.parse(localStorage.getItem("projArray"))) {
 -------------------------
 */
 /*
-___CREATE PROJ/LIST___
+___CREATE PROJ___
 */
 // Function to create new project
 const createProj = (name = "New Project", info = undefined) => {
@@ -334,4 +363,5 @@ if (!localStorage.getItem("projArray")) {
 function storeData() {
   console.log("stored JSON", JSON.stringify(projArray)); // Log the data stored in local storage as JSON
   localStorage.setItem("projArray", JSON.stringify(projArray));
+  console.log("converted JSON", JSON.parse(localStorage.getItem("projArray"))); // Log the object converted back from the JSON data
 }
