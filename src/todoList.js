@@ -20,10 +20,11 @@ const todoList = (
   id,
   info,
   type = "list",
+  todoArray = [],
   arrayName = "todoArray",
   obj = todoItem
 ) => {
-  const todoArray = [];
+  // const todoArray = [];
   const state = {
     ...todoProto(name, id, info, type),
     todoArray,
