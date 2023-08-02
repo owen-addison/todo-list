@@ -292,15 +292,13 @@ function createExampleProj() {
   // Create a list in the project
   myProj.create("list-");
 
-  // Create a set of todo items in the new list
-  for (let i = 0; i < 7; i++) {
-    myProj.listArray[0].create("todo-");
-  }
+  // Create a todo item in the new list
+  myProj.listArray[0].create("todo-");
 }
 
 // Display the default project
 function displayDefaultProject(index = 0) {
-  console.log(projArray[index]);
+  // console.log("displayDefaultProject", projArray[index]);
   displayProject(projArray[index]);
 }
 
@@ -313,6 +311,7 @@ if (!localStorage.getItem("projArray")) {
   // Call function for displaying the default project
   displayDefaultProject();
   console.log("default", projArray); // Log the project array generated from a default project
+  storeData(); // Store the data
 } else {
   // Set the default project number to data saved in local storage or to 0 if no local storage data
   const defaultProjNum = localStorage.getItem("defaultProjNum")
