@@ -69,6 +69,7 @@ function handleListAdd(e) {
   const projId = document.querySelector(".project-container").id;
   // Get project object from array
   const proj = returnObjectFromArray(projId, projArray);
+  console.log(proj);
   // Create a list in the project
   proj.create("list-");
   // Get new list object
@@ -274,7 +275,7 @@ addGlobalEventListener("click", ".del-icon", (e) => {
 -------------------------
 */
 
-// Create a blank project
+// Create an example project, called if no local storage data
 function createExampleProj() {
   // Create the project
   const myProj = createProj("My first project", "This is my first project");
@@ -286,8 +287,6 @@ function createExampleProj() {
   for (let i = 0; i < 7; i++) {
     myProj.listArray[0].create("todo-");
   }
-
-  // displayDefaultProject();
 }
 
 // Display the default project
