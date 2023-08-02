@@ -20,7 +20,16 @@ const projArray = localStorage.getItem("projArray")
   ? JSON.parse(localStorage.getItem("projArray"))
   : [];
 
-/* REFACTOR TO MODULE
+// Log the storage data received from localStorage
+if (!JSON.parse(localStorage.getItem("projArray"))) {
+  // If no storage data exists
+  console.log("no local storage data");
+} else {
+  // If storage data does exist
+  console.log("retrieved JSON", JSON.parse(localStorage.getItem("projArray")));
+}
+
+/*
 -------------------------
   TODO/LIST LOGIC
 -------------------------
@@ -291,6 +300,7 @@ function createExampleProj() {
 
 // Display the default project
 function displayDefaultProject(index = 0) {
+  console.log(projArray[index]);
   displayProject(projArray[index]);
 }
 
@@ -298,15 +308,21 @@ function displayDefaultProject(index = 0) {
 if (!localStorage.getItem("projArray")) {
   // Call the function for creating a blank project
   createExampleProj();
+  // Set up the DOM
+  setUpDOM(projArray);
   // Call function for displaying the default project
-  // Set up the DOM
-  setUpDOM(projArray);
   displayDefaultProject();
+  console.log("default", projArray); // Log the project array generated from a default project
 } else {
-  const defaultProjNum = localStorage.getItem("defaultProjNum");
+  // Set the default project number to data saved in local storage or to 0 if no local storage data
+  const defaultProjNum = localStorage.getItem("defaultProjNum")
+    ? localStorage.getItem("defaultProjNum")
+    : 0;
   // Set up the DOM
   setUpDOM(projArray);
+  // Call function for displaying the default project
   displayDefaultProject(defaultProjNum);
+  console.log("storage", projArray); // Log the project array retrieved from localStorage
 }
 
 /*
@@ -317,5 +333,6 @@ if (!localStorage.getItem("projArray")) {
 
 // If any event listener triggers then this triggers
 function storeData() {
+  console.log("stored JSON", JSON.stringify(projArray)); // Log the data stored in local storage as JSON
   localStorage.setItem("projArray", JSON.stringify(projArray));
 }
