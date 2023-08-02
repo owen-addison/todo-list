@@ -6,10 +6,11 @@ const project = (
   id,
   info,
   type = "proj",
+  listArray = [],
   arrayName = "listArray",
   obj = todoList
 ) => {
-  const listArray = [];
+  // const listArray = [];
   const state = {
     ...todoProto(name, id, info, type),
     listArray,
