@@ -231,13 +231,22 @@ const displayList = (list) => {
     // Todo countdown
     const todoCountdown = document.createElement("p");
     todoCountdown.classList.add("todo-countdown");
+
+    // console.log(typeof element.dueDate, element.dueDate);
+
     // Set text for countdown depending on due date
+    const textParse =
+      typeof element.dueDate === "string"
+        ? parseISO(element.dueDate)
+        : element.dueDate;
     const countdownText = element.dueDate
-      ? `${formatDistanceToNowStrict(parseISO(element.dueDate), {
+      ? `${formatDistanceToNowStrict(textParse, {
           addSuffix: true,
         })}`
       : "";
-    todoCountdown.textContent = countdownText;
+
+    // Set the text content depending on whether todo is complete or not
+    todoCountdown.textContent = element.complete ? "complete" : countdownText;
     // Check whether due date for todo object is in past or not
     if (element.dueDate) {
       if (isPast(parseISO(element.dueDate))) {
