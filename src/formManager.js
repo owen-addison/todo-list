@@ -157,14 +157,16 @@ function addDateInput(currentDate) {
     // Change countdown text
     countdown.textContent = "";
   } else {
+    const textParse =
+      typeof currentDate === "string" ? parseISO(currentDate) : currentDate;
     // console.log(currentDate);
-    dateInput.value = format(parseISO(currentDate), "yyyy-MM-dd");
+    dateInput.value = format(textParse, "yyyy-MM-dd");
     // Change countdown text
-    countdown.textContent = formatDistanceToNowStrict(parseISO(currentDate), {
+    countdown.textContent = formatDistanceToNowStrict(textParse, {
       addSuffix: true,
     });
     // Check if due date is soon or late
-    if (isPast(parseISO(currentDate))) {
+    if (isPast(textParse)) {
       countdown.classList.remove("early");
       countdown.classList.add("late");
     } else {
@@ -230,6 +232,7 @@ function addButtons(obj, projArray, proj) {
       if (type === "todo") {
         // Change the priority of object
         obj.priority = document.getElementById("priority-input").value;
+        console.log(typeof obj.dueDate, obj.dueDate);
 
         // Change the due date of object
         if (obj.dueDate === null) {
@@ -238,6 +241,8 @@ function addButtons(obj, projArray, proj) {
           const yr = document.getElementById("date-input").value.slice(0, 4);
           const month = document.getElementById("date-input").value.slice(5, 7);
           const day = document.getElementById("date-input").value.slice(8, 10);
+
+          console.log(obj.dueDate);
 
           obj.dueDate.setFullYear(yr);
           obj.dueDate.setMonth(month - 1);
