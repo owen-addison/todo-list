@@ -1,9 +1,4 @@
-import {
-  format,
-  formatDistanceToNowStrict,
-  intervalToDuration,
-  isPast,
-} from "date-fns";
+import { format, formatDistanceToNowStrict, parseISO, isPast } from "date-fns";
 import returnObjectFromArray from "./objectLogic";
 import {
   updateProjView,
@@ -162,13 +157,14 @@ function addDateInput(currentDate) {
     // Change countdown text
     countdown.textContent = "";
   } else {
-    dateInput.value = format(currentDate, "yyyy-MM-dd");
+    // console.log(currentDate);
+    dateInput.value = format(parseISO(currentDate), "yyyy-MM-dd");
     // Change countdown text
-    countdown.textContent = formatDistanceToNowStrict(currentDate, {
+    countdown.textContent = formatDistanceToNowStrict(parseISO(currentDate), {
       addSuffix: true,
     });
     // Check if due date is soon or late
-    if (isPast(currentDate)) {
+    if (isPast(parseISO(currentDate))) {
       countdown.classList.remove("early");
       countdown.classList.add("late");
     } else {
