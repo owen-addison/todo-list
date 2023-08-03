@@ -210,9 +210,12 @@ const displayList = (list) => {
     todoStart.classList.add("todo-start-container");
     // Checkbox
     const checkBox = document.createElement("input");
+    checkBox.classList.add("checkbox");
     checkBox.setAttribute("type", "checkbox");
     checkBox.setAttribute("id", `chk-${todoIdName}`);
     todoStart.appendChild(checkBox);
+    // Use the todo object's "complete" property to set whether the checkbox is checked or not
+    checkBox.checked = element.complete;
     // Todo name
     const todoName = document.createElement(todoNameElement);
     todoName.classList.add("todo-name");
