@@ -28,7 +28,7 @@ function rebuild(projArray) {
     // console.log(rebuiltProj);
     newProjArray.push(rebuiltProj);
   });
-  console.log(newProjArray);
+  // console.log(newProjArray);
   return newProjArray;
 }
 
