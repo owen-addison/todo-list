@@ -1,4 +1,4 @@
-import { formatDistanceToNowStrict, isPast } from "date-fns";
+import { formatDistanceToNowStrict, isPast, parseISO } from "date-fns";
 import plusIcon from "./images/plus-box-outline.svg";
 import trashCanIcon from "./images/trash-can-outline.svg";
 import fileEditIcon from "./images/file-edit-outline.svg";
@@ -230,14 +230,14 @@ const displayList = (list) => {
     todoCountdown.classList.add("todo-countdown");
     // Set text for countdown depending on due date
     const countdownText = element.dueDate
-      ? `${formatDistanceToNowStrict(element.dueDate, {
+      ? `${formatDistanceToNowStrict(parseISO(element.dueDate), {
           addSuffix: true,
         })}`
       : "";
     todoCountdown.textContent = countdownText;
     // Check whether due date for todo object is in past or not
     if (element.dueDate) {
-      if (isPast(element.dueDate)) {
+      if (isPast(parseISO(element.dueDate))) {
         todoCountdown.classList.remove("early");
         todoCountdown.classList.add("late");
       } else {
