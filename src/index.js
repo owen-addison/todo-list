@@ -222,9 +222,29 @@ function handProjSelect(e) {
   localStorage.setItem("defaultProjNum", projArray.indexOf(proj));
 }
 
+/* CHECKBOX EVENTS */
+
+// Handle checkbox change event
+function handleCheckboxChange(e) {
+  // Get project id
+  const projId = e.target.closest(".project-container").id;
+  // Get project object from array
+  const proj = returnObjectFromArray(projId, projArray);
+  // Get list ID
+  const listId = e.target.closest(".list-container").id;
+  // Filter through array of lists to find matching list object
+  const list = returnObjectFromArray(listId, proj.listArray);
+  // Get the todo element id
+  const todoId = e.target.closest(".todo").id;
+  // Filter through the array of todo objects to find matching object
+  const todo = returnObjectFromArray(todoId, list.todoArray);
+  // Set the todo object's "complete" property
+  todo.complete = e.target.checked;
+}
+
 /*
     ___EVENT LISTENERS___
-    */
+*/
 // Global event listener
 function addGlobalEventListener(type, selector, callback) {
   document.addEventListener(type, (e) => {
@@ -288,6 +308,12 @@ addGlobalEventListener("click", ".del-icon", (e) => {
   } else if (targetType === "proj") {
     handleProjDel(e);
   }
+});
+
+// Event listener functionality for checkboxes
+addGlobalEventListener("change", ".checkbox", (e) => {
+  // Call the callback function for handling a todo checkbox change
+  handleCheckboxChange(e);
 });
 
 /*
