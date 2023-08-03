@@ -17,6 +17,7 @@ import {
 } from "./formManager";
 import returnObjectFromArray from "./objectLogic";
 
+// Define the project array depending on the presence of localStorage data
 const projArray = localStorage.getItem("projArray")
   ? rebuildJSONdata(localStorage.getItem("projArray"))
   : [];
@@ -24,30 +25,13 @@ const projArray = localStorage.getItem("projArray")
 // Rebuild the project objects from from the project array
 function rebuildJSONdata(jsonString) {
   const oldArray = JSON.parse(jsonString);
-  console.log("old array", oldArray);
+  // console.log("old array", oldArray);
 
   const newArray = rebuild(oldArray);
-  console.log("new array", newArray);
-
-  // projArray.length = 0;
-  // projArray.push(...newArray);
-  // console.log("rebuilt array", projArray);
+  console.log("rebuilt array", newArray);
 
   return newArray;
 }
-
-// if (projArray.length > 0) {
-//   // Set the
-//   const oldArray = projArray;
-//   console.log("old array", oldArray);
-//   const newArray = rebuild(oldArray);
-//   console.log("new array", newArray);
-//   projArray.length = 0;
-//   projArray.push(...newArray);
-//   console.log("rebuilt array", projArray);
-// } else {
-//   console.log("rebuild unnecessary");
-// }
 
 // Log the storage data received from localStorage
 if (!JSON.parse(localStorage.getItem("projArray"))) {
@@ -107,7 +91,6 @@ function handleListAdd(e) {
   const projId = document.querySelector(".project-container").id;
   // Get project object from array
   const proj = returnObjectFromArray(projId, projArray);
-  console.log(proj);
   // Create a list in the project
   proj.create("list-");
   // Get new list object
@@ -339,7 +322,7 @@ if (!localStorage.getItem("projArray")) {
   setUpDOM(projArray);
   // Call function for displaying the default project
   displayDefaultProject();
-  console.log("default", projArray); // Log the project array generated from a default project
+  // console.log("default", projArray); // Log the project array generated from a default project
   storeData(); // Store the data
 } else {
   // Set the default project number to data saved in local storage or to 0 if no local storage data
@@ -350,7 +333,7 @@ if (!localStorage.getItem("projArray")) {
   setUpDOM(projArray);
   // Call function for displaying the default project
   displayDefaultProject(defaultProjNum);
-  console.log("storage", projArray); // Log the project array retrieved from localStorage
+  // console.log("storage", projArray); // Log the project array retrieved from localStorage
 }
 
 /*
@@ -361,7 +344,7 @@ if (!localStorage.getItem("projArray")) {
 
 // If any event listener triggers then this triggers
 function storeData() {
-  console.log("stored JSON", JSON.stringify(projArray)); // Log the data stored in local storage as JSON
+  // console.log("stored JSON", JSON.stringify(projArray)); // Log the data stored in local storage as JSON
   localStorage.setItem("projArray", JSON.stringify(projArray));
-  console.log("converted JSON", JSON.parse(localStorage.getItem("projArray"))); // Log the object converted back from the JSON data
+  // console.log("converted JSON", JSON.parse(localStorage.getItem("projArray"))); // Log the object converted back from the JSON data
 }
