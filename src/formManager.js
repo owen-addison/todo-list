@@ -5,6 +5,7 @@ import {
   displayProject,
   updateSidebarList,
 } from "./domManager";
+import storeData from "./storeData";
 
 // Define priority options array
 const priorityOptionsArray = ["none", "low", "medium", "high"];
@@ -278,6 +279,9 @@ function addButtons(obj, projArray, proj) {
       // Throw error and cancel submission of form
       alert("no name");
     }
+
+    // Store data in local storage
+    storeData(projArray);
   });
 
   // Add event listener to cancel button
