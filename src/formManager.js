@@ -126,7 +126,7 @@ function addInfoInput(currentInfo) {
 }
 
 // Function for adding due date selection
-function addDateInput(currentDate) {
+function addDateInput(currentDate, todoComplete) {
   // Get the form container
   const formContainer = document.querySelector(".form-container");
 
@@ -145,41 +145,47 @@ function addDateInput(currentDate) {
   // Set ID attribute for date input element
   dateInput.setAttribute("id", "date-input");
 
-  // Add paragraph element for countdown
-  const countdown = document.createElement("p");
-  // Set id for countdown element
-  countdown.classList.add("form-countdown");
-
-  // Check current due date on todo item and set to either the previously set date or current date
-  if (currentDate === null) {
-    const date = format(new Date(), "yyyy-MM-dd");
-    // Set date value to current date
-    dateInput.value = date;
-    // Change countdown text
-    countdown.textContent = "";
-  } else {
-    const textParse =
-      typeof currentDate === "string" ? parseISO(currentDate) : currentDate;
-    // console.log(currentDate);
-    dateInput.value = format(textParse, "yyyy-MM-dd");
-    // Change countdown text
-    countdown.textContent = formatDistanceToNowStrict(textParse, {
-      addSuffix: true,
-    });
-    // Check if due date is soon or late
-    if (isPast(textParse)) {
-      countdown.classList.remove("early");
-      countdown.classList.add("late");
-    } else {
-      countdown.classList.remove("late");
-      countdown.classList.add("early");
-    }
-  }
-
-  // Add the date elements to date container
+  // Add the date label and input elements to date container
   dateDiv.appendChild(dateLabel);
   dateDiv.appendChild(dateInput);
-  dateDiv.appendChild(countdown);
+
+  // Check whether todo is complete or not
+  if (!todoComplete) {
+    // Add paragraph element for countdown
+    const countdown = document.createElement("p");
+    // Set id for countdown element
+    countdown.classList.add("form-countdown");
+
+    // Check current due date on todo item and set to either the previously set date or current date
+    if (currentDate === null) {
+      const date = format(new Date(), "yyyy-MM-dd");
+      // Set date value to current date
+      dateInput.value = date;
+      // Change countdown text
+      countdown.textContent = "";
+    } else {
+      const textParse =
+        typeof currentDate === "string" ? parseISO(currentDate) : currentDate;
+      // console.log(currentDate);
+      dateInput.value = format(textParse, "yyyy-MM-dd");
+      // Change countdown text
+      countdown.textContent = formatDistanceToNowStrict(textParse, {
+        addSuffix: true,
+      });
+      // Check if due date is soon or late
+      if (isPast(textParse)) {
+        countdown.classList.remove("early");
+        countdown.classList.add("late");
+      } else {
+        countdown.classList.remove("late");
+        countdown.classList.add("early");
+      }
+    }
+
+    // Add countdown element to date container
+    dateDiv.appendChild(countdown);
+  }
+
   // Append the date container to the form container
   formContainer.appendChild(dateDiv);
 }
@@ -317,7 +323,7 @@ function generateTodoForm(projId, projArray, listId, todoId) {
 
   addInfoInput(currentInfo);
 
-  addDateInput(currentDate);
+  addDateInput(currentDate, todo.complete);
 
   addButtons(todo, projArray, proj);
 }
