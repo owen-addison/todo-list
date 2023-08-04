@@ -219,6 +219,14 @@ const displayList = (list) => {
     // Todo name
     const todoName = document.createElement(todoNameElement);
     todoName.classList.add("todo-name");
+    // Check whether todo "complete" property is true and add complete class to todoName if so
+    if (element.complete) {
+      // If complete then add class
+      todoName.classList.add("complete");
+    } else {
+      // If not complete then remove class
+      todoName.classList.remove("complete");
+    }
     todoName.textContent = element.name;
     todoStart.appendChild(todoName);
 
@@ -245,16 +253,37 @@ const displayList = (list) => {
         })}`
       : "";
 
-    // Set the text content depending on whether todo is complete or not
-    todoCountdown.textContent = element.complete ? "complete" : countdownText;
-    // Check whether due date for todo object is in past or not
-    if (element.dueDate) {
-      if (isPast(parseISO(element.dueDate))) {
-        todoCountdown.classList.remove("early");
-        todoCountdown.classList.add("late");
-      } else {
-        todoCountdown.classList.remove("late");
-        todoCountdown.classList.add("early");
+    // // Set the text content depending on whether todo is complete or not
+    // todoCountdown.textContent = element.complete ? "complete" : countdownText;
+
+    // Check whether todo is complete or not
+    if (element.complete) {
+      // If complete
+      // Set countdown text to complete
+      todoCountdown.textContent = "complete";
+      // Remove any other classes
+      todoCountdown.classList.remove("early");
+      todoCountdown.classList.remove("late");
+      // Add complete class
+      todoCountdown.classList.add("complete");
+    } else if (!element.complete) {
+      // If not complete
+      // Set countdown text
+      todoCountdown.textContent = countdownText;
+      // Check whether due date for todo object is in past or not
+      if (element.dueDate) {
+        if (isPast(parseISO(element.dueDate))) {
+          // If in the past
+          // Remove other classes
+          todoCountdown.classList.remove("complete");
+          todoCountdown.classList.remove("early");
+          // Add
+          todoCountdown.classList.add("late");
+        } else {
+          todoCountdown.classList.remove("complete");
+          todoCountdown.classList.remove("late");
+          todoCountdown.classList.add("early");
+        }
       }
     }
     todoEnd.appendChild(todoCountdown);
