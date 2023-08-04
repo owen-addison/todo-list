@@ -246,6 +246,8 @@ function handleCheckboxChange(e) {
   const todo = returnObjectFromArray(todoId, list.todoArray);
   // Set the todo object's "complete" property
   todo.complete = e.target.checked;
+  // Update view of lists in array in DOM
+  updateProjView(proj.listArray);
 }
 
 /*
