@@ -240,8 +240,6 @@ const displayList = (list) => {
     const todoCountdown = document.createElement("p");
     todoCountdown.classList.add("todo-countdown");
 
-    // console.log(typeof element.dueDate, element.dueDate);
-
     // Set text for countdown depending on due date
     const textParse =
       typeof element.dueDate === "string"

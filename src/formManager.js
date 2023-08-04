@@ -166,7 +166,7 @@ function addDateInput(currentDate, todoComplete) {
     } else {
       const textParse =
         typeof currentDate === "string" ? parseISO(currentDate) : currentDate;
-      // console.log(currentDate);
+
       dateInput.value = format(textParse, "yyyy-MM-dd");
       // Change countdown text
       countdown.textContent = formatDistanceToNowStrict(textParse, {
@@ -239,18 +239,14 @@ function addButtons(obj, projArray, proj) {
       if (type === "todo") {
         // Change the priority of object
         obj.priority = document.getElementById("priority-input").value;
-        // console.log("date before", typeof obj.dueDate, obj.dueDate);
 
         // Change the due date of object
         if (obj.dueDate === null) {
           obj.dueDate = new Date(dateInput.value);
-          // console.log("date after", typeof obj.dueDate, obj.dueDate);
         } else {
           const yr = document.getElementById("date-input").value.slice(0, 4);
           const month = document.getElementById("date-input").value.slice(5, 7);
           const day = document.getElementById("date-input").value.slice(8, 10);
-
-          // console.table(typeof yr, yr, typeof month, month, typeof day, day);
 
           // Check whether the type of obj.dueDate is an object or string (depending on whether it's been loaded from localStorage or not)
           if (typeof obj.dueDate === "object") {
@@ -263,7 +259,6 @@ function addButtons(obj, projArray, proj) {
             obj.dueDate = new Date(yr, month, day);
             // obj.dueDate = Date.parse(`${yr}-${month}-${day} GMT`);
           }
-          // console.log("date after", typeof obj.dueDate, obj.dueDate);
         }
       }
 
