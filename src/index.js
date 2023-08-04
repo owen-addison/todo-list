@@ -1,4 +1,3 @@
-import { format, formatDistance } from "date-fns";
 import "./style.css";
 import { getUniqueID } from "./todoProto";
 import rebuild from "./rebuildProjArray";
@@ -16,6 +15,13 @@ import {
   generateProjForm,
 } from "./formManager";
 import returnObjectFromArray from "./objectLogic";
+import storeData from "./storeData";
+
+/*
+-------------------------
+  STORAGE & PROJECT ARRAY
+-------------------------
+*/
 
 // Define the project array depending on the presence of localStorage data
 const projArray = localStorage.getItem("projArray")
@@ -250,7 +256,7 @@ function addGlobalEventListener(type, selector, callback) {
   document.addEventListener(type, (e) => {
     if (e.target.matches(selector)) {
       callback(e);
-      storeData();
+      storeData(projArray);
     }
   });
 }
@@ -349,7 +355,7 @@ if (!localStorage.getItem("projArray")) {
   // Call function for displaying the default project
   displayDefaultProject();
   // console.log("default", projArray); // Log the project array generated from a default project
-  storeData(); // Store the data
+  storeData(projArray); // Store the data
 } else {
   // Set the default project number to data saved in local storage or to 0 if no local storage data
   const defaultProjNum = localStorage.getItem("defaultProjNum")
@@ -360,17 +366,4 @@ if (!localStorage.getItem("projArray")) {
   // Call function for displaying the default project
   displayDefaultProject(defaultProjNum);
   // console.log("storage", projArray); // Log the project array retrieved from localStorage
-}
-
-/*
--------------------------
-  STORAGE
--------------------------
-*/
-
-// If any event listener triggers then this triggers
-function storeData() {
-  // console.log("stored JSON", JSON.stringify(projArray)); // Log the data stored in local storage as JSON
-  localStorage.setItem("projArray", JSON.stringify(projArray));
-  // console.log("converted JSON", JSON.parse(localStorage.getItem("projArray"))); // Log the object converted back from the JSON data
 }
