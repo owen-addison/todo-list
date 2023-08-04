@@ -238,7 +238,7 @@ function addButtons(obj, projArray, proj) {
         // Change the due date of object
         if (obj.dueDate === null) {
           obj.dueDate = new Date(dateInput.value);
-          console.log("date after", typeof obj.dueDate, obj.dueDate);
+          // console.log("date after", typeof obj.dueDate, obj.dueDate);
         } else {
           const yr = document.getElementById("date-input").value.slice(0, 4);
           const month = document.getElementById("date-input").value.slice(5, 7);
