@@ -232,21 +232,31 @@ function addButtons(obj, projArray, proj) {
       if (type === "todo") {
         // Change the priority of object
         obj.priority = document.getElementById("priority-input").value;
-        console.log(typeof obj.dueDate, obj.dueDate);
+        // console.log("date before", typeof obj.dueDate, obj.dueDate);
 
         // Change the due date of object
         if (obj.dueDate === null) {
-          obj.dueDate = new Date(document.getElementById("date-input").value);
+          obj.dueDate = new Date(dateInput.value);
+          console.log("date after", typeof obj.dueDate, obj.dueDate);
         } else {
           const yr = document.getElementById("date-input").value.slice(0, 4);
           const month = document.getElementById("date-input").value.slice(5, 7);
           const day = document.getElementById("date-input").value.slice(8, 10);
 
-          console.log(obj.dueDate);
+          // console.table(typeof yr, yr, typeof month, month, typeof day, day);
 
-          obj.dueDate.setFullYear(yr);
-          obj.dueDate.setMonth(month - 1);
-          obj.dueDate.setDate(day);
+          // Check whether the type of obj.dueDate is an object or string (depending on whether it's been loaded from localStorage or not)
+          if (typeof obj.dueDate === "object") {
+            // If it's an object, set the value as if it were a date object
+            obj.dueDate.setFullYear(yr);
+            obj.dueDate.setMonth(month - 1);
+            obj.dueDate.setDate(day);
+          } else if (typeof obj.dueDate === "string") {
+            // If it's a string set it by creating a new date object
+            obj.dueDate = new Date(yr, month, day);
+            // obj.dueDate = Date.parse(`${yr}-${month}-${day} GMT`);
+          }
+          // console.log("date after", typeof obj.dueDate, obj.dueDate);
         }
       }
 
