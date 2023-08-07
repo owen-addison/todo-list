@@ -344,7 +344,6 @@ function createExampleProj() {
 
 // Display the default project
 function displayDefaultProject(index = 0) {
-  // console.log("displayDefaultProject", projArray[index]);
   displayProject(projArray[index]);
 }
 
@@ -356,7 +355,6 @@ if (!localStorage.getItem("projArray")) {
   setUpDOM(projArray);
   // Call function for displaying the default project
   displayDefaultProject();
-  // console.log("default", projArray); // Log the project array generated from a default project
   storeData(projArray); // Store the data
 } else {
   // Set the default project number to data saved in local storage or to 0 if no local storage data
